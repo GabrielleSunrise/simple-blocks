@@ -211,7 +211,7 @@ a.custom-card-item, a.custom-card-btn-link { text-decoration: none; color: inher
             const hasText = document.getElementById(prefix + '-text').checked;
             const hasBtn = document.getElementById(prefix + '-btn').checked;
 
-            if (hasImg && !skipImage) html += `    <img src="https://via.placeholder.com/400x250" alt="Image" class="custom-card-img">\n`;
+            if (hasImg && !skipImage) html += `    <img src="./img.jpg" alt="Image" class="custom-card-img">\n`;
             if (hasTitle) html += `    <div class="custom-card-title">Заголовок блока</div>\n`;
             if (hasText) html += `    <div class="custom-card-text">Пример текста для наполнения блока. Пример текста для наполнения блока.</div>\n`;
             
@@ -320,7 +320,7 @@ let html = `<div class="h-container">\n`;
 
         const reverseClass = isReversedBlock ? ' reverse' : '';
                 html += `  <${tag}${attr} class="custom-card-row${reverseClass}">\n`;
-                html += `    <img class="custom-card-img" src="https://via.placeholder.com/600x400" alt="Image">\n`;
+                html += `    <img class="custom-card-img" src="./img.jpg" alt="Image">\n`;
                 html += `    <div class="custom-card-row-content">\n`;
                 html += generateContent('h', linkType, true); 
                 html += `    </div>\n`;
