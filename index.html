@@ -294,13 +294,13 @@ ${getCommonStyles()}
 a.custom-card-row:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 .custom-card-row.reverse { flex-direction: row-reverse; }
 .custom-card-row-content { flex: 1; }
-.custom-card-row .custom-card-img { margin-bottom: 0; flex: 0 0 50%; max-width: 100%; }
+.custom-card-row .custom-card-img { margin-bottom: 0; flex: 0 0 50%; width: 50%; }
 ${getCommonStyles()}
 
 @media (max-width: 768px) {
   .custom-card-row { flex-direction: column; }
   .custom-card-row.reverse { flex-direction: column-reverse; }
-  .custom-card-row .custom-card-img { flex: 0 0 100%; }
+  .custom-card-row .custom-card-img { flex: 0 0 100%; width: 100%; }
 }`;
 
 let html = `<div class="h-container">\n`;
