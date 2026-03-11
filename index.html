@@ -157,7 +157,7 @@
                 </select>
             </div>
         </div>
-        <button onclick="generateVertical();">Генерировать вертикальные</button>
+        <button onclick="generateVertical(this);">Применить и генерировать</button>
         
         <div class="outputs">
             <div class="output-box">
@@ -183,7 +183,7 @@
                 <input type="number" id="h-count" min="1" max="6" value="3">
             </div>
             <div class="control-group">
-                <label>Содержимое:</label>
+                <label>Содержимое (изображение всегда):</label>
                 <div class="checkbox-group">
                     <label><input type="checkbox" id="h-img" checked disabled> Картинка</label>
                     <label><input type="checkbox" id="h-title" checked> Заголовок</label>
@@ -203,7 +203,7 @@
                 </select>
             </div>
         </div>
-        <button onclick="generateHorizontal();">Генерировать горизонтальные</button>
+        <button onclick="generateHorizontal(this);">Применить и генерировать</button>
         
         <div class="outputs">
             <div class="output-box">
@@ -233,6 +233,7 @@
                 <select id="o-ratio">
                     <option value="3/2">3:2 (Альбомное)</option>
                     <option value="1/1">1:1 (Квадрат)</option>
+                    <option value="unset">Под контент</option>
                 </select>
             </div>
             <div class="control-group">
@@ -276,7 +277,7 @@
             </div>
         </div>
         
-        <button onclick="generateOverlayCards(this);">Генерировать карточки</button>
+        <button onclick="generateOverlayCards(this);">Применить и генерировать</button>
         
         <div class="outputs">
             <div class="output-box">
@@ -295,15 +296,6 @@
     </div>
 
     <script>
-        function getCommonStyles() {
-            return `
-.custom-card-img { width: 100%; height: auto; display: block; margin-bottom: 15px; border-radius: 4px; aspect-ratio: 3/2; object-fit: cover;}
-.custom-card-title { font-size: 1.25rem; margin: 0 0 10px 0; color: #333; }
-.custom-card-text { font-size: 1rem; margin-bottom: 15px; color: #666; }
-.custom-card-btn { display: inline-block; padding: 10px 20px; background: #3498db; color: #fff; text-decoration: none; border-radius: 4px; border: none; text-align: center; }
-.custom-card-btn:hover { background: #2980b9; }
-a.custom-card-item, a.custom-card-btn-link { text-decoration: none; color: inherit; }`;
-        }
 
         function generateContent(prefix, linkType, skipImage = false) {
             let html = '';
@@ -326,19 +318,23 @@ a.custom-card-item, a.custom-card-btn-link { text-decoration: none; color: inher
             return html;
         }
 
-        function generateVertical() {
+        function generateVertical(buttonElement) {
+            const currentSection = buttonElement.closest('.section');
+            if (!currentSection) {
+                console.error('Parent section not found for the button.');
+                return;
+            }
+
             const count = document.getElementById('v-count').value;
             const linkType = document.getElementById('v-link').value;
             
             let css = `.v-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(${count}, 1fr);
   gap: 20px;
   padding: 20px 0;
 }
 .custom-card-item {
-  flex: 1 1 calc(${100/count}% - 20px);
-  min-width: 250px;
   box-sizing: border-box;
   padding: 20px;
   border: 1px solid #eee;
@@ -351,11 +347,57 @@ a.custom-card-item, a.custom-card-btn-link { text-decoration: none; color: inher
 .custom-card-item .custom-card-btn {
     margin-top: auto;
 }
-a.custom-card-item:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-${getCommonStyles()}
+a.custom-card-item:hover { 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+}
+.custom-card-img { 
+    width: 100%; 
+    height: auto; 
+    display: block; 
+    margin-bottom: 15px; 
+    border-radius: 4px; 
+    aspect-ratio: 3/2; 
+    object-fit: cover;
+}
+.custom-card-title { 
+    font-size: 1.25rem; 
+    margin: 0 0 10px 0; 
+    color: #333; 
+    font-weight: 600;
+}
+.custom-card-text { 
+    font-size: 1rem; 
+    margin-bottom: 15px; 
+    color: #666; 
+}
+.custom-card-btn { 
+    display: inline-block; 
+    padding: 10px 20px; 
+    background: #3498db; 
+    color: #fff; 
+    text-decoration: none; 
+    border-radius: 4px; 
+    border: none; 
+    text-align: center; 
+}
+.custom-card-btn:hover { 
+    background: #2980b9; 
+}
+a.custom-card-item, a.custom-card-btn-link { 
+    text-decoration: none; 
+    color: inherit; 
+}
+
+@media (max-width: 1024px) {
+  .v-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
 
 @media (max-width: 768px) {
-  .custom-card-item { flex: 1 1 100%; }
+  .custom-card-item { 
+    flex: 1 1 100%; 
+  }
 }`;
 
             let html = `<div class="v-container">\n`;
@@ -370,9 +412,40 @@ ${getCommonStyles()}
 
             document.getElementById('v-css').value = css;
             document.getElementById('v-html').value = html;
+
+            const outputsDiv = currentSection.querySelector('.outputs');
+            const sectionId = currentSection.id;
+            const demoSectionId = `live-demo-section-${sectionId}`;
+
+            let existingDemoSection = document.getElementById(demoSectionId);
+            if (existingDemoSection) { existingDemoSection.remove(); }
+
+            const liveDemoSection = document.createElement('div');
+            liveDemoSection.id = demoSectionId;
+            liveDemoSection.className = 'live-demo-wrapper';
+
+            const demoHeader = document.createElement('h3');
+            demoHeader.textContent = 'Предварительный просмотр:';
+            liveDemoSection.appendChild(demoHeader);
+
+            const styleElement = document.createElement('style');
+            styleElement.textContent = css;
+            liveDemoSection.appendChild(styleElement);
+
+            const demoContainer = document.createElement('div');
+            demoContainer.innerHTML = html;
+            liveDemoSection.appendChild(demoContainer);
+            
+            currentSection.insertBefore(liveDemoSection, outputsDiv.nextSibling);
         }
 
-        function generateHorizontal() {
+        function generateHorizontal(buttonElement) {
+            const currentSection = buttonElement.closest('.section');
+            if (!currentSection) {
+                console.error('Parent section not found for the button.');
+                return;
+            }
+
             const count = document.getElementById('h-count').value;
             const linkType = document.getElementById('h-link').value;
             const startReverse = document.getElementById('h-reverse').checked;
@@ -395,16 +468,71 @@ ${getCommonStyles()}
   width: 100%;
   transition: 0.2s;
 }
-a.custom-card-row:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-.custom-card-row.reverse { flex-direction: row-reverse; }
-.custom-card-row-content { flex: 1; }
-.custom-card-row .custom-card-img { margin-bottom: 0; flex: 0 0 50%; width: 50%; }
-${getCommonStyles()}
+a.custom-card-row:hover { 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+}
+.custom-card-row.reverse { 
+    flex-direction: row-reverse; 
+}
+.custom-card-row-content { 
+    flex: 1; 
+}
+.custom-card-row .custom-card-img { 
+    margin-bottom: 0; 
+    flex: 0 0 50%; 
+    width: 50%; 
+}
+.custom-card-img { 
+    width: 100%; 
+    height: auto; 
+    display: block; 
+    margin-bottom: 15px; 
+    border-radius: 4px; 
+    aspect-ratio: 3/2; 
+    object-fit: cover;
+}
+.custom-card-title { 
+    font-size: 1.25rem; 
+    margin: 0 0 10px 0; 
+    color: #333; 
+    font-weight: 600;
+}
+.custom-card-text { 
+    font-size: 1rem; 
+    margin-bottom: 15px; 
+    color: #666; 
+}
+.custom-card-btn { 
+    display: inline-block; 
+    padding: 10px 20px; 
+    background: #3498db; 
+    color: #fff; 
+    text-decoration: none; 
+    border-radius: 4px; 
+    border: none; 
+    text-align: center; 
+}
+.custom-card-btn:hover { 
+    background: #2980b9; 
+}
+a.custom-card-row, a.custom-card-btn-link {
+ text-decoration: none; 
+ color: inherit; 
+}
 
 @media (max-width: 768px) {
-  .custom-card-row { flex-direction: column; }
-  .custom-card-row.reverse { flex-direction: column-reverse; }
-  .custom-card-row .custom-card-img { flex: 0 0 100%; width: 100%; }
+  .custom-card-row { 
+    flex-direction: column; 
+    align-items: flex-start;
+    padding: 0;
+}
+  .custom-card-row.reverse { 
+    flex-direction: column-reverse; 
+}
+  .custom-card-row .custom-card-img { 
+    flex: 0 0 100%; 
+    width: 100%; 
+}
 }`;
 
 let html = `<div class="h-container">\n`;
@@ -434,6 +562,31 @@ let html = `<div class="h-container">\n`;
 
             document.getElementById('h-css').value = css;
             document.getElementById('h-html').value = html;
+
+            const outputsDiv = currentSection.querySelector('.outputs');
+            const sectionId = currentSection.id;
+            const demoSectionId = `live-demo-section-${sectionId}`;
+
+            let existingDemoSection = document.getElementById(demoSectionId);
+            if (existingDemoSection) { existingDemoSection.remove(); }
+
+            const liveDemoSection = document.createElement('div');
+            liveDemoSection.id = demoSectionId;
+            liveDemoSection.className = 'live-demo-wrapper';
+
+            const demoHeader = document.createElement('h3');
+            demoHeader.textContent = 'Предварительный просмотр:';
+            liveDemoSection.appendChild(demoHeader);
+
+            const styleElement = document.createElement('style');
+            styleElement.textContent = css;
+            liveDemoSection.appendChild(styleElement);
+
+            const demoContainer = document.createElement('div');
+            demoContainer.innerHTML = html;
+            liveDemoSection.appendChild(demoContainer);
+            
+            currentSection.insertBefore(liveDemoSection, outputsDiv.nextSibling);
         }
 
     function generateOverlayCards(buttonElement) {
