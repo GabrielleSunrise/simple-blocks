@@ -115,6 +115,9 @@
         .copy-btn:hover {
             background: #5b437e;
         }
+        .live-demo-wrapper h3 {
+            margin-bottom: 0;
+        }
         @media (max-width: 768px) {
             .outputs { 
                 flex-direction: column;
@@ -273,7 +276,7 @@
             </div>
         </div>
         
-        <button onclick="generateOverlayCards();">Генерировать карточки</button>
+        <button onclick="generateOverlayCards(this);">Генерировать карточки</button>
         
         <div class="outputs">
             <div class="output-box">
@@ -433,7 +436,12 @@ let html = `<div class="h-container">\n`;
             document.getElementById('h-html').value = html;
         }
 
-    function generateOverlayCards() {
+    function generateOverlayCards(buttonElement) {
+        const currentSection = buttonElement.closest('.section');
+        if (!currentSection) {
+            console.error('Parent section not found for the button.');
+            return;
+        }
         const count = document.getElementById('o-count').value;
         const ratio = document.getElementById('o-ratio').value;
         const alignH = document.getElementById('o-align').value; 
@@ -514,6 +522,10 @@ let html = `<div class="h-container">\n`;
   line-height: 1.2;
 }
 
+.custom-o-card-title+.custom-o-card-btn {
+    margin-top: 10px;
+}
+
 .custom-o-card-description {
   font-size: 1rem;
   margin-bottom: 20px;
@@ -571,6 +583,32 @@ let html = `<div class="h-container">\n`;
 
         document.getElementById('o-css').value = css;
         document.getElementById('o-html').value = html;
+        const outputsDiv = currentSection.querySelector('.outputs');
+        const sectionId = currentSection.id;
+        const demoSectionId = `live-demo-section-${sectionId}`;
+
+        let existingDemoSection = document.getElementById(demoSectionId);
+        if (existingDemoSection) {
+            existingDemoSection.remove();
+        }
+
+        const liveDemoSection = document.createElement('div');
+        liveDemoSection.id = demoSectionId;
+        liveDemoSection.className = 'live-demo-wrapper';
+
+        const demoHeader = document.createElement('h3');
+        demoHeader.textContent = 'Предварительный просмотр:';
+        liveDemoSection.appendChild(demoHeader);
+
+        const styleElement = document.createElement('style');
+        styleElement.textContent = css;
+        liveDemoSection.appendChild(styleElement); 
+
+        const demoContainer = document.createElement('div');
+        demoContainer.innerHTML = html;
+        liveDemoSection.appendChild(demoContainer);
+
+        currentSection.insertBefore(liveDemoSection, outputsDiv.nextSibling);
     }
 
     function copyToClipboard(elementId, btn) {
