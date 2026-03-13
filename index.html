@@ -531,14 +531,14 @@ a.custom-card-row, a.custom-card-row-btn-link {
     flex-direction: column; 
     align-items: flex-start;
     padding: 0;
-}
+  }
   .custom-card-row.reverse { 
     flex-direction: column-reverse; 
-}
+  }
   .custom-card-row .custom-card-row-img { 
     flex: 0 0 100%; 
     width: 100%; 
-}
+  }
 }`;
 
             const hasTitle = document.getElementById('h-title').checked;
@@ -701,7 +701,9 @@ a.custom-card-row, a.custom-card-row-btn-link {
 }
 
 @media (max-width: 1024px) {
-  .custom-o-cards-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+  .custom-o-cards-grid { 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+  }
 }`;
 
 
