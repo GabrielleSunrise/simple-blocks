@@ -183,9 +183,8 @@
                 <input type="number" id="h-count" min="1" max="6" value="3">
             </div>
             <div class="control-group">
-                <label>Содержимое (изображение всегда):</label>
+                <label>Содержимое (изображение есть всегда):</label>
                 <div class="checkbox-group">
-                    <label><input type="checkbox" id="h-img" checked disabled> Картинка</label>
                     <label><input type="checkbox" id="h-title" checked> Заголовок</label>
                     <label><input type="checkbox" id="h-text" checked> Текст</label>
                     <label><input type="checkbox" id="h-btn" checked> Кнопка</label>
@@ -329,28 +328,7 @@
             liveDemoSection.appendChild(demoContainer);
 
             currentSection.insertBefore(liveDemoSection, outputsDiv.nextSibling);
-        }
-
-        function generateContent(prefix, linkType, skipImage = false) {
-            let html = '';
-            const hasImg = document.getElementById(prefix + '-img').checked;
-            const hasTitle = document.getElementById(prefix + '-title').checked;
-            const hasText = document.getElementById(prefix + '-text').checked;
-            const hasBtn = document.getElementById(prefix + '-btn').checked;
-
-            if (hasImg && !skipImage) html += `    <img src="https://gabriellesunrise.github.io/simple-blocks/img.jpg" alt="Image" class="custom-card-img">\n`;
-            if (hasTitle) html += `    <div class="custom-card-title">Заголовок блока</div>\n`;
-            if (hasText) html += `    <div class="custom-card-text">Пример текста для наполнения блока. Пример текста для наполнения блока.</div>\n`;
-            
-            if (hasBtn) {
-                if (linkType === 'button') {
-                    html += `    <a href="#" class="custom-card-btn-link"><span class="custom-card-btn">Подробнее</span></a>\n`;
-                } else {
-                    html += `    <div class="custom-card-btn">Подробнее</div>\n`;
-                }
-            }
-            return html;
-        }
+        }        
 
         function generateVertical(buttonElement) {
             const currentSection = buttonElement.closest('.section');
@@ -434,13 +412,30 @@ a.custom-card-item, a.custom-card-btn-link {
   }
 }`;
 
+            const hasImg = document.getElementById('v-img').checked;
+            const hasTitle = document.getElementById('v-title').checked;
+            const hasText = document.getElementById('v-text').checked;
+            const hasBtn = document.getElementById('v-btn').checked;
+
             let html = `<div class="v-container">\n`;
             for (let i = 0; i < count; i++) {
                 const tag = linkType === 'block' ? 'a' : 'div';
                 const attr = linkType === 'block' ? ' href="#"' : '';
                 html += `  <${tag}${attr} class="custom-card-item">\n`;
-                html += generateContent('v', linkType);
-                html += `    </${tag}>\n`;
+                
+                if (hasImg) html += `    <img src="https://gabriellesunrise.github.io/simple-blocks/img.jpg" alt="Image" class="custom-card-img">\n`;
+                if (hasTitle) html += `    <div class="custom-card-title">Заголовок блока ${i+1}</div>\n`;
+                if (hasText) html += `    <div class="custom-card-text">Пример текста для наполнения блока. Пример текста для наполнения блока.</div>\n`;
+                
+                if (hasBtn) {
+                    if (linkType === 'button') {
+                        html += `    <a href="#" class="custom-card-btn-link"><span class="custom-card-btn">Подробнее</span></a>\n`;
+                    } else {
+                        html += `    <div class="custom-card-btn">Подробнее</div>\n`;
+                    }
+                }
+                
+                html += `  </${tag}>\n`;
             }
             html += `</div>`;
 
@@ -488,12 +483,12 @@ a.custom-card-row:hover {
 .custom-card-row-content { 
     flex: 1; 
 }
-.custom-card-row .custom-card-img { 
+.custom-card-row .custom-card-row-img { 
     margin-bottom: 0; 
     flex: 0 0 50%; 
     width: 50%; 
 }
-.custom-card-img { 
+.custom-card-row-img { 
     width: 100%; 
     height: auto; 
     display: block; 
@@ -502,18 +497,18 @@ a.custom-card-row:hover {
     aspect-ratio: 3/2; 
     object-fit: cover;
 }
-.custom-card-title { 
+.custom-card-row-title { 
     font-size: 1.25rem; 
     margin: 0 0 10px 0; 
     color: #333; 
     font-weight: 600;
 }
-.custom-card-text { 
+.custom-card-row-text { 
     font-size: 1rem; 
     margin-bottom: 15px; 
     color: #666; 
 }
-.custom-card-btn { 
+.custom-card-row-btn { 
     display: inline-block; 
     padding: 10px 20px; 
     background: #3498db; 
@@ -523,10 +518,10 @@ a.custom-card-row:hover {
     border: none; 
     text-align: center; 
 }
-.custom-card-btn:hover { 
+.custom-card-row-btn:hover { 
     background: #2980b9; 
 }
-a.custom-card-row, a.custom-card-btn-link {
+a.custom-card-row, a.custom-card-row-btn-link {
  text-decoration: none; 
  color: inherit; 
 }
@@ -540,32 +535,48 @@ a.custom-card-row, a.custom-card-btn-link {
   .custom-card-row.reverse { 
     flex-direction: column-reverse; 
 }
-  .custom-card-row .custom-card-img { 
+  .custom-card-row .custom-card-row-img { 
     flex: 0 0 100%; 
     width: 100%; 
 }
 }`;
 
-let html = `<div class="h-container">\n`;
+            const hasTitle = document.getElementById('h-title').checked;
+            const hasText = document.getElementById('h-text').checked;
+            const hasBtn = document.getElementById('h-btn').checked;
+
+            let html = `<div class="h-container">\n`;
             for (let i = 0; i < count; i++) {
                 const tag = linkType === 'block' ? 'a' : 'div';
                 const attr = (linkType) === 'block' ? ' href="#"' : '';
                 let isReversedBlock = false;
-        if (startReverse) { 
-            if ((i + 1) % 2 !== 0) {
-                isReversedBlock = true;
-            }
-        } else { 
-            if ((i + 1) % 2 === 0) {
-                isReversedBlock = true;
-            }
-        }
+                if (startReverse) { 
+                    if ((i + 1) % 2 !== 0) {
+                        isReversedBlock = true;
+                    }
+                } else { 
+                    if ((i + 1) % 2 === 0) {
+                        isReversedBlock = true;
+                    }
+                }
 
-        const reverseClass = isReversedBlock ? ' reverse' : '';
+                const reverseClass = isReversedBlock ? ' reverse' : '';
                 html += `  <${tag}${attr} class="custom-card-row${reverseClass}">\n`;
-                html += `    <img class="custom-card-img" src="https://gabriellesunrise.github.io/simple-blocks/img.jpg" alt="Image">\n`;
+                
+                html += `    <img class="custom-card-row-img" src="https://gabriellesunrise.github.io/simple-blocks/img.jpg" alt="Image">\n`;
                 html += `    <div class="custom-card-row-content">\n`;
-                html += generateContent('h', linkType, true); 
+                
+                if (hasTitle) html += `      <div class="custom-card-row-title">Заголовок блока ${i+1}</div>\n`;
+                if (hasText) html += `      <div class="custom-card-row-text">Пример текста для наполнения блока. Пример текста для наполнения блока.</div>\n`;
+                
+                if (hasBtn) {
+                    if (linkType === 'button') {
+                        html += `      <a href="#" class="custom-card-row-btn-link"><span class="custom-card-row-btn">Подробнее</span></a>\n`;
+                    } else {
+                        html += `      <div class="custom-card-row-btn">Подробнее</div>\n`;
+                    }
+                }
+                
                 html += `    </div>\n`;
                 html += `  </${tag}>\n`;
             }
