@@ -297,6 +297,40 @@
 
     <script>
 
+        function updateLiveDemoPreview(currentSection, css, html) {
+            const outputsDiv = currentSection.querySelector('.outputs');
+            if (!outputsDiv) {
+                console.error('Элемент .outputs не найден в секции.', currentSection);
+                return;
+            }
+
+            const sectionId = currentSection.id;
+            const demoSectionId = `live-demo-section-${sectionId}`;
+
+            let existingDemoSection = document.getElementById(demoSectionId);
+            if (existingDemoSection) {
+                existingDemoSection.remove();
+            }
+
+            const liveDemoSection = document.createElement('div');
+            liveDemoSection.id = demoSectionId;
+            liveDemoSection.className = 'live-demo-wrapper';
+
+            const demoHeader = document.createElement('h3');
+            demoHeader.textContent = 'Предварительный просмотр:';
+            liveDemoSection.appendChild(demoHeader);
+
+            const styleElement = document.createElement('style');
+            styleElement.textContent = css;
+            liveDemoSection.appendChild(styleElement); 
+
+            const demoContainer = document.createElement('div');
+            demoContainer.innerHTML = html;
+            liveDemoSection.appendChild(demoContainer);
+
+            currentSection.insertBefore(liveDemoSection, outputsDiv.nextSibling);
+        }
+
         function generateContent(prefix, linkType, skipImage = false) {
             let html = '';
             const hasImg = document.getElementById(prefix + '-img').checked;
@@ -413,30 +447,7 @@ a.custom-card-item, a.custom-card-btn-link {
             document.getElementById('v-css').value = css;
             document.getElementById('v-html').value = html;
 
-            const outputsDiv = currentSection.querySelector('.outputs');
-            const sectionId = currentSection.id;
-            const demoSectionId = `live-demo-section-${sectionId}`;
-
-            let existingDemoSection = document.getElementById(demoSectionId);
-            if (existingDemoSection) { existingDemoSection.remove(); }
-
-            const liveDemoSection = document.createElement('div');
-            liveDemoSection.id = demoSectionId;
-            liveDemoSection.className = 'live-demo-wrapper';
-
-            const demoHeader = document.createElement('h3');
-            demoHeader.textContent = 'Предварительный просмотр:';
-            liveDemoSection.appendChild(demoHeader);
-
-            const styleElement = document.createElement('style');
-            styleElement.textContent = css;
-            liveDemoSection.appendChild(styleElement);
-
-            const demoContainer = document.createElement('div');
-            demoContainer.innerHTML = html;
-            liveDemoSection.appendChild(demoContainer);
-            
-            currentSection.insertBefore(liveDemoSection, outputsDiv.nextSibling);
+            updateLiveDemoPreview(currentSection, css, html);
         }
 
         function generateHorizontal(buttonElement) {
@@ -563,30 +574,7 @@ let html = `<div class="h-container">\n`;
             document.getElementById('h-css').value = css;
             document.getElementById('h-html').value = html;
 
-            const outputsDiv = currentSection.querySelector('.outputs');
-            const sectionId = currentSection.id;
-            const demoSectionId = `live-demo-section-${sectionId}`;
-
-            let existingDemoSection = document.getElementById(demoSectionId);
-            if (existingDemoSection) { existingDemoSection.remove(); }
-
-            const liveDemoSection = document.createElement('div');
-            liveDemoSection.id = demoSectionId;
-            liveDemoSection.className = 'live-demo-wrapper';
-
-            const demoHeader = document.createElement('h3');
-            demoHeader.textContent = 'Предварительный просмотр:';
-            liveDemoSection.appendChild(demoHeader);
-
-            const styleElement = document.createElement('style');
-            styleElement.textContent = css;
-            liveDemoSection.appendChild(styleElement);
-
-            const demoContainer = document.createElement('div');
-            demoContainer.innerHTML = html;
-            liveDemoSection.appendChild(demoContainer);
-            
-            currentSection.insertBefore(liveDemoSection, outputsDiv.nextSibling);
+            updateLiveDemoPreview(currentSection, css, html);
         }
 
     function generateOverlayCards(buttonElement) {
@@ -745,23 +733,7 @@ let html = `<div class="h-container">\n`;
             existingDemoSection.remove();
         }
 
-        const liveDemoSection = document.createElement('div');
-        liveDemoSection.id = demoSectionId;
-        liveDemoSection.className = 'live-demo-wrapper';
-
-        const demoHeader = document.createElement('h3');
-        demoHeader.textContent = 'Предварительный просмотр:';
-        liveDemoSection.appendChild(demoHeader);
-
-        const styleElement = document.createElement('style');
-        styleElement.textContent = css;
-        liveDemoSection.appendChild(styleElement); 
-
-        const demoContainer = document.createElement('div');
-        demoContainer.innerHTML = html;
-        liveDemoSection.appendChild(demoContainer);
-
-        currentSection.insertBefore(liveDemoSection, outputsDiv.nextSibling);
+        updateLiveDemoPreview(currentSection, css, html);
     }
 
     function copyToClipboard(elementId, btn) {
