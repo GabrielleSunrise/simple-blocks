@@ -39,10 +39,17 @@
         label { 
             font-weight: bold; font-size: 0.9em; 
         }
-        input[type="number"], select {
+        input[type="number"], input[type="text"], select {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
+        }
+        input[type="color"] {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 35px;
+            background: transparent;
+            padding: 2px;
         }
         .checkbox-group {
             display: flex;
@@ -118,6 +125,50 @@
         .live-demo-wrapper h3 {
             margin-bottom: 0;
         }
+
+        .advanced-settings {
+            display: flex;
+            gap: 8px 24px;
+            flex-wrap: wrap;
+        }
+
+        .advanced-settings.hidden {
+            display: none;
+        }
+
+        .toggle-advanced-btn-wrapper {
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .toggle-advanced-btn {
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            width: fit-content;
+            margin-left: auto;
+            font-size: 16px;
+            line-height: 16px;
+            padding-bottom: 4px;
+            border-bottom: 1px dotted #7e5daf;
+            color: #7e5daf;
+        }
+
+        .toggle-advanced-btn:hover {
+            border-bottom: 1px dotted #5b437e;
+            color: #5b437e;
+        }
+
+        .advanced-settings .control-group {
+            margin-bottom: 10px;
+        }
+
+        .divider {
+            width: 100%;
+            border: none;
+            border-top: 1px dashed #ccc;
+            margin: 0;
+        }
+
         @media (max-width: 768px) {
             .outputs { 
                 flex-direction: column;
@@ -137,7 +188,7 @@
         <div class="controls">
             <div class="control-group">
                 <label>Количество блоков (2-5):</label>
-                <input type="number" id="v-count" min="2" max="5" value="3">
+                <input type="number" id="v-count" min="2" max="5" value="3" class="js-number-validate">
             </div>
             <div class="control-group">
                 <label>Содержимое:</label>
@@ -156,6 +207,136 @@
                     <option value="button">Только кнопка — ссылка</option>
                 </select>
             </div>
+
+            <div class="toggle-advanced-btn-wrapper">
+                <div class="toggle-advanced-btn">Расширенные настройки</div>
+            </div>
+            <div class="advanced-settings hidden">
+                <hr class="divider">
+                <div class="control-group">
+                    <label>Расстояние между карточками (px):</label>
+                    <input type="number" id="v-gap" min="0" max="50" value="20">
+                </div>
+                <div class="control-group">
+                    <label>Выравнивание текста:</label>
+                    <select id="v-align">
+                        <option value="left">Влево</option>
+                        <option value="center">По центру</option>
+                        <option value="right">Вправо</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Выравнивание объектов:</label>
+                    <select id="v-flex-align">
+                        <option value="flex-start">Влево</option>
+                        <option value="center">По центру</option>
+                        <option value="flex-end">Вправо</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Внутренний отступ карточки (px):</label>
+                    <input type="number" id="v-padding" min="0" max="50" value="20">
+                </div>
+                <div class="control-group">
+                    <label>Скругление углов карточки (px):</label>
+                    <input type="number" id="v-radius" min="0" max="50" value="8">
+                </div>
+                <hr class="divider">
+                <div class="control-group">
+                    <label><input type="checkbox" id="v-has-border" checked> Граница блока</label>
+                </div>
+                <div class="control-group">
+                    <label>Толщина границы (px):</label>
+                    <input type="number" id="v-border-width" min="0" max="10" value="1">
+                </div>
+                <div class="control-group">
+                    <label>Стиль границы:</label>
+                    <select id="v-border-style">
+                        <option value="solid" selected>Сплошная</option>
+                        <option value="dashed">Пунктирная</option>
+                        <option value="dotted">Точечная</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Цвет границы:</label>
+                    <input type="color" id="v-border-color" value="#eeeeee">
+                </div>
+                <hr class="divider">
+                <div class="control-group">
+                    <label>Соотношение сторон изображения (x/y):</label>
+                    <input type="text" id="v-img-aspect-ratio" value="3/2">
+                </div>
+                <div class="control-group">
+                    <label>Скругление углов изображения (px):</label>
+                    <input type="number" id="v-img-radius" min="0" max="50" value="4">
+                </div>
+                <div class="control-group">
+                    <label>Отступ изображения снизу (px):</label>
+                    <input type="number" id="v-img-margin" min="0" max="50" value="15">
+                </div>
+                <hr class="divider">
+                <div class="control-group">
+                    <label><input type="checkbox" id="v-bold-title" checked> Жирный шрифт заголовка</label>
+                </div>
+                <div class="control-group">
+                    <label>Размер шрифта заголовка (px):</label>
+                    <input type="number" id="v-title-font-size" min="9" max="36" value="24">
+                </div>
+                <div class="control-group">
+                    <label>Цвет заголовка:</label>
+                    <input type="color" id="v-title-color" value="#333333">
+                </div>
+                <div class="control-group">
+                    <label>Отступ заголовка снизу (px):</label>
+                    <input type="number" id="v-title-margin" min="0" max="50" value="10">
+                </div>
+                <hr class="divider">
+                <div class="control-group">
+                    <label>Размер шрифта текста (px):</label>
+                    <input type="number" id="v-text-font-size" min="7" max="24" value="16">
+                </div>
+                <div class="control-group">
+                    <label>Цвет текста:</label>
+                    <input type="color" id="v-text-color" value="#666666">
+                </div>
+                <div class="control-group">
+                    <label>Отступ текста снизу (px):</label>
+                    <input type="number" id="v-text-margin" min="0" max="50" value="15">
+                </div>
+                <hr class="divider">
+                <div class="control-group">
+                    <label><input type="checkbox" id="v-wide-btn" checked> Кнопка на всю ширину</label>
+                </div>
+                <div class="control-group">
+                    <label>Цвет текста кнопки:</label>
+                    <input type="color" id="v-btn-text-color" value="#ffffff">
+                </div>
+                <div class="control-group">
+                    <label>Цвет текста кнопки при наведении:</label>
+                    <input type="color" id="v-btn-hover-text-color" value="#ffffff">
+                </div>
+                <div class="control-group">
+                    <label>Фон кнопки:</label>
+                    <input type="color" id="v-btn-color" value="#3498db">
+                </div>
+                <div class="control-group">
+                    <label>Фон кнопки при наведении:</label>
+                    <input type="color" id="v-btn-hover-color" value="#2980b9">
+                </div>
+                <div class="control-group">
+                    <label><input type="checkbox" id="v-bold-btn"> Жирный шрифт кнопки</label>
+                </div>
+                <div class="control-group">
+                    <label>Размер шрифта кнопки (px):</label>
+                    <input type="number" id="v-btn-font-size" min="7" max="24" value="16">
+                </div>
+                <div class="control-group">
+                    <label>Скругление углов кнопки (px):</label>
+                    <input type="number" id="v-btn-radius" min="0" max="50" value="4">
+                </div>
+                <hr class="divider">
+            </div>
+
         </div>
         <button onclick="generateVertical(this);">Применить и генерировать</button>
         
@@ -179,8 +360,8 @@
         <h2>Горизонтальные блоки вида "картинка + блок с контентом"</h2>
         <div class="controls">
             <div class="control-group">
-                <label>Количество блоков (1-6):</label>
-                <input type="number" id="h-count" min="1" max="6" value="3">
+                <label>Количество блоков (1-10):</label>
+                <input type="number" id="h-count" min="1" max="10" value="3" class="js-number-validate">
             </div>
             <div class="control-group">
                 <label>Содержимое (изображение есть всегда):</label>
@@ -225,7 +406,7 @@
         <div class="controls">
             <div class="control-group">
                 <label>Количество в ряду (1-5):</label>
-                <input type="number" id="o-count" min="1" max="5" value="3">
+                <input type="number" id="o-count" min="1" max="5" value="3" class="js-number-validate">
             </div>
             <div class="control-group">
                 <label>Соотношение сторон:</label>
@@ -328,7 +509,24 @@
             liveDemoSection.appendChild(demoContainer);
 
             currentSection.insertBefore(liveDemoSection, outputsDiv.nextSibling);
-        }        
+        }     
+
+        function getSettings(prefix, settingNames) {
+            const settings = {};
+            settingNames.forEach(name => {
+                const element = document.getElementById(`${prefix}-${name}`);
+                if (element) {
+                    if (element.type === 'checkbox') {
+                        settings[name] = element.checked;
+                    } else {
+                        settings[name] = element.value;
+                    }
+                } else {
+                    console.warn(`Element with ID '${prefix}-${name}' not found.`);
+                }
+            });
+            return settings;
+        }   
 
         function generateVertical(buttonElement) {
             const currentSection = buttonElement.closest('.section');
@@ -337,24 +535,100 @@
                 return;
             }
 
-            const count = document.getElementById('v-count').value;
-            const linkType = document.getElementById('v-link').value;
-            
+            const verticalSettingNames = [
+                'count', 'link', 'img', 'title', 'text', 'btn',
+                'gap', 'align', 'flex-align', 'wide-btn', 'title-font-size', 'text-font-size', 'padding', 'radius',
+                'has-border', 'border-color', 'border-width', 'border-style', 'btn-font-size', 'btn-color', 'btn-hover-color', 'btn-text-color', 'btn-hover-text-color', 'bold-btn', 'btn-radius', 'img-aspect-ratio', 'img-radius', 'img-margin', 'title-color', 'title-margin', 'bold-title', 'text-color', 'text-margin'
+            ];
+
+            const settings = getSettings('v', verticalSettingNames);
+
+            const {
+                count, link, img: hasImg, title: hasTitle, text: hasText, btn: hasBtn, gap, align, radius,
+                'flex-align': flexAlign,
+                'wide-btn': wideBtn,
+                'title-font-size': titleFontSize, 
+                'text-font-size': textFontSize, 
+                padding,
+                'has-border': hasBorder,      
+                'border-color': borderColor, 
+                'border-width': borderWidth, 
+                'border-style': borderStyle,
+                'btn-font-size': btnFontSize,
+                'btn-color': btnColor, 
+                'btn-hover-color': btnHoverColor, 
+                'btn-text-color': btnTextColor, 
+                'btn-hover-text-color': btnHoverTextColor, 
+                'bold-btn': boldBtn,
+                'btn-radius': btnRadius,
+                'img-aspect-ratio': imgAspectRatio,
+                'img-radius': imgRadius,
+                'img-margin': imgMargin,
+                'title-color': titleColor, 
+                'title-margin': titleMargin, 
+                'bold-title': boldTitle, 
+                'text-color': textColor, 
+                'text-margin': textMargin
+            } = settings;
+
+            let borderPropertyCss = '';
+            if (hasBorder) {
+                borderPropertyCss = `\n    border: ${borderWidth}px ${borderStyle} ${borderColor};`;
+            }
+
+            let btnPropertyCss = '';
+            if (wideBtn) {
+                btnPropertyCss = `\n    width: 100%;`;
+            }
+
+            let titleBoldPropertyCss = '';
+            if (boldTitle) {
+                titleBoldPropertyCss = `\n    font-weight: 600;`;
+            }
+
+            let btnBoldPropertyCss = '';
+            if (boldBtn) {
+                btnBoldPropertyCss = `\n    font-weight: 600;`;
+            }
+
+            let html = `<div class="v-container">\n`;
+            for (let i = 0; i < count; i++) {
+                const tag = link === 'block' ? 'a' : 'div';
+                const attr = link === 'block' ? ' href="#"' : '';
+                html += `  <${tag}${attr} class="custom-card-item">\n`;
+                
+                if (hasImg) html += `    <img src="https://gabriellesunrise.github.io/simple-blocks/img.jpg" alt="Image" class="custom-card-img">\n`;
+                if (hasTitle) html += `    <div class="custom-card-title">Заголовок блока</div>\n`;
+                if (hasText) html += `    <div class="custom-card-text">Пример текста для наполнения блока. Пример текста для наполнения блока.</div>\n`;
+                
+                if (hasBtn) {
+                    if (link === 'button') {
+                        html += `    <a href="#" class="custom-card-btn-link"><span class="custom-card-btn">Подробнее</span></a>\n`;
+                    } else {
+                        html += `    <div class="custom-card-btn">Подробнее</div>\n`;
+                    }
+                }
+                html += `  </${tag}>\n`;
+            }
+            html += `</div>`;
+
             let css = `.v-container {
-  display: grid;
-  grid-template-columns: repeat(${count}, 1fr);
-  gap: 20px;
-  padding: 20px 0;
+    display: grid;
+    grid-template-columns: repeat(${count}, 1fr);
+    gap: ${gap}px;
+    padding: 20px 0;
 }
 .custom-card-item {
-  box-sizing: border-box;
-  padding: 20px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  transition: 0.2s;
+    box-sizing: border-box;
+    padding: ${padding}px;${borderPropertyCss}
+    border-radius: ${radius}px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    transition: 0.2s;
+    text-align: ${align};
+    align-items: ${flexAlign};
+    overflow: hidden;
 }
 .custom-card-item .custom-card-btn {
     margin-top: auto;
@@ -366,34 +640,36 @@ a.custom-card-item:hover {
     width: 100%; 
     height: auto; 
     display: block; 
-    margin-bottom: 15px; 
-    border-radius: 4px; 
-    aspect-ratio: 3/2; 
+    margin-bottom: ${imgMargin}px; 
+    border-radius: ${imgRadius}px; 
+    aspect-ratio: ${imgAspectRatio}; 
     object-fit: cover;
 }
 .custom-card-title { 
-    font-size: 1.25rem; 
-    margin: 0 0 10px 0; 
-    color: #333; 
-    font-weight: 600;
+    font-size: ${titleFontSize}px; 
+    margin-bottom: ${titleMargin}px; 
+    color: ${titleColor};${titleBoldPropertyCss}
 }
 .custom-card-text { 
-    font-size: 1rem; 
-    margin-bottom: 15px; 
-    color: #666; 
+    font-size: ${textFontSize}px;
+    margin-bottom: ${textMargin}px; 
+    color: ${textColor}; 
 }
 .custom-card-btn { 
     display: inline-block; 
     padding: 10px 20px; 
-    background: #3498db; 
-    color: #fff; 
+    background: ${btnColor}; 
+    color: ${btnTextColor}; 
     text-decoration: none; 
-    border-radius: 4px; 
+    border-radius: ${btnRadius}px; 
     border: none; 
     text-align: center; 
+    box-sizing: border-box;${btnPropertyCss}
+    font-size: ${btnFontSize}px;${btnBoldPropertyCss}
 }
 .custom-card-btn:hover { 
-    background: #2980b9; 
+    background: ${btnHoverColor}; 
+    color: ${btnHoverTextColor};
 }
 a.custom-card-item, a.custom-card-btn-link { 
     text-decoration: none; 
@@ -401,43 +677,16 @@ a.custom-card-item, a.custom-card-btn-link {
 }
 
 @media (max-width: 1024px) {
-  .v-container {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
+    .v-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
 }
 
 @media (max-width: 768px) {
-  .custom-card-item { 
-    flex: 1 1 100%; 
-  }
+    .custom-card-item { 
+        flex: 1 1 100%; 
+    }
 }`;
-
-            const hasImg = document.getElementById('v-img').checked;
-            const hasTitle = document.getElementById('v-title').checked;
-            const hasText = document.getElementById('v-text').checked;
-            const hasBtn = document.getElementById('v-btn').checked;
-
-            let html = `<div class="v-container">\n`;
-            for (let i = 0; i < count; i++) {
-                const tag = linkType === 'block' ? 'a' : 'div';
-                const attr = linkType === 'block' ? ' href="#"' : '';
-                html += `  <${tag}${attr} class="custom-card-item">\n`;
-                
-                if (hasImg) html += `    <img src="https://gabriellesunrise.github.io/simple-blocks/img.jpg" alt="Image" class="custom-card-img">\n`;
-                if (hasTitle) html += `    <div class="custom-card-title">Заголовок блока ${i+1}</div>\n`;
-                if (hasText) html += `    <div class="custom-card-text">Пример текста для наполнения блока. Пример текста для наполнения блока.</div>\n`;
-                
-                if (hasBtn) {
-                    if (linkType === 'button') {
-                        html += `    <a href="#" class="custom-card-btn-link"><span class="custom-card-btn">Подробнее</span></a>\n`;
-                    } else {
-                        html += `    <div class="custom-card-btn">Подробнее</div>\n`;
-                    }
-                }
-                
-                html += `  </${tag}>\n`;
-            }
-            html += `</div>`;
 
             document.getElementById('v-css').value = css;
             document.getElementById('v-html').value = html;
@@ -457,22 +706,22 @@ a.custom-card-item, a.custom-card-btn-link {
             const startReverse = document.getElementById('h-reverse').checked;
             
             let css = `.h-container {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px 0;
 }
 .custom-card-row {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  padding: 20px;
-  background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-sizing: border-box;
-  width: 100%;
-  transition: 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    transition: 0.2s;
 }
 a.custom-card-row:hover { 
     box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
@@ -522,23 +771,23 @@ a.custom-card-row:hover {
     background: #2980b9; 
 }
 a.custom-card-row, a.custom-card-row-btn-link {
- text-decoration: none; 
- color: inherit; 
+    text-decoration: none; 
+    color: inherit; 
 }
 
 @media (max-width: 768px) {
-  .custom-card-row { 
-    flex-direction: column; 
-    align-items: flex-start;
-    padding: 0;
-  }
-  .custom-card-row.reverse { 
-    flex-direction: column-reverse; 
-  }
-  .custom-card-row .custom-card-row-img { 
-    flex: 0 0 100%; 
-    width: 100%; 
-  }
+    .custom-card-row { 
+        flex-direction: column; 
+        align-items: flex-start;
+        padding: 0;
+    }
+    .custom-card-row.reverse { 
+        flex-direction: column-reverse; 
+    }
+    .custom-card-row .custom-card-row-img { 
+        flex: 0 0 100%; 
+        width: 100%; 
+    }
 }`;
 
             const hasTitle = document.getElementById('h-title').checked;
@@ -613,65 +862,65 @@ a.custom-card-row, a.custom-card-row-btn-link {
         }
 
         let css = `.custom-o-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(${count}, 1fr);
-  gap: 20px;
-  padding: 20px 0;
+    display: grid;
+    grid-template-columns: repeat(${count}, 1fr);
+    gap: 20px;
+    padding: 20px 0;
 }
 
 .custom-o-card-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: ${radius};
-  aspect-ratio: ${ratio};
-  display: flex;
-  flex-direction: column;
-  justify-content: ${alignV}; 
-  text-decoration: none;
-  color: #ffffff;
-  -webkit-mask-image: -webkit-radial-gradient(white, black); 
+    position: relative;
+    overflow: hidden;
+    border-radius: ${radius};
+    aspect-ratio: ${ratio};
+    display: flex;
+    flex-direction: column;
+    justify-content: ${alignV}; 
+    text-decoration: none;
+    color: #ffffff;
+    -webkit-mask-image: -webkit-radial-gradient(white, black); 
 }
 
 .custom-o-card-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-  z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 1;
 }
 
 .custom-o-card-item:hover .custom-o-card-bg {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .custom-o-card-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: ${gradient};
-  z-index: 2;
-  transition: opacity 0.3s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: ${gradient};
+    z-index: 2;
+    transition: opacity 0.3s;
 }
 
 .custom-o-card-content {
-  position: relative;
-  z-index: 3;
-  padding: 25px;
-  text-align: ${alignH};
-  box-sizing: border-box;
+    position: relative;
+    z-index: 3;
+    padding: 25px;
+    text-align: ${alignH};
+    box-sizing: border-box;
 }
 
 .custom-o-card-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 0 0 10px 0;
-  line-height: 1.2;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    line-height: 1.2;
 }
 
 .custom-o-card-title+.custom-o-card-btn {
@@ -679,31 +928,31 @@ a.custom-card-row, a.custom-card-row-btn-link {
 }
 
 .custom-o-card-description {
-  font-size: 1rem;
-  margin-bottom: 20px;
-  opacity: 0.9;
-  line-height: 1.4;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    opacity: 0.9;
+    line-height: 1.4;
 }
 
 .custom-o-card-btn {
-  display: inline-block;
-  padding: 10px 24px;
-  background-color: #ffffff;
-  color: #000000;
-  text-decoration: none;
-  border-radius: 4px;
-  font-weight: 600;
-  transition: all 0.3s;
+    display: inline-block;
+    padding: 10px 24px;
+    background-color: #ffffff;
+    color: #000000;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.3s;
 }
 
 .custom-o-card-btn:hover {
-  background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
 
 @media (max-width: 1024px) {
-  .custom-o-cards-grid { 
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-  }
+    .custom-o-cards-grid { 
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    }
 }`;
 
 
@@ -767,6 +1016,56 @@ a.custom-card-row, a.custom-card-row-btn-link {
             console.error('Ошибка при копировании: ', err);
         });
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleButtons = document.querySelectorAll('.toggle-advanced-btn');
+
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const controlsDiv = button.closest('.controls');
+                if (controlsDiv) {
+                    const advancedSettingsDiv = controlsDiv.querySelector('.advanced-settings');
+                    if (advancedSettingsDiv) {
+                        advancedSettingsDiv.classList.toggle('hidden');
+
+                        if (advancedSettingsDiv.classList.contains('hidden')) {
+                            button.textContent = 'Расширенные настройки';
+                        } else {
+                            button.textContent = 'Скрыть настройки';
+                        }
+                    }
+                }
+            });
+        });
+    });
+
+    function validateNumberInput(inputElement) {
+        let value = parseFloat(inputElement.value);
+        const min = parseFloat(inputElement.min);
+        const max = parseFloat(inputElement.max);
+
+        if (isNaN(value)) {
+            inputElement.value = min;
+            return;
+        }
+
+        if (value < min) {
+            inputElement.value = min;
+        } else if (value > max) {
+            inputElement.value = max;
+        }
+    }
+
+    const validatedInputs = document.querySelectorAll('.js-number-validate');
+
+    validatedInputs.forEach(inputElement => {
+
+        inputElement.addEventListener('blur', function() {
+            validateNumberInput(this);
+        });
+
+        validateNumberInput(inputElement);
+    });
 
 </script>
 </body>
