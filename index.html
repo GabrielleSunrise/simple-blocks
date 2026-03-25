@@ -335,6 +335,19 @@
                     <input type="number" id="v-btn-radius" min="0" max="50" value="4">
                 </div>
                 <hr class="divider">
+                <div class="control-group">
+                    <label><input type="checkbox" id="v-enable-shadow" checked> Включить тени</label>
+                </div>      
+                <div class="control-group shadow-input-group">
+                    <label><input type="checkbox" id="v-has-shadow-always"> Постоянная тень (CSS-строка):</label>
+                    <input type="text" id="v-shadow-always-value" value="0 2px 10px rgba(0,0,0,0.1)" class="full-width-input">
+                </div>
+
+                <div class="control-group shadow-input-group">
+                    <label><input type="checkbox" id="v-has-shadow-hover"> Тень при наведении (CSS-строка):</label>
+                    <input type="text" id="v-shadow-hover-value" class="full-width-input"> 
+                </div>
+                <hr class="divider">
             </div>
 
         </div>
@@ -528,6 +541,84 @@
             return settings;
         }   
 
+        const DEFAULT_HOVER_SHADOW_VALUE = "0 5px 15px rgba(0,0,0,0.1)";
+
+        function updateHoverShadowInputDefault(prefix) {
+            const linkSelect = document.getElementById(`${prefix}-link`);
+            const shadowHoverInput = document.getElementById(`${prefix}-shadow-hover-value`);
+            const hasShadowHoverCheckbox = document.getElementById(`${prefix}-has-shadow-hover`);
+
+            if (!linkSelect || !shadowHoverInput || !hasShadowHoverCheckbox) return;
+
+            const isLinkBlock = linkSelect.value === 'block';
+
+            if (isLinkBlock) {
+                if (shadowHoverInput.value.trim() === '' || shadowHoverInput.value === '0 5px 15px rgba(0,0,0,0.2)') {
+                    shadowHoverInput.value = DEFAULT_HOVER_SHADOW_VALUE;
+                    if (!hasShadowHoverCheckbox.checked) {
+                        hasShadowHoverCheckbox.checked = true;
+                        hasShadowHoverCheckbox.dispatchEvent(new Event('change'));
+                    }
+                }
+            } else {
+                if (shadowHoverInput.value === DEFAULT_HOVER_SHADOW_VALUE) {
+                    shadowHoverInput.value = '';
+                    if (hasShadowHoverCheckbox.checked) {
+                        hasShadowHoverCheckbox.checked = false;
+                        hasShadowHoverCheckbox.dispatchEvent(new Event('change'));
+                    }
+                }
+            }
+        }
+
+
+        function setupShadowToggles(prefix) {
+            const enableShadowCheckbox = document.getElementById(`${prefix}-enable-shadow`);
+            const shadowSettingsGroup = document.getElementById(`${prefix}-shadow-settings-group`);
+            
+            const hasShadowAlwaysCheckbox = document.getElementById(`${prefix}-has-shadow-always`);
+            const shadowAlwaysValueInput = document.getElementById(`${prefix}-shadow-always-value`);
+
+            const hasShadowHoverCheckbox = document.getElementById(`${prefix}-has-shadow-hover`);
+            const shadowHoverValueInput = document.getElementById(`${prefix}-shadow-hover-value`);
+
+            const updateVisibility = (checkbox, targetElement) => {
+                if (targetElement) {
+                    if (checkbox && checkbox.checked) {
+                        targetElement.classList.remove('hidden');
+                    } else {
+                        targetElement.classList.add('hidden');
+                    }
+                }
+            };
+
+            if (enableShadowCheckbox && shadowSettingsGroup) {
+                enableShadowCheckbox.addEventListener('change', () => updateVisibility(enableShadowCheckbox, shadowSettingsGroup));
+                updateVisibility(enableShadowCheckbox, shadowSettingsGroup);
+            }
+            if (hasShadowAlwaysCheckbox && shadowAlwaysValueInput) {
+                hasShadowAlwaysCheckbox.addEventListener('change', () => updateVisibility(hasShadowAlwaysCheckbox, shadowAlwaysValueInput));
+                updateVisibility(hasShadowAlwaysCheckbox, shadowAlwaysValueInput);
+            }
+            if (hasShadowHoverCheckbox && shadowHoverValueInput) {
+                hasShadowHoverCheckbox.addEventListener('change', () => updateVisibility(hasShadowHoverCheckbox, shadowHoverValueInput));
+                updateVisibility(hasShadowHoverCheckbox, shadowHoverValueInput);
+            }
+
+            const linkSelect = document.getElementById(`${prefix}-link`);
+            if (linkSelect) {
+                linkSelect.addEventListener('change', () => {
+                    updateHoverShadowInputDefault(prefix);
+                });
+            }
+
+            updateHoverShadowInputDefault(prefix);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupShadowToggles('v');
+        });
+
         function generateVertical(buttonElement) {
             const currentSection = buttonElement.closest('.section');
             if (!currentSection) {
@@ -538,7 +629,9 @@
             const verticalSettingNames = [
                 'count', 'link', 'img', 'title', 'text', 'btn',
                 'gap', 'align', 'flex-align', 'wide-btn', 'title-font-size', 'text-font-size', 'padding', 'radius',
-                'has-border', 'border-color', 'border-width', 'border-style', 'btn-font-size', 'btn-color', 'btn-hover-color', 'btn-text-color', 'btn-hover-text-color', 'bold-btn', 'btn-radius', 'img-aspect-ratio', 'img-radius', 'img-margin', 'title-color', 'title-margin', 'bold-title', 'text-color', 'text-margin'
+                'has-border', 'border-color', 'border-width', 'border-style', 'btn-font-size', 'btn-color', 'btn-hover-color', 'btn-text-color', 'btn-hover-text-color', 'bold-btn', 'btn-radius', 'img-aspect-ratio', 'img-radius', 'img-margin', 'title-color', 'title-margin', 'bold-title', 'text-color', 'text-margin', 'enable-shadow',
+                'has-shadow-always', 'shadow-always-value',
+                'has-shadow-hover', 'shadow-hover-value'
             ];
 
             const settings = getSettings('v', verticalSettingNames);
@@ -568,7 +661,12 @@
                 'title-margin': titleMargin, 
                 'bold-title': boldTitle, 
                 'text-color': textColor, 
-                'text-margin': textMargin
+                'text-margin': textMargin,
+                'enable-shadow': enableShadow,
+                'has-shadow-always': hasShadowAlways,
+                'shadow-always-value': shadowAlwaysValue,
+                'has-shadow-hover': hasShadowHover,
+                'shadow-hover-value': shadowHoverValue 
             } = settings;
 
             let borderPropertyCss = '';
@@ -589,6 +687,27 @@
             let btnBoldPropertyCss = '';
             if (boldBtn) {
                 btnBoldPropertyCss = `\n    font-weight: 600;`;
+            }
+
+            let shadowAlwaysCss = '';
+            let shadowHoverCss = '';
+
+            if (enableShadow) { 
+                if (hasShadowAlways && shadowAlwaysValue.trim()) { 
+                    shadowAlwaysCss = `\n    box-shadow: ${shadowAlwaysValue.trim()};\n`;
+                }
+                
+                if (hasShadowHover) {
+                    let finalHoverShadowValue = shadowHoverValue.trim();
+
+                    if (!finalHoverShadowValue && link === 'block') {
+                        finalHoverShadowValue = DEFAULT_HOVER_SHADOW_VALUE;
+                    }
+
+                    if (finalHoverShadowValue) {
+                        shadowHoverCss = `\n.custom-card-item:hover { \n    box-shadow: ${finalHoverShadowValue}; \n    transition: box-shadow 0.2s; \n}\n`;
+                    }
+                }
             }
 
             let html = `<div class="v-container">\n`;
@@ -628,13 +747,11 @@
     transition: 0.2s;
     text-align: ${align};
     align-items: ${flexAlign};
-    overflow: hidden;
+    overflow: hidden;${shadowAlwaysCss}
 }
+${shadowHoverCss}
 .custom-card-item .custom-card-btn {
     margin-top: auto;
-}
-a.custom-card-item:hover { 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
 }
 .custom-card-img { 
     width: 100%; 
