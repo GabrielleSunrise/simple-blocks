@@ -710,6 +710,14 @@
                 }
             }
 
+            let linkStylesCss = '';
+            if (link === 'block') {
+                linkStylesCss = `\na.custom-card-item { \n    text-decoration: none; \n    color: inherit; \n}`;
+            } else if (link === 'button') {
+                let btnLinkExtra = wideBtn ? `\n    display: block;\n    width: 100%;` : `\n    display: inline-block;`;
+                linkStylesCss = `\na.custom-card-btn-link { \n    text-decoration: none; \n    color: inherit;${btnLinkExtra}\n}`;
+            }
+
             let html = `<div class="v-container">\n`;
             for (let i = 0; i < count; i++) {
                 const tag = link === 'block' ? 'a' : 'div';
@@ -787,11 +795,7 @@ ${shadowHoverCss}
 .custom-card-btn:hover { 
     background: ${btnHoverColor}; 
     color: ${btnHoverTextColor};
-}
-a.custom-card-item, a.custom-card-btn-link { 
-    text-decoration: none; 
-    color: inherit; 
-}
+}${linkStylesCss}
 
 @media (max-width: 1024px) {
     .v-container {
