@@ -126,22 +126,26 @@
             margin-bottom: 0;
         }
 
-        .advanced-settings {
+        .advanced-settings, 
+        .content-settings {
             display: flex;
             gap: 8px 24px;
             flex-wrap: wrap;
+            width: 100%;
         }
 
-        .advanced-settings.hidden {
+        .advanced-settings.hidden, 
+        .content-settings.hidden {
             display: none;
         }
 
-        .toggle-advanced-btn-wrapper {
+        .toggle-advanced-btn-wrapper, 
+        .toggle-content-btn-wrapper {
             width: 100%;
-            margin-top: 12px;
         }
 
-        .toggle-advanced-btn {
+        .toggle-advanced-btn, 
+        .toggle-content-btn {
             cursor: pointer;
             transition: 0.3s ease-in-out;
             width: fit-content;
@@ -153,12 +157,14 @@
             color: #7e5daf;
         }
 
-        .toggle-advanced-btn:hover {
+        .toggle-advanced-btn:hover, 
+        .toggle-content-btn:hover {
             border-bottom: 1px dotted #5b437e;
             color: #5b437e;
         }
 
-        .advanced-settings .control-group {
+        .advanced-settings .control-group, 
+        .content-settings .control-group {
             margin-bottom: 10px;
         }
 
@@ -167,6 +173,21 @@
             border: none;
             border-top: 1px dashed #ccc;
             margin: 0;
+        }
+
+        .content-fields-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            width: 100%;
+            gap: 20px;
+        }
+
+        .content-fields-wrapper h4 {
+            margin: 8px 0;
+        }
+
+        .content-fields-wrapper textarea {
+            height: 100px;
         }
 
         @media (max-width: 768px) {
@@ -206,6 +227,22 @@
                     <option value="block">Весь блок — ссылка</option>
                     <option value="button">Только кнопка — ссылка</option>
                 </select>
+            </div>
+
+            <div class="toggle-content-btn-wrapper">
+                <div class="toggle-content-btn">Контент для блоков</div>
+            </div>
+            <div class="content-settings hidden">
+                <hr class="divider">
+                <div class="control-group">
+                    <label for="v-btn-general-text">Текст кнопки (общий для всех блоков):</label>
+                    <input type="text" id="v-btn-general-text" value="Подробнее">
+                </div>
+                <hr class="divider">
+                <div id="v-content-fields-container" class="content-fields-wrapper">
+                    
+                </div>
+                <hr class="divider">
             </div>
 
             <div class="toggle-advanced-btn-wrapper">
@@ -541,6 +578,69 @@
             return settings;
         }   
 
+        function createContentFieldsForBlock(index) {
+            const blockNum = index + 1;
+            const blockDiv = document.createElement('div');
+            blockDiv.className = 'block-content-inputs';
+
+            blockDiv.innerHTML = `
+                <h4>Контент для блока №${blockNum}</h4>
+                <div class="control-group">
+                    <label for="v-block-${index}-img-src">Ссылка на изображение:</label>
+                    <input type="text" id="v-block-${index}-img-src" value="https://gabriellesunrise.github.io/simple-blocks/img.jpg" placeholder="URL изображения">
+                </div>
+                <div class="control-group">
+                    <label for="v-block-${index}-img-alt">Alt текст для изображения (по умолчанию заголовок):</label>
+                    <input type="text" id="v-block-${index}-img-alt" value="" placeholder="Описание изображения для SEO">
+                </div>
+                <div class="control-group">
+                    <label for="v-block-${index}-title-text">Заголовок:</label>
+                    <input type="text" id="v-block-${index}-title-text" value="Заголовок блока ${blockNum}" placeholder="Заголовок блока">
+                </div>
+                <div class="control-group">
+                    <label for="v-block-${index}-main-text">Текст:</label>
+                    <textarea id="v-block-${index}-main-text" rows="3" placeholder="Пример текста для наполнения блока.">Пример текста для наполнения блока ${blockNum}. Пример текста для наполнения блока.</textarea>
+                </div>
+            `;
+            return blockDiv;
+        }
+
+        function updateVerticalContentFields() {
+            const count = parseInt(document.getElementById('v-count').value);
+            const container = document.getElementById('v-content-fields-container');
+            if (!container) return;
+
+            const existingContent = {};
+            for (let i = 0; i < 5; i++) { 
+                const imgEl = document.getElementById(`v-block-${i}-img-src`);
+                const altTextEl = document.getElementById(`v-block-${i}-img-alt`);
+                const titleEl = document.getElementById(`v-block-${i}-title-text`);
+                const textEl = document.getElementById(`v-block-${i}-main-text`);
+                if (imgEl && altTextEl && titleEl && textEl) {
+                    existingContent[i] = {
+                        img: imgEl.value,
+                        alt: altTextEl.value,
+                        title: titleEl.value,
+                        text: textEl.value
+                    };
+                }
+            }
+
+            container.innerHTML = '';
+
+            for (let i = 0; i < count; i++) {
+                const blockFields = createContentFieldsForBlock(i);
+                container.appendChild(blockFields);
+
+                if (existingContent[i]) {
+                    document.getElementById(`v-block-${i}-img-src`).value = existingContent[i].img;
+                    document.getElementById(`v-block-${i}-img-alt`).value = existingContent[i].alt;
+                    document.getElementById(`v-block-${i}-title-text`).value = existingContent[i].title;
+                    document.getElementById(`v-block-${i}-main-text`).value = existingContent[i].text;
+                }
+            }
+        }
+
         const DEFAULT_HOVER_SHADOW_VALUE = "0 5px 15px rgba(0,0,0,0.1)";
 
         function updateHoverShadowInputDefault(prefix) {
@@ -669,6 +769,23 @@
                 'shadow-hover-value': shadowHoverValue 
             } = settings;
 
+            const generalBtnText = document.getElementById('v-btn-general-text').value;
+
+            const blocksContent = [];
+            for (let i = 0; i < count; i++) {
+                const imgSrcEl = document.getElementById(`v-block-${i}-img-src`);
+                const altTextEl = document.getElementById(`v-block-${i}-img-alt`);
+                const titleTextEl = document.getElementById(`v-block-${i}-title-text`);
+                const mainTextEl = document.getElementById(`v-block-${i}-main-text`);
+
+                blocksContent.push({
+                    imgSrc: imgSrcEl?.value || 'https://via.placeholder.com/400x250/cccccc/ffffff?text=Default+Image',
+                    altText: (altTextEl?.value || '').trim(),
+                    titleText: (titleTextEl?.value || '').trim(),
+                    mainText: mainTextEl?.value || `Пример текста для наполнения блока ${i + 1}.`,
+                });
+            }
+
             let borderPropertyCss = '';
             if (hasBorder) {
                 borderPropertyCss = `\n    border: ${borderWidth}px ${borderStyle} ${borderColor};`;
@@ -720,19 +837,28 @@
 
             let html = `<div class="v-container">\n`;
             for (let i = 0; i < count; i++) {
+                const blockData = blocksContent[i];
                 const tag = link === 'block' ? 'a' : 'div';
                 const attr = link === 'block' ? ' href="#"' : '';
+
+                let finalAlt = '';
+                if (blockData.altText !== '') { 
+                    finalAlt = blockData.altText;
+                } else if (hasTitle && blockData.titleText !== '') { 
+                    finalAlt = blockData.titleText;
+                }
+
                 html += `  <${tag}${attr} class="custom-card-item">\n`;
-                
-                if (hasImg) html += `    <img src="https://gabriellesunrise.github.io/simple-blocks/img.jpg" alt="Image" class="custom-card-img">\n`;
-                if (hasTitle) html += `    <div class="custom-card-title">Заголовок блока</div>\n`;
-                if (hasText) html += `    <div class="custom-card-text">Пример текста для наполнения блока. Пример текста для наполнения блока.</div>\n`;
-                
+
+                if (hasImg) html += `    <img src="${blockData.imgSrc}" alt="${finalAlt}" class="custom-card-img">\n`;
+                if (hasTitle) html += `    <div class="custom-card-title">${blockData.titleText}</div>\n`;
+                if (hasText) html += `    <div class="custom-card-text">${blockData.mainText}</div>\n`;
+
                 if (hasBtn) {
                     if (link === 'button') {
-                        html += `    <a href="#" class="custom-card-btn-link"><span class="custom-card-btn">Подробнее</span></a>\n`;
+                        html += `    <a href="#" class="custom-card-btn-link"><span class="custom-card-btn">${generalBtnText}</span></a>\n`;
                     } else {
-                        html += `    <div class="custom-card-btn">Подробнее</div>\n`;
+                        html += `    <div class="custom-card-btn">${generalBtnText}</div>\n`;
                     }
                 }
                 html += `  </${tag}>\n`;
@@ -1139,25 +1265,21 @@ a.custom-card-row, a.custom-card-row-btn-link {
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        const toggleButtons = document.querySelectorAll('.toggle-advanced-btn');
+        const toggleButtons = document.querySelectorAll('.toggle-advanced-btn, .toggle-content-btn');
 
         toggleButtons.forEach(button => {
             button.addEventListener('click', () => {
-                const controlsDiv = button.closest('.controls');
-                if (controlsDiv) {
-                    const advancedSettingsDiv = controlsDiv.querySelector('.advanced-settings');
-                    if (advancedSettingsDiv) {
-                        advancedSettingsDiv.classList.toggle('hidden');
-
-                        if (advancedSettingsDiv.classList.contains('hidden')) {
-                            button.textContent = 'Расширенные настройки';
-                        } else {
-                            button.textContent = 'Скрыть настройки';
-                        }
-                    }
+                const parentWrapper = button.closest('.toggle-advanced-btn-wrapper') || button.closest('.toggle-content-btn-wrapper');
+                const targetSettings = parentWrapper.nextElementSibling;
+                if (targetSettings) {
+                    targetSettings.classList.toggle('hidden');
+                    button.classList.toggle('active');
                 }
             });
         });
+
+        updateVerticalContentFields();
+        document.getElementById('v-count').addEventListener('blur', updateVerticalContentFields);
     });
 
     function validateNumberInput(inputElement) {
