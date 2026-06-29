@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             targetContent.classList.remove('hidden');
         }
     });
-    
+
     const menu = document.getElementById('menu');
     const menuLinks = document.querySelectorAll('.menu-item > a'); 
     const sections = document.querySelectorAll('.section');
