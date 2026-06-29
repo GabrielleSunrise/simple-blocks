@@ -69,19 +69,25 @@ function copyToClipboard(elementId, btn) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const toggleButtons = document.querySelectorAll('.toggle-advanced-btn, .toggle-content-btn');
+    document.addEventListener('click', (e) => {
+        if (!e.target.classList.contains('tab-btn')) return;
 
-    toggleButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const parentWrapper = button.closest('.toggle-advanced-btn-wrapper') || button.closest('.toggle-content-btn-wrapper');
-            const targetSettings = parentWrapper.nextElementSibling;
-            if (targetSettings) {
-                targetSettings.classList.toggle('hidden');
-                button.classList.toggle('active');
-            }
-        });
+        const button = e.target;
+        const container = button.closest('.settings-tabs-container');
+        const tabName = button.getAttribute('data-tab');
+        const targetContent = container.querySelector(tabName === 'content' ? '.content-settings' : '.advanced-settings');
+        
+        const isAlreadyActive = button.classList.contains('active');
+
+        container.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        container.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+
+        if (!isAlreadyActive) {
+            button.classList.add('active');
+            targetContent.classList.remove('hidden');
+        }
     });
-
+    
     const menu = document.getElementById('menu');
     const menuLinks = document.querySelectorAll('.menu-item > a'); 
     const sections = document.querySelectorAll('.section');
