@@ -72,13 +72,34 @@ function generateOverlayCards(buttonElement) {
 
     const overlaySettingNames = [
         'count', 'link', 'ratio', 'align', 'valign', 'radius',
-        'title', 'text', 'btn'
+        'title', 'text', 'btn',
+        'title-font-size', 'title-color', 'bold-title',
+        'text-font-size', 'text-color',
+        'btn-text-color', 'btn-hover-text-color', 'btn-color', 'btn-hover-color',
+        'btn-font-size', 'btn-radius',
+        'enable-custom-gradient', 'gradient-value',
+        'custom-wrapper-class', 'custom-item-class'
     ];
     const settings = getSettings('o', overlaySettingNames);
 
     const {
         count, link: linkType, ratio, align: alignH, valign: alignV, radius,
-        title: hasTitle, text: hasText, btn: hasBtn
+        title: hasTitle, text: hasText, btn: hasBtn,
+        'title-font-size': titleFS,
+        'title-color': titleColor,
+        'bold-title': boldTitle,
+        'text-font-size': textFS,
+        'text-color': textColor,
+        'btn-text-color': btnTextColor,
+        'btn-hover-text-color': btnHoverTextColor,
+        'btn-color': btnColor,
+        'btn-hover-color': btnHoverColor,
+        'btn-font-size': btnFS,
+        'btn-radius': btnRadius,
+        'enable-custom-gradient': enableCustomGradient,
+        'gradient-value': gradientValue,
+        'custom-wrapper-class': customWrapperClass,
+        'custom-item-class': customItemClass
     } = settings;
 
     const generalBtnText = document.getElementById('o-btn-general-text').value;
@@ -103,7 +124,25 @@ function generateOverlayCards(buttonElement) {
     let buttonSpecificCss = '';
     let itemClassForHTML = '';
 
-    let gradient = "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)";
+    let gradient = '';
+    let hasGradient = false;
+    
+    if (enableCustomGradient && gradientValue && gradientValue.trim()) {
+        gradient = gradientValue.trim();
+        hasGradient = true;
+    } else if (!enableCustomGradient) {
+        hasGradient = false;
+        gradient = '';
+    } else {
+        if (alignV === 'flex-start') {
+            gradient = "linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)";
+        } else if (alignV === 'center') {
+            gradient = "rgba(0,0,0,0.4)";
+        } else {
+            gradient = "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)";
+        }
+        hasGradient = true;
+    }
 
     if (alignV === 'stretch-bottom-button') {
         cardItemJustifyContent = 'flex-start';
@@ -122,12 +161,33 @@ function generateOverlayCards(buttonElement) {
 }
         `;
         itemClassForHTML = ' stretch-content';
-    } else if (alignV === 'flex-start') {
-        gradient = "linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)";
-    } else if (alignV === 'center') {
-        gradient = "rgba(0,0,0,0.4)";
     }
 
+    let titleFontWeight = '';
+    if (boldTitle) {
+        titleFontWeight = '\n    font-weight: bold;';
+    }
+
+    let overlayHtml = '';
+    if (hasGradient) {
+        overlayHtml = `    <div class="custom-o-card-overlay"></div>\n`;
+    }
+
+    let overlayCss = '';
+    if (hasGradient) {
+        overlayCss = `
+.custom-o-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: ${gradient};
+    z-index: 2;
+    transition: opacity 0.3s;
+}
+`;
+    }
 
     let css = `.custom-o-cards-grid {
     display: grid;
@@ -164,18 +224,7 @@ function generateOverlayCards(buttonElement) {
 .custom-o-card-item:hover .custom-o-card-bg {
     transform: scale(1.1);
 }
-
-.custom-o-card-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: ${gradient};
-    z-index: 2;
-    transition: opacity 0.3s;
-}
-
+${overlayCss}
 .custom-o-card-content {
     position: relative;
     z-index: 3;
@@ -186,10 +235,10 @@ function generateOverlayCards(buttonElement) {
 }
 
 .custom-o-card-title {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: ${titleFS}px;
     margin: 0 0 10px 0;
     line-height: 1.2;
+    color: ${titleColor};${titleFontWeight}
 }
 
 .custom-o-card-title+.custom-o-card-btn {
@@ -197,7 +246,8 @@ function generateOverlayCards(buttonElement) {
 }
 
 .custom-o-card-description {
-    font-size: 1rem;
+    font-size: ${textFS}px;
+    color: ${textColor};
     margin-bottom: 20px;
     opacity: 0.9;
     line-height: 1.4;
@@ -206,16 +256,18 @@ function generateOverlayCards(buttonElement) {
 .custom-o-card-btn {
     display: inline-block;
     padding: 10px 24px;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: ${btnColor};
+    color: ${btnTextColor};
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: ${btnRadius}px;
     font-weight: 600;
+    font-size: ${btnFS}px;
     transition: all 0.3s;
 }
 
 .custom-o-card-btn:hover {
-    background-color: #f0f0f0;
+    background-color: ${btnHoverColor};
+    color: ${btnHoverTextColor};
 }
 ${buttonSpecificCss}
 
@@ -226,16 +278,19 @@ ${buttonSpecificCss}
 }`;
 
 
-    let html = `<div class="custom-o-cards-grid">\n`;
+    const wrapperClass = appendCustomClass('custom-o-cards-grid', customWrapperClass);
+
+    let html = `<div class="${wrapperClass}">\n`;
     for (let i = 0; i < count; i++) {
         const blockData = blocksContent[i];
         const isBlockLink = linkType === 'block';
         const tag = isBlockLink ? 'a' : 'div';
         const href = isBlockLink ? ` href="${blockData.linkUrl}"` : '';
+        const itemClass = appendCustomClass(`custom-o-card-item${itemClassForHTML}`, customItemClass);
 
-        html += `  <${tag}${href} class="custom-o-card-item${itemClassForHTML}">\n`;
+        html += `  <${tag}${href} class="${itemClass}">\n`;
         html += `    <div class="custom-o-card-bg" style="background-image: url('${blockData.imgSrc}');" role="img"></div>\n`;
-        html += `    <div class="custom-o-card-overlay"></div>\n`;
+        html += overlayHtml;
         html += `    <div class="custom-o-card-content">\n`;
 
         if (hasTitle) html += `      <div class="custom-o-card-title">${blockData.titleText}</div>\n`;
