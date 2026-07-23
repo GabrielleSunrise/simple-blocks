@@ -64,154 +64,203 @@
                     <div class="tab-btn" data-tab="advanced">Расширенные настройки</div>
                 </div>
                 <div class="tab-content content-settings hidden">
-                    <hr class="divider">
-                    <div class="control-group">
-                        <label for="v-btn-general-text">Текст кнопки (общий для всех блоков):</label>
-                        <input type="text" id="v-btn-general-text" value="Подробнее">
+                    <div class="settings-groups-wrapper">
+                        <div class="control-group">
+                            <label for="v-btn-general-text">Текст кнопки (общий для всех блоков):</label>
+                            <input type="text" id="v-btn-general-text" value="Подробнее">
+                        </div>
                     </div>
-                    <hr class="divider">
                     <div id="v-content-fields-container" class="content-fields-wrapper">
                         
                     </div>
-                    <hr class="divider">
                 </div>
                 <div class="tab-content advanced-settings hidden">
-                    <hr class="divider">
-                    <div class="control-group">
-                        <label>Расстояние между карточками (px):</label>
-                        <input type="number" id="v-gap" min="0" max="50" value="20">
-                    </div>
-                    <div class="control-group">
-                        <label>Выравнивание текста:</label>
-                        <select id="v-align">
-                            <option value="left">Влево</option>
-                            <option value="center">По центру</option>
-                            <option value="right">Вправо</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <label>Выравнивание объектов:</label>
-                        <select id="v-flex-align">
-                            <option value="flex-start">Влево</option>
-                            <option value="center">По центру</option>
-                            <option value="flex-end">Вправо</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <label>Внутренний отступ карточки (px):</label>
-                        <input type="number" id="v-padding" min="0" max="50" value="20">
-                    </div>
-                    <div class="control-group">
-                        <label>Скругление углов карточки (px):</label>
-                        <input type="number" id="v-radius" min="0" max="50" value="8">
-                    </div>
-                    <hr class="divider">
-                    <div class="control-group">
-                        <label><input type="checkbox" id="v-has-border" checked> Граница блока</label>
-                    </div>
-                    <div class="control-group">
-                        <label>Толщина границы (px):</label>
-                        <input type="number" id="v-border-width" min="0" max="10" value="1">
-                    </div>
-                    <div class="control-group">
-                        <label>Стиль границы:</label>
-                        <select id="v-border-style">
-                            <option value="solid" selected>Сплошная</option>
-                            <option value="dashed">Пунктирная</option>
-                            <option value="dotted">Точечная</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <label>Цвет границы:</label>
-                        <input type="color" id="v-border-color" value="#eeeeee">
-                    </div>
-                    <hr class="divider">
-                    <div class="control-group">
-                        <label>Соотношение сторон изображения (x/y):</label>
-                        <input type="text" id="v-img-aspect-ratio" value="3/2">
-                    </div>
-                    <div class="control-group">
-                        <label>Скругление углов изображения (px):</label>
-                        <input type="number" id="v-img-radius" min="0" max="50" value="4">
-                    </div>
-                    <div class="control-group">
-                        <label>Отступ изображения снизу (px):</label>
-                        <input type="number" id="v-img-margin" min="0" max="50" value="15">
-                    </div>
-                    <hr class="divider">
-                    <div class="control-group">
-                        <label><input type="checkbox" id="v-bold-title" checked> Жирный шрифт заголовка</label>
-                    </div>
-                    <div class="control-group">
-                        <label>Размер шрифта заголовка (px):</label>
-                        <input type="number" id="v-title-font-size" min="9" max="36" value="24">
-                    </div>
-                    <div class="control-group">
-                        <label>Цвет заголовка:</label>
-                        <input type="color" id="v-title-color" value="#333333">
-                    </div>
-                    <div class="control-group">
-                        <label>Отступ заголовка снизу (px):</label>
-                        <input type="number" id="v-title-margin" min="0" max="50" value="10">
-                    </div>
-                    <hr class="divider">
-                    <div class="control-group">
-                        <label>Размер шрифта текста (px):</label>
-                        <input type="number" id="v-text-font-size" min="7" max="24" value="16">
-                    </div>
-                    <div class="control-group">
-                        <label>Цвет текста:</label>
-                        <input type="color" id="v-text-color" value="#666666">
-                    </div>
-                    <div class="control-group">
-                        <label>Отступ текста снизу (px):</label>
-                        <input type="number" id="v-text-margin" min="0" max="50" value="15">
-                    </div>
-                    <hr class="divider">
-                    <div class="control-group">
-                        <label><input type="checkbox" id="v-wide-btn" checked> Кнопка на всю ширину</label>
-                    </div>
-                    <div class="control-group">
-                        <label>Цвет текста кнопки:</label>
-                        <input type="color" id="v-btn-text-color" value="#ffffff">
-                    </div>
-                    <div class="control-group">
-                        <label>Цвет текста кнопки при наведении:</label>
-                        <input type="color" id="v-btn-hover-text-color" value="#ffffff">
-                    </div>
-                    <div class="control-group">
-                        <label>Фон кнопки:</label>
-                        <input type="color" id="v-btn-color" value="#3498db">
-                    </div>
-                    <div class="control-group">
-                        <label>Фон кнопки при наведении:</label>
-                        <input type="color" id="v-btn-hover-color" value="#2980b9">
-                    </div>
-                    <div class="control-group">
-                        <label><input type="checkbox" id="v-bold-btn"> Жирный шрифт кнопки</label>
-                    </div>
-                    <div class="control-group">
-                        <label>Размер шрифта кнопки (px):</label>
-                        <input type="number" id="v-btn-font-size" min="7" max="24" value="16">
-                    </div>
-                    <div class="control-group">
-                        <label>Скругление углов кнопки (px):</label>
-                        <input type="number" id="v-btn-radius" min="0" max="50" value="4">
-                    </div>
-                    <hr class="divider">
-                    <div class="control-group">
-                        <label><input type="checkbox" id="v-enable-shadow" checked> Включить тени</label>
-                    </div>      
-                    <div class="control-group shadow-input-group">
-                        <label><input type="checkbox" id="v-has-shadow-always"> Постоянная тень (CSS-строка):</label>
-                        <input type="text" id="v-shadow-always-value" value="0 2px 10px rgba(0,0,0,0.1)" class="full-width-input">
-                    </div>
+                    <div class="settings-groups-wrapper">
 
-                    <div class="control-group shadow-input-group">
-                        <label><input type="checkbox" id="v-has-shadow-hover"> Тень при наведении (CSS-строка):</label>
-                        <input type="text" id="v-shadow-hover-value" class="full-width-input"> 
+                        <div class="settings-group">
+                            <div class="settings-group-header">Расположение и отступы</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Расстояние между карточками (px):</label>
+                                    <input type="number" id="v-gap" min="0" max="50" value="20">
+                                </div>
+                                <div class="control-group">
+                                    <label>Выравнивание текста:</label>
+                                    <select id="v-align">
+                                        <option value="left">Влево</option>
+                                        <option value="center">По центру</option>
+                                        <option value="right">Вправо</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Выравнивание объектов:</label>
+                                    <select id="v-flex-align">
+                                        <option value="flex-start">Влево</option>
+                                        <option value="center">По центру</option>
+                                        <option value="flex-end">Вправо</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Внутренний отступ карточки (px):</label>
+                                    <input type="number" id="v-padding" min="0" max="50" value="20">
+                                </div>
+                                <div class="control-group">
+                                    <label>Скругление углов карточки (px):</label>
+                                    <input type="number" id="v-radius" min="0" max="50" value="8">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Граница блока</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="v-has-border" checked> Граница блока</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Толщина границы (px):</label>
+                                    <input type="number" id="v-border-width" min="0" max="10" value="1">
+                                </div>
+                                <div class="control-group">
+                                    <label>Стиль границы:</label>
+                                    <select id="v-border-style">
+                                        <option value="solid" selected>Сплошная</option>
+                                        <option value="dashed">Пунктирная</option>
+                                        <option value="dotted">Точечная</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет границы:</label>
+                                    <input type="color" id="v-border-color" value="#eeeeee">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Изображение</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Соотношение сторон изображения (x/y):</label>
+                                    <input type="text" id="v-img-aspect-ratio" value="3/2">
+                                </div>
+                                <div class="control-group">
+                                    <label>Скругление углов изображения (px):</label>
+                                    <input type="number" id="v-img-radius" min="0" max="50" value="4">
+                                </div>
+                                <div class="control-group">
+                                    <label>Отступ изображения снизу (px):</label>
+                                    <input type="number" id="v-img-margin" min="0" max="50" value="15">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Заголовок</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="v-bold-title" checked> Жирный шрифт заголовка</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта заголовка (px):</label>
+                                    <input type="number" id="v-title-font-size" min="9" max="36" value="24">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет заголовка:</label>
+                                    <input type="color" id="v-title-color" value="#333333">
+                                </div>
+                                <div class="control-group">
+                                    <label>Отступ заголовка снизу (px):</label>
+                                    <input type="number" id="v-title-margin" min="0" max="50" value="10">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Текст</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Размер шрифта текста (px):</label>
+                                    <input type="number" id="v-text-font-size" min="7" max="24" value="16">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет текста:</label>
+                                    <input type="color" id="v-text-color" value="#666666">
+                                </div>
+                                <div class="control-group">
+                                    <label>Отступ текста снизу (px):</label>
+                                    <input type="number" id="v-text-margin" min="0" max="50" value="15">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Кнопка</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="v-wide-btn" checked> Кнопка на всю ширину</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет текста кнопки:</label>
+                                    <input type="color" id="v-btn-text-color" value="#ffffff">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет текста кнопки при наведении:</label>
+                                    <input type="color" id="v-btn-hover-text-color" value="#ffffff">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон кнопки:</label>
+                                    <input type="color" id="v-btn-color" value="#3498db">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон кнопки при наведении:</label>
+                                    <input type="color" id="v-btn-hover-color" value="#2980b9">
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="v-bold-btn"> Жирный шрифт кнопки</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта кнопки (px):</label>
+                                    <input type="number" id="v-btn-font-size" min="7" max="24" value="16">
+                                </div>
+                                <div class="control-group">
+                                    <label>Скругление углов кнопки (px):</label>
+                                    <input type="number" id="v-btn-radius" min="0" max="50" value="4">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Тени</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="v-enable-shadow" checked> Включить тени</label>
+                                </div>      
+                                <div class="control-group shadow-input-group">
+                                    <label><input type="checkbox" id="v-has-shadow-always"> Постоянная тень (CSS-строка):</label>
+                                    <input type="text" id="v-shadow-always-value" value="0 2px 10px rgba(0,0,0,0.1)" class="full-width-input">
+                                </div>
+                                <div class="control-group shadow-input-group">
+                                    <label><input type="checkbox" id="v-has-shadow-hover"> Тень при наведении (CSS-строка):</label>
+                                    <input type="text" id="v-shadow-hover-value" class="full-width-input"> 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Кастомные CSS-классы</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label for="v-custom-wrapper-class">Кастомный класс обёртки:</label>
+                                    <input type="text" id="v-custom-wrapper-class" value="" placeholder="my-section my-section--cards" class="full-width-input">
+                                </div>
+                                <div class="control-group">
+                                    <label for="v-custom-item-class">Кастомный класс item:</label>
+                                    <input type="text" id="v-custom-item-class" value="" placeholder="my-card" class="full-width-input">
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <hr class="divider">
                 </div>
 
             </div>
@@ -269,24 +318,142 @@
                     <div class="tab-btn" data-tab="advanced">Расширенные настройки</div>
                 </div>
                  <div class="tab-content content-settings hidden">
-                    <hr class="divider">
-                    <div class="control-group">
-                        <label for="h-btn-general-text">Текст кнопки (общий для всех блоков):</label>
-                        <input type="text" id="h-btn-general-text" value="Подробнее">
+                    <div class="settings-groups-wrapper">
+                        <div class="control-group">
+                            <label for="h-btn-general-text">Текст кнопки (общий для всех блоков):</label>
+                            <input type="text" id="h-btn-general-text" value="Подробнее">
+                        </div>
                     </div>
-                    <hr class="divider">
                     <div id="h-content-fields-container" class="content-fields-wrapper">
                         
                     </div>
-                    <hr class="divider">
                 </div>
                 <div class="tab-content advanced-settings hidden">
-                    <hr class="divider">
-                    <div class="control-group">
-                        <label for="h-img-width">Ширина изображения в % (20-80):</label>
-                        <input type="number" id="h-img-width" min="20" max="80" value="50">
+                    <div class="settings-groups-wrapper">
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Расположение и отступы</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label for="h-img-width">Ширина изображения в % (20-80):</label>
+                                    <input type="number" id="h-img-width" min="20" max="80" value="50">
+                                </div>
+                                <div class="control-group">
+                                    <label>Расстояние между блоками (px):</label>
+                                    <input type="number" id="h-gap" min="0" max="100" value="30">
+                                </div>
+                                <div class="control-group">
+                                    <label>Внутренний отступ карточки (px):</label>
+                                    <input type="number" id="h-padding" min="0" max="50" value="20">
+                                </div>
+                                <div class="control-group">
+                                    <label>Скругление углов блока (px):</label>
+                                    <input type="number" id="h-radius" min="0" max="50" value="8">
+                                </div>
+                                <div class="control-group">
+                                    <label>Скругление картинки (px):</label>
+                                    <input type="number" id="h-img-radius" min="0" max="50" value="4">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Граница блока</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="h-has-border"> Включить границу</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет границы:</label>
+                                    <input type="color" id="h-border-color" value="#eeeeee">
+                                </div>
+                                <div class="control-group">
+                                    <label>Толщина границы (px):</label>
+                                    <input type="number" id="h-border-width" min="0" max="10" value="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Текст и заголовок</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Размер шрифта заголовка (px):</label>
+                                    <input type="number" id="h-title-font-size" min="12" max="48" value="20">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет заголовка:</label>
+                                    <input type="color" id="h-title-color" value="#333333">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта текста (px):</label>
+                                    <input type="number" id="h-text-font-size" min="10" max="24" value="16">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет текста:</label>
+                                    <input type="color" id="h-text-color" value="#666666">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Кнопка</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Цвет текста кнопки:</label>
+                                    <input type="color" id="h-btn-text-color" value="#ffffff">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет текста кнопки при наведении:</label>
+                                    <input type="color" id="h-btn-hover-text-color" value="#ffffff">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон кнопки:</label>
+                                    <input type="color" id="h-btn-color" value="#3498db">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон кнопки при наведении:</label>
+                                    <input type="color" id="h-btn-hover-color" value="#2980b9">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта кнопки (px):</label>
+                                    <input type="number" id="h-btn-font-size" min="10" max="24" value="16">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Тени</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="h-enable-shadow" checked> Включить тени</label>
+                                </div>      
+                                <div class="control-group shadow-input-group">
+                                    <label><input type="checkbox" id="h-has-shadow-always"> Постоянная тень (CSS-строка):</label>
+                                    <input type="text" id="h-shadow-always-value" value="0 2px 10px rgba(0,0,0,0.1)" class="full-width-input">
+                                </div>
+                                <div class="control-group shadow-input-group">
+                                    <label><input type="checkbox" id="h-has-shadow-hover"> Тень при наведении (CSS-строка):</label>
+                                    <input type="text" id="h-shadow-hover-value" class="full-width-input"> 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Кастомные CSS-классы</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label for="h-custom-wrapper-class">Кастомный класс обёртки:</label>
+                                    <input type="text" id="h-custom-wrapper-class" value="" placeholder="my-section my-section--rows" class="full-width-input">
+                                </div>
+                                <div class="control-group">
+                                    <label for="h-custom-item-class">Кастомный класс item:</label>
+                                    <input type="text" id="h-custom-item-class" value="" placeholder="my-row" class="full-width-input">
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <hr class="divider">
                 </div>
             </div>
         </div>
@@ -339,50 +506,139 @@
                     <div class="tab-btn" data-tab="advanced">Расширенные настройки</div>
                 </div>
                  <div class="tab-content content-settings hidden">
-                    <hr class="divider">
-                    <div class="control-group">
-                        <label for="o-btn-general-text">Текст кнопки (общий для всех блоков):</label>
-                    <input type="text" id="o-btn-general-text" value="Подробнее">
+                    <div class="settings-groups-wrapper">
+                        <div class="control-group">
+                            <label for="o-btn-general-text">Текст кнопки (общий для всех блоков):</label>
+                            <input type="text" id="o-btn-general-text" value="Подробнее">
+                        </div>
                     </div>
-                    <hr class="divider">
                     <div id="o-content-fields-container" class="content-fields-wrapper">
                         
                     </div>
-                    <hr class="divider">
                 </div>
                 <div class="tab-content advanced-settings hidden">
-                    <hr class="divider">
-                    <div class="control-group">
-                        <label>Соотношение сторон:</label>
-                        <select id="o-ratio">
-                            <option value="3/2">3:2 (Альбомное)</option>
-                            <option value="1/1">1:1 (Квадрат)</option>
-                            <option value="unset">Под контент</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <label>Выравнивание текста:</label>
-                        <select id="o-align">
-                            <option value="left">Слева</option>
-                            <option value="center">По центру</option>
-                            <option value="right">Справа</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <label>Вертикальное выравнивание:</label>
-                        <select id="o-valign">
-                            <option value="flex-start">Сверху</option>
-                            <option value="center">По центру</option>
-                            <option value="flex-end" selected>Снизу</option>
-                            <option value="stretch-bottom-button">Растянуть + кнопка внизу</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <label>Углы карточки:</label>
-                        <select id="o-radius">
-                            <option value="12px">Скругленные</option>
-                            <option value="0px">Прямые</option>
-                        </select>
+                    <div class="settings-groups-wrapper">
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Расположение и отступы</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Соотношение сторон:</label>
+                                    <select id="o-ratio">
+                                        <option value="3/2">3:2 (Альбомное)</option>
+                                        <option value="1/1">1:1 (Квадрат)</option>
+                                        <option value="unset">Под контент</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Выравнивание текста:</label>
+                                    <select id="o-align">
+                                        <option value="left">Слева</option>
+                                        <option value="center">По центру</option>
+                                        <option value="right">Справа</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Вертикальное выравнивание:</label>
+                                    <select id="o-valign">
+                                        <option value="flex-start">Сверху</option>
+                                        <option value="center">По центру</option>
+                                        <option value="flex-end" selected>Снизу</option>
+                                        <option value="stretch-bottom-button">Растянуть + кнопка внизу</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Углы карточки:</label>
+                                    <select id="o-radius">
+                                        <option value="12px">Скругленные</option>
+                                        <option value="0px">Прямые</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Текст и заголовок</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="o-bold-title" checked> Жирный шрифт заголовка</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта заголовка (px):</label>
+                                    <input type="number" id="o-title-font-size" min="12" max="48" value="24">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет заголовка:</label>
+                                    <input type="color" id="o-title-color" value="#ffffff">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта текста (px):</label>
+                                    <input type="number" id="o-text-font-size" min="10" max="24" value="16">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет текста:</label>
+                                    <input type="color" id="o-text-color" value="#ffffff">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Кнопка</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Цвет текста кнопки:</label>
+                                    <input type="color" id="o-btn-text-color" value="#000000">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет текста кнопки при наведении:</label>
+                                    <input type="color" id="o-btn-hover-text-color" value="#000000">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон кнопки:</label>
+                                    <input type="color" id="o-btn-color" value="#ffffff">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон кнопки при наведении:</label>
+                                    <input type="color" id="o-btn-hover-color" value="#f0f0f0">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта кнопки (px):</label>
+                                    <input type="number" id="o-btn-font-size" min="10" max="24" value="16">
+                                </div>
+                                <div class="control-group">
+                                    <label>Скругление углов кнопки (px):</label>
+                                    <input type="number" id="o-btn-radius" min="0" max="50" value="4">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Градиент (overlay)</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="o-enable-custom-gradient" checked> Включить кастомный градиент</label>
+                                </div>
+                                <div class="control-group full-width">
+                                    <label for="o-gradient-value">CSS-строка градиента:</label>
+                                    <input type="text" id="o-gradient-value" value="linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 100%)" class="full-width-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Кастомные CSS-классы</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label for="o-custom-wrapper-class">Кастомный класс обёртки:</label>
+                                    <input type="text" id="o-custom-wrapper-class" value="" placeholder="my-section my-section--overlay" class="full-width-input">
+                                </div>
+                                <div class="control-group">
+                                    <label for="o-custom-item-class">Кастомный класс item:</label>
+                                    <input type="text" id="o-custom-item-class" value="" placeholder="my-overlay-card" class="full-width-input">
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
