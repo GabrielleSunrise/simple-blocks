@@ -2,7 +2,7 @@ function createContentFieldsForBlock(index) {
     const blockNum = index + 1;
     const blockDiv = document.createElement('div');
     blockDiv.className = 'block-content-inputs';
-
+    
     blockDiv.innerHTML = `
         <h4>Контент для блока №${blockNum}</h4>
         <div class="control-group">
