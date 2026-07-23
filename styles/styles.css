@@ -272,19 +272,139 @@ textarea {
     margin: 0;
 }
 
+.settings-groups-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.settings-group {
+    background: #fafafa;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+
+.settings-group:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.settings-group-header {
+    background: #7a7a7a;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 8px 14px;
+    letter-spacing: 0.2px;
+}
+
+.settings-group-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    padding: 12px 14px;
+    align-items: flex-start;
+}
+
+.settings-group-body .control-group {
+    margin-bottom: 0;
+    flex: 0 1 auto;
+    min-width: 200px;
+}
+
+.settings-group-body .control-group.full-width {
+    flex: 1 1 100%;
+}
+
+.settings-group-body input[type="number"],
+.settings-group-body input[type="text"],
+.settings-group-body select {
+    background: #fff;
+    border-color: #ddd;
+    max-width: 240px;
+}
+
+.settings-group-body input[type="color"] {
+    width: 50px;
+}
+
+.settings-group-body input[type="number"]:focus,
+.settings-group-body input[type="text"]:focus,
+.settings-group-body select:focus {
+    border-color: #7e5daf;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(126, 93, 175, 0.15);
+}
+
 .content-fields-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     width: 100%;
     gap: 20px;
 }
 
-.content-fields-wrapper h4 {
-    margin: 8px 0;
+.block-content-inputs {
+    background: #fafafa;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
 }
 
-.content-fields-wrapper textarea {
-    height: 100px;
+.block-content-inputs:hover {
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+.block-content-inputs h4 {
+    margin: 0;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #7a7a7a;
+    border-bottom: none;
+}
+
+.block-content-inputs > .control-group {
+    padding: 8px 14px 4px;
+}
+
+.block-content-inputs > .control-group:last-child {
+    padding-bottom: 12px;
+}
+
+.block-content-inputs .control-group label {
+    font-weight: 600;
+    color: #444;
+    font-size: 12.5px;
+}
+
+.block-content-inputs input[type="text"],
+.block-content-inputs textarea {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.block-content-inputs input[type="text"]:focus,
+.block-content-inputs textarea:focus {
+    border-color: #7e5daf;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(126, 93, 175, 0.15);
+}
+
+.block-content-inputs input[type="text"],
+.block-content-inputs textarea {
+    color: #333;
+}
+
+.block-content-inputs textarea {
+    height: 70px;
+    resize: vertical;
+    font-family: inherit;
 }
 
 @media (max-width: 768px) {
@@ -304,5 +424,17 @@ textarea {
     }
     .menu-item-title {
         font-size: 20px;
+    }
+    .settings-group-body {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .settings-group-body .control-group {
+        min-width: 100%;
+    }
+    .settings-group-body input[type="number"],
+    .settings-group-body input[type="text"],
+    .settings-group-body select {
+        max-width: none;
     }
 }
