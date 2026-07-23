@@ -77,14 +77,32 @@ function generateHorizontal(buttonElement) {
     }
 
     const horizontalSettingNames = [
-        'count', 'link', 'reverse', 'title', 'text', 'btn', 'img-width'
+        'count', 'link', 'reverse', 'title', 'text', 'btn', 'img-width',
+        'gap', 'radius', 'padding', 'has-border', 'border-color', 'border-width',
+        'title-font-size', 'text-font-size', 'btn-font-size', 'btn-color', 
+        'btn-hover-color', 'btn-text-color', 'btn-hover-text-color',
+        'title-color', 'text-color', 'img-radius', 'enable-shadow',
+        'has-shadow-always', 'shadow-always-value',
+        'has-shadow-hover', 'shadow-hover-value',
+        'custom-wrapper-class', 'custom-item-class'
     ];
     const settings = getSettings('h', horizontalSettingNames);
 
     const {
-        count, link: linkType, reverse: startReverse,
-        title: hasTitle, text: hasText, btn: hasBtn,
-        'img-width': imgWidth
+        count, link: linkType, reverse: startReverse, title: hasTitle, text: hasText, 
+        btn: hasBtn, 'img-width': imgWidth, gap, radius, padding,
+        'has-border': hasBorder, 'border-color': borderColor, 'border-width': borderWidth,
+        'title-font-size': titleFS, 'text-font-size': textFS, 'btn-font-size': btnFS,
+        'btn-color': btnColor, 'btn-hover-color': btnHoverColor,
+        'btn-text-color': btnTextColor, 'btn-hover-text-color': btnHoverTextColor,
+        'title-color': titleColor, 'text-color': textColor,
+        'img-radius': imgRadius, 'enable-shadow': enableShadow,
+        'has-shadow-always': hasShadowAlways,
+        'shadow-always-value': shadowAlwaysValue,
+        'has-shadow-hover': hasShadowHover,
+        'shadow-hover-value': shadowHoverValue,
+        'custom-wrapper-class': customWrapperClass,
+        'custom-item-class': customItemClass
     } = settings;
 
     const generalBtnText = document.getElementById('h-btn-general-text').value;
@@ -106,77 +124,94 @@ function generateHorizontal(buttonElement) {
         });
     }
 
-    const contentWidth = 100 - parseInt(imgWidth, 10);
+    let borderPropertyCss = '';
+    if (hasBorder) {
+        borderPropertyCss = `\n    border: ${borderWidth}px solid ${borderColor};`;
+    }
+
+    let shadowAlwaysCss = '';
+    let shadowHoverCss = '';
+
+    if (enableShadow) {
+        if (hasShadowAlways && shadowAlwaysValue.trim()) {
+            shadowAlwaysCss = `\n    box-shadow: ${shadowAlwaysValue.trim()};`;
+        }
+
+        if (hasShadowHover) {
+            let finalHoverShadowValue = shadowHoverValue.trim();
+
+            if (!finalHoverShadowValue && linkType === 'block') {
+                finalHoverShadowValue = DEFAULT_HOVER_SHADOW_VALUE;
+            }
+
+            if (finalHoverShadowValue) {
+                shadowHoverCss = `\n.custom-card-row:hover { \n    box-shadow: ${finalHoverShadowValue}; \n    transition: box-shadow 0.2s; \n}\n`;
+            }
+        }
+    }
+
+    let linkStylesCss = '';
+    if (linkType === 'block') {
+        linkStylesCss = `\na.custom-card-row { \n    text-decoration: none; \n    color: inherit; \n}`;
+    } else if (linkType === 'button') {
+        linkStylesCss = `\na.custom-card-row-btn-link { \n    text-decoration: none; \n    color: inherit; \n}`;
+    }
 
     let css = `.h-container {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: ${gap}px;
     padding: 20px 0;
 }
 .custom-card-row {
     display: flex;
     align-items: center;
     gap: 30px;
-    padding: 20px;
+    padding: ${padding}px;
     background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
+    border-radius: ${radius}px;
     box-sizing: border-box;
     width: 100%;
-    transition: 0.2s;
+    transition: 0.2s;${borderPropertyCss}${shadowAlwaysCss}
 }
-a.custom-card-row:hover {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-.custom-card-row.reverse {
+${shadowHoverCss}.custom-card-row.reverse {
     flex-direction: row-reverse;
+}
+.custom-card-row-img {
+    flex: 0 0 ${imgWidth}%;
+    width: ${imgWidth}%;
+    border-radius: ${imgRadius}px;
+    aspect-ratio: 3/2;
+    object-fit: cover;
 }
 .custom-card-row-content {
     flex-grow: 1;
 }
-.custom-card-row .custom-card-row-img {
-    margin-bottom: 0;
-    flex: 0 0 ${imgWidth}%;
-    width: ${imgWidth}%;
-}
-.custom-card-row-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    margin-bottom: 15px;
-    border-radius: 4px;
-    aspect-ratio: 3/2;
-    object-fit: cover;
-}
 .custom-card-row-title {
-    font-size: 1.25rem;
-    margin: 0 0 10px 0;
-    color: #333;
+    font-size: ${titleFS}px;
+    color: ${titleColor};
+    margin-bottom: 10px;
     font-weight: 600;
 }
 .custom-card-row-text {
-    font-size: 1rem;
+    font-size: ${textFS}px;
+    color: ${textColor};
     margin-bottom: 15px;
-    color: #666;
 }
 .custom-card-row-btn {
     display: inline-block;
     padding: 10px 20px;
-    background: #3498db;
-    color: #fff;
-    text-decoration: none;
+    background: ${btnColor};
+    color: ${btnTextColor};
+    font-size: ${btnFS}px;
     border-radius: 4px;
-    border: none;
-    text-align: center;
+    text-decoration: none;
+    transition: 0.2s;
 }
 .custom-card-row-btn:hover {
-    background: #2980b9;
-}
-a.custom-card-row, a.custom-card-row-btn-link {
-    text-decoration: none;
-    color: inherit;
-}
+    background: ${btnHoverColor};
+    color: ${btnHoverTextColor};
+}${linkStylesCss}
 
 @media (max-width: 768px) {
     .custom-card-row {
@@ -193,7 +228,9 @@ a.custom-card-row, a.custom-card-row-btn-link {
     }
 }`;
 
-    let html = `<div class="h-container">\n`;
+    const wrapperClass = appendCustomClass('h-container', customWrapperClass);
+
+    let html = `<div class="${wrapperClass}">\n`;
     for (let i = 0; i < count; i++) {
         const blockData = blocksContent[i];
 
@@ -211,7 +248,8 @@ a.custom-card-row, a.custom-card-row-btn-link {
         }
 
         const reverseClass = isReversedBlock ? ' reverse' : '';
-        html += `  <${tag}${attr} class="custom-card-row${reverseClass}">\n`;
+        const itemClass = appendCustomClass(`custom-card-row${reverseClass}`, customItemClass);
+        html += `  <${tag}${attr} class="${itemClass}">\n`;
 
         let finalAlt = '';
         if (blockData.altText !== '') {
@@ -246,6 +284,7 @@ a.custom-card-row, a.custom-card-row-btn-link {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    setupShadowToggles('h');
     updateHorizontalContentFields();
     document.getElementById('h-count').addEventListener('blur', updateHorizontalContentFields);
 });
