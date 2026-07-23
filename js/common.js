@@ -49,6 +49,16 @@ function getSettings(prefix, settingNames) {
     return settings;
 }
 
+function sanitizeCustomClasses(value) {
+    return (value || '').trim().replace(/[^\w\s-]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function appendCustomClass(baseClasses, customClass) {
+    const sanitized = sanitizeCustomClasses(customClass);
+    if (!sanitized) return baseClasses;
+    return `${baseClasses} ${sanitized}`;
+}
+
 function copyToClipboard(elementId, btn) {
     const textArea = document.getElementById(elementId);
     
@@ -69,6 +79,7 @@ function copyToClipboard(elementId, btn) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+
     document.addEventListener('click', (e) => {
         if (!e.target.classList.contains('tab-btn')) return;
 
