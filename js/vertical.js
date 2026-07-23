@@ -80,7 +80,8 @@ function generateVertical(buttonElement) {
         'gap', 'align', 'flex-align', 'wide-btn', 'title-font-size', 'text-font-size', 'padding', 'radius',
         'has-border', 'border-color', 'border-width', 'border-style', 'btn-font-size', 'btn-color', 'btn-hover-color', 'btn-text-color', 'btn-hover-text-color', 'bold-btn', 'btn-radius', 'img-aspect-ratio', 'img-radius', 'img-margin', 'title-color', 'title-margin', 'bold-title', 'text-color', 'text-margin', 'enable-shadow',
         'has-shadow-always', 'shadow-always-value',
-        'has-shadow-hover', 'shadow-hover-value'
+        'has-shadow-hover', 'shadow-hover-value',
+        'custom-wrapper-class', 'custom-item-class'
     ];
 
     const settings = getSettings('v', verticalSettingNames);
@@ -115,7 +116,9 @@ function generateVertical(buttonElement) {
         'has-shadow-always': hasShadowAlways,
         'shadow-always-value': shadowAlwaysValue,
         'has-shadow-hover': hasShadowHover,
-        'shadow-hover-value': shadowHoverValue 
+        'shadow-hover-value': shadowHoverValue,
+        'custom-wrapper-class': customWrapperClass,
+        'custom-item-class': customItemClass
     } = settings;
 
     const generalBtnText = document.getElementById('v-btn-general-text').value;
@@ -186,7 +189,10 @@ function generateVertical(buttonElement) {
         linkStylesCss = `\na.custom-card-btn-link { \n    text-decoration: none; \n    color: inherit;${btnLinkExtra}\n}`;
     }
 
-    let html = `<div class="v-container">\n`;
+    const wrapperClass = appendCustomClass('v-container', customWrapperClass);
+    const itemClass = appendCustomClass('custom-card-item', customItemClass);
+
+    let html = `<div class="${wrapperClass}">\n`;
     for (let i = 0; i < count; i++) {
         const blockData = blocksContent[i];
         const tag = link === 'block' ? 'a' : 'div';
@@ -199,7 +205,7 @@ function generateVertical(buttonElement) {
             finalAlt = blockData.titleText;
         }
 
-        html += `  <${tag}${attr} class="custom-card-item">\n`;
+        html += `  <${tag}${attr} class="${itemClass}">\n`;
 
         if (hasImg) html += `    <img src="${blockData.imgSrc}" alt="${finalAlt}" class="custom-card-img">\n`;
         if (hasTitle) html += `    <div class="custom-card-title">${blockData.titleText}</div>\n`;
