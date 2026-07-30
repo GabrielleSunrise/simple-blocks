@@ -69,10 +69,10 @@ function updateHorizontalContentFields() {
     }
 }
 
-function generateHorizontal(buttonElement) {
-    const currentSection = buttonElement.closest('.section');
+function generateHorizontal() {
+    const currentSection = document.getElementById('horizontal-section');
     if (!currentSection) {
-        console.error('Parent section not found for the button.');
+        console.error('Section "horizontal-section" not found.');
         return;
     }
 
@@ -217,7 +217,6 @@ ${shadowHoverCss}.custom-card-row.reverse {
     .custom-card-row {
         flex-direction: column;
         align-items: flex-start;
-        padding: 0;
     }
     .custom-card-row.reverse {
         flex-direction: column-reverse;
@@ -291,18 +290,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (countInput) {
         countInput.addEventListener('change', () => {
             updateHorizontalContentFields();
-            generateHorizontal(document.querySelector('#horizontal-section button'));
+            generateHorizontal();
         });
         countInput.addEventListener('blur', () => {
             updateHorizontalContentFields();
-            generateHorizontal(document.querySelector('#horizontal-section button'));
+            generateHorizontal();
         });
     }
 
-    setupLivePreview('horizontal-section', () => generateHorizontal(document.querySelector('#horizontal-section button')));
+    setupLivePreview('horizontal-section', () => generateHorizontal());
 
     setTimeout(() => {
-        const btn = document.querySelector('#horizontal-section button');
-        if(btn) generateHorizontal(btn);
+        generateHorizontal();
     }, 100);
 });

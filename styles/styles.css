@@ -12,6 +12,10 @@ h1, h2 {
 }
 h1 {
     margin-bottom: 40px;
+    text-align: center;
+}
+h2 {
+    margin-top: 0;
 }
 .section {
     background: #fff;
@@ -210,9 +214,16 @@ textarea {
 }
 .live-demo-wrapper {
     margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #f9f9f9;
+    border: 2px dashed #7e5daf;
+    border-radius: 8px;
 }
 .live-demo-wrapper h3 {
+    margin-top: 0;
     margin-bottom: 0;
+    color: #7e5daf;
 }
 
 .advanced-settings, 
@@ -413,6 +424,68 @@ textarea {
     font-family: inherit;
 }
 
+.sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: #7e5daf;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.sticky-nav.visible {
+    display: flex;
+}
+
+.sticky-nav .nav-link,
+.sticky-nav .nav-back {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 4px;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.sticky-nav .nav-link:hover,
+.sticky-nav .nav-back:hover {
+    background: rgba(255,255,255,0.2);
+    text-decoration: none;
+}
+
+.sticky-nav .nav-separator {
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+}
+
+.main-text-field {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    line-height: 1.7;
+    color: #222;
+    font-size: 16px;
+    text-align: center;  
+}
+
+.main-text-content {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 @media (max-width: 768px) {
     .outputs { 
         flex-direction: column;
@@ -442,5 +515,14 @@ textarea {
     .settings-group-body input[type="text"],
     .settings-group-body select {
         max-width: none;
+    }
+    .sticky-nav {
+        gap: 6px;
+        padding: 8px 10px;
+    }
+    .sticky-nav .nav-link,
+    .sticky-nav .nav-back {
+        font-size: 12px;
+        padding: 3px 6px;
     }
 }

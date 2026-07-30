@@ -63,10 +63,10 @@ function updateOverlayContentFields() {
     }
 }
 
-function generateOverlayCards(buttonElement) {
-    const currentSection = buttonElement.closest('.section');
+function generateOverlayCards() {
+    const currentSection = document.getElementById('overlay-section');
     if (!currentSection) {
-        console.error('Parent section not found for the button.');
+        console.error('Section "overlay-section" not found.');
         return;
     }
 
@@ -321,18 +321,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (countInput) {
         countInput.addEventListener('change', () => {
             updateOverlayContentFields();
-            generateOverlayCards(document.querySelector('#overlay-section button'));
+            generateOverlayCards();
         });
         countInput.addEventListener('blur', () => {
             updateOverlayContentFields();
-            generateOverlayCards(document.querySelector('#overlay-section button'));
+            generateOverlayCards();
         });
     }
 
-    setupLivePreview('overlay-section', () => generateOverlayCards(document.querySelector('#overlay-section button')));
+    setupLivePreview('overlay-section', () => generateOverlayCards());
 
     setTimeout(() => {
-        const btn = document.querySelector('#overlay-section button');
-        if(btn) generateOverlayCards(btn);
+        generateOverlayCards();
     }, 100);
 });

@@ -29,7 +29,7 @@ function updateLiveDemoPreview(currentSection, css, html) {
     demoContainer.innerHTML = html;
     liveDemoSection.appendChild(demoContainer);
 
-    currentSection.insertBefore(liveDemoSection, outputsDiv.nextSibling);
+    currentSection.insertBefore(liveDemoSection, outputsDiv);
 }     
 
 function getSettings(prefix, settingNames) {
@@ -94,7 +94,67 @@ function setupLivePreview(sectionId, generateFunction) {
     });
 }
 
+function setupStickyNav() {
+    const stickyNav = document.getElementById('sticky-nav');
+    if (!stickyNav) return;
+
+    const menu = document.getElementById('menu');
+    const sections = document.querySelectorAll('.section');
+
+    function updateStickyNavVisibility() {
+        const anySectionVisible = Array.from(sections).some(s => s.style.display === 'block');
+        if (anySectionVisible) {
+            stickyNav.classList.add('visible');
+        } else {
+            stickyNav.classList.remove('visible');
+        }
+    }
+
+    const observer = new MutationObserver(() => updateStickyNavVisibility());
+    sections.forEach(s => observer.observe(s, { attributes: true, attributeFilter: ['style'] }));
+    updateStickyNavVisibility();
+
+    document.getElementById('nav-back')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector('.back-to-menu')?.click();
+    });
+
+    document.getElementById('nav-settings')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        const visibleSection = Array.from(sections).find(s => s.style.display === 'block');
+        if (visibleSection) {
+            const controls = visibleSection.querySelector('.controls');
+            if (controls) controls.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+
+    document.getElementById('nav-preview')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        const visibleSection = Array.from(sections).find(s => s.style.display === 'block');
+        if (visibleSection) {
+            const demo = visibleSection.querySelector('.live-demo-wrapper');
+            if (demo) demo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+
+    document.getElementById('nav-code')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        const visibleSection = Array.from(sections).find(s => s.style.display === 'block');
+        if (visibleSection) {
+            const outputs = visibleSection.querySelector('.outputs');
+            if (outputs) outputs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+
+    document.getElementById('nav-top')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+
+    setupStickyNav();
 
     document.addEventListener('click', (e) => {
         if (!e.target.classList.contains('tab-btn')) return;
@@ -116,6 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const menu = document.getElementById('menu');
+    const mainTextField = document.getElementById('main-text-field');
     const menuLinks = document.querySelectorAll('.menu-item > a'); 
     const sections = document.querySelectorAll('.section');
     const backToMenuButtons = document.querySelectorAll('.back-to-menu');
@@ -128,10 +189,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showMenu() {
         menu.style.display = 'flex';
+        if (mainTextField) mainTextField.style.display = 'block';
     }
 
     function hideMenu() {
         menu.style.display = 'none';
+        if (mainTextField) mainTextField.style.display = 'none';
     }
 
     function showMenuAndClearHash() {

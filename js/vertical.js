@@ -68,10 +68,10 @@ function updateVerticalContentFields() {
     }
 }
 
-function generateVertical(buttonElement) {
-    const currentSection = buttonElement.closest('.section');
+function generateVertical() {
+    const currentSection = document.getElementById('vertical-section');
     if (!currentSection) {
-        console.error('Parent section not found for the button.');
+        console.error('Section "vertical-section" not found.');
         return;
     }
 
@@ -306,18 +306,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (countInput) {
         countInput.addEventListener('change', () => {
             updateVerticalContentFields();
-            generateVertical(document.querySelector('#vertical-section button'));
+            generateVertical();
         });
         countInput.addEventListener('blur', () => {
             updateVerticalContentFields();
-            generateVertical(document.querySelector('#vertical-section button'));
+            generateVertical();
         });
     }
 
-    setupLivePreview('vertical-section', () => generateVertical(document.querySelector('#vertical-section button')));
+    setupLivePreview('vertical-section', () => generateVertical());
     
     setTimeout(() => {
-        const btn = document.querySelector('#vertical-section button');
-        if(btn) generateVertical(btn);
+        generateVertical();
     }, 100);
 });
