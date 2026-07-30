@@ -2,7 +2,7 @@ function createContentFieldsForOverlayBlock(index) {
     const blockNum = index + 1;
     const blockDiv = document.createElement('div');
     blockDiv.className = 'block-content-inputs';
-    
+
     blockDiv.innerHTML = `
         <h4>Контент для карточки №${blockNum}</h4>
         <div class="control-group">
@@ -316,5 +316,23 @@ ${buttonSpecificCss}
 
 document.addEventListener('DOMContentLoaded', () => {
     updateOverlayContentFields();
-    document.getElementById('o-count').addEventListener('blur', updateOverlayContentFields);
+    
+    const countInput = document.getElementById('o-count');
+    if (countInput) {
+        countInput.addEventListener('change', () => {
+            updateOverlayContentFields();
+            generateOverlayCards(document.querySelector('#overlay-section button'));
+        });
+        countInput.addEventListener('blur', () => {
+            updateOverlayContentFields();
+            generateOverlayCards(document.querySelector('#overlay-section button'));
+        });
+    }
+
+    setupLivePreview('overlay-section', () => generateOverlayCards(document.querySelector('#overlay-section button')));
+
+    setTimeout(() => {
+        const btn = document.querySelector('#overlay-section button');
+        if(btn) generateOverlayCards(btn);
+    }, 100);
 });

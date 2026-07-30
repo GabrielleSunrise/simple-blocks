@@ -2,7 +2,7 @@ function createContentFieldsForHorizontalBlock(index) {
     const blockNum = index + 1;
     const blockDiv = document.createElement('div');
     blockDiv.className = 'block-content-inputs';
-    
+
     blockDiv.innerHTML = `
         <h4>Контент для горизонтального блока №${blockNum}</h4>
         <div class="control-group">
@@ -286,5 +286,23 @@ ${shadowHoverCss}.custom-card-row.reverse {
 document.addEventListener('DOMContentLoaded', () => {
     setupShadowToggles('h');
     updateHorizontalContentFields();
-    document.getElementById('h-count').addEventListener('blur', updateHorizontalContentFields);
+    
+    const countInput = document.getElementById('h-count');
+    if (countInput) {
+        countInput.addEventListener('change', () => {
+            updateHorizontalContentFields();
+            generateHorizontal(document.querySelector('#horizontal-section button'));
+        });
+        countInput.addEventListener('blur', () => {
+            updateHorizontalContentFields();
+            generateHorizontal(document.querySelector('#horizontal-section button'));
+        });
+    }
+
+    setupLivePreview('horizontal-section', () => generateHorizontal(document.querySelector('#horizontal-section button')));
+
+    setTimeout(() => {
+        const btn = document.querySelector('#horizontal-section button');
+        if(btn) generateHorizontal(btn);
+    }, 100);
 });

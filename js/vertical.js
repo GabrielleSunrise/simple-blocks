@@ -2,7 +2,7 @@ function createContentFieldsForBlock(index) {
     const blockNum = index + 1;
     const blockDiv = document.createElement('div');
     blockDiv.className = 'block-content-inputs';
-    
+
     blockDiv.innerHTML = `
         <h4>Контент для блока №${blockNum}</h4>
         <div class="control-group">
@@ -301,5 +301,23 @@ ${shadowHoverCss}
 document.addEventListener('DOMContentLoaded', () => {
     setupShadowToggles('v');
     updateVerticalContentFields();
-    document.getElementById('v-count').addEventListener('blur', updateVerticalContentFields);
+    
+    const countInput = document.getElementById('v-count');
+    if (countInput) {
+        countInput.addEventListener('change', () => {
+            updateVerticalContentFields();
+            generateVertical(document.querySelector('#vertical-section button'));
+        });
+        countInput.addEventListener('blur', () => {
+            updateVerticalContentFields();
+            generateVertical(document.querySelector('#vertical-section button'));
+        });
+    }
+
+    setupLivePreview('vertical-section', () => generateVertical(document.querySelector('#vertical-section button')));
+    
+    setTimeout(() => {
+        const btn = document.querySelector('#vertical-section button');
+        if(btn) generateVertical(btn);
+    }, 100);
 });

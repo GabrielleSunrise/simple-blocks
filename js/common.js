@@ -78,6 +78,22 @@ function copyToClipboard(elementId, btn) {
     });
 }
 
+function setupLivePreview(sectionId, generateFunction) {
+    const section = document.getElementById(sectionId);
+    if (!section) return;
+
+    section.addEventListener('input', (e) => {
+        if (e.target.type !== 'checkbox' && e.target.type !== 'radio' && e.target.type !== 'color' && !e.target.id.includes('count')) {
+            generateFunction();
+        }
+    });
+    section.addEventListener('change', (e) => {
+        if (e.target.type === 'checkbox' || e.target.type === 'color' || e.target.tagName === 'SELECT') {
+            generateFunction();
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('click', (e) => {

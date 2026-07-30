@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles/styles.css"> 
 </head>
 <body>
-    
+
     <h1>Генератор стандартных блоков</h1>
 
     <nav id="menu" class="sections-menu">
@@ -24,10 +24,16 @@
                 Горизонтальные блоки<br>«картинка + блок с контентом»
             </div>
         </a>
-        <a class="menu-item" href="#overlay-section">
+                <a class="menu-item" href="#overlay-section">
             <div class="menu-item-icon overlay"></div>
             <div class="menu-item-title">
                 Карточки с контентом поверх изображения, в ряд
+            </div>
+        </a>
+        <a class="menu-item" href="#faq-section">
+            <div class="menu-item-icon faq"></div>
+            <div class="menu-item-title">
+                Аккордеон / FAQ<br>(Часто задаваемые вопросы)
             </div>
         </a>
     </nav>
@@ -60,10 +66,10 @@
 
             <div class="settings-tabs-container">
                 <div class="tabs-header">
-                    <div class="tab-btn" data-tab="content">Контент блоков</div>
-                    <div class="tab-btn" data-tab="advanced">Расширенные настройки</div>
+                    <div class="tab-btn active" data-tab="content">Настройки контента</div>
+                    <div class="tab-btn" data-tab="advanced">Настройки дизайна</div>
                 </div>
-                <div class="tab-content content-settings hidden">
+                <div class="tab-content content-settings">
                     <div class="settings-groups-wrapper">
                         <div class="control-group">
                             <label for="v-btn-general-text">Текст кнопки (общий для всех блоков):</label>
@@ -314,10 +320,10 @@
 
             <div class="settings-tabs-container">
                 <div class="tabs-header">
-                    <div class="tab-btn" data-tab="content">Контент блоков</div>
-                    <div class="tab-btn" data-tab="advanced">Расширенные настройки</div>
+                    <div class="tab-btn active" data-tab="content">Настройки контента</div>
+                    <div class="tab-btn" data-tab="advanced">Настройки дизайна</div>
                 </div>
-                 <div class="tab-content content-settings hidden">
+                 <div class="tab-content content-settings">
                     <div class="settings-groups-wrapper">
                         <div class="control-group">
                             <label for="h-btn-general-text">Текст кнопки (общий для всех блоков):</label>
@@ -502,10 +508,10 @@
 
             <div class="settings-tabs-container">
                 <div class="tabs-header">
-                    <div class="tab-btn" data-tab="content">Контент блоков</div>
-                    <div class="tab-btn" data-tab="advanced">Расширенные настройки</div>
+                    <div class="tab-btn active" data-tab="content">Настройки контента</div>
+                    <div class="tab-btn" data-tab="advanced">Настройки дизайна</div>
                 </div>
-                 <div class="tab-content content-settings hidden">
+                 <div class="tab-content content-settings">
                     <div class="settings-groups-wrapper">
                         <div class="control-group">
                             <label for="o-btn-general-text">Текст кнопки (общий для всех блоков):</label>
@@ -663,9 +669,153 @@
         </div>
     </div>
 
+        <div class="section" id="faq-section">
+        <div class="back-to-menu">Выбрать другой тип блоков</div>
+        <h2>Аккордеон / FAQ (Часто задаваемые вопросы)</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>Количество вопросов (1-20):</label>
+                <input type="number" id="f-count" min="1" max="20" value="3" class="js-number-validate">
+            </div>
+
+            <div class="settings-tabs-container">
+                <div class="tabs-header">
+                    <div class="tab-btn active" data-tab="content">Настройки контента</div>
+                    <div class="tab-btn" data-tab="advanced">Настройки дизайна</div>
+                </div>
+                <div class="tab-content content-settings">
+                    <div id="f-content-fields-container" class="content-fields-wrapper">
+
+                    </div>
+                </div>
+                <div class="tab-content advanced-settings hidden">
+                    <div class="settings-groups-wrapper">
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Отступы и фон</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Расстояние между блоками (px):</label>
+                                    <input type="number" id="f-gap" min="0" max="50" value="10">
+                                </div>
+                                <div class="control-group">
+                                    <label>Внутренний отступ (px):</label>
+                                    <input type="number" id="f-padding" min="0" max="50" value="20">
+                                </div>
+                                <div class="control-group">
+                                    <label>Скругление углов (px):</label>
+                                    <input type="number" id="f-radius" min="0" max="50" value="8">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон вопроса:</label>
+                                    <input type="color" id="f-title-bg-color" value="#f9f9f9">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон вопроса при наведении:</label>
+                                    <input type="color" id="f-title-hover-bg-color" value="#f0f0f0">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон ответа:</label>
+                                    <input type="color" id="f-content-bg-color" value="#ffffff">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Граница</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="f-has-border" checked> Включить границу</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Толщина границы (px):</label>
+                                    <input type="number" id="f-border-width" min="0" max="10" value="1">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет границы:</label>
+                                    <input type="color" id="f-border-color" value="#eeeeee">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Шрифт и иконка</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="f-bold-title" checked> Жирный шрифт вопроса</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта вопроса (px):</label>
+                                    <input type="number" id="f-title-font-size" min="12" max="36" value="18">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет шрифта вопроса:</label>
+                                    <input type="color" id="f-title-color" value="#333333">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта ответа (px):</label>
+                                    <input type="number" id="f-text-font-size" min="10" max="24" value="15">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет шрифта ответа:</label>
+                                    <input type="color" id="f-text-color" value="#666666">
+                                </div>
+                                <div class="control-group">
+                                    <label>Тип иконки:</label>
+                                    <select id="f-icon-type">
+                                        <option value="plus" selected>Плюс / Минус</option>
+                                        <option value="chevron">Стрелочка</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет иконки:</label>
+                                    <input type="color" id="f-icon-color" value="#7e5daf">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Кастомные классы</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Кастомный класс обёртки:</label>
+                                    <input type="text" id="f-custom-wrapper-class" placeholder="my-faq">
+                                </div>
+                                <div class="control-group">
+                                    <label>Кастомный класс вопроса:</label>
+                                    <input type="text" id="f-custom-item-class" placeholder="my-faq-item">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <button onclick="generateFaq();">Применить и генерировать</button>
+        
+        <div class="outputs">
+            <div class="output-box">
+                <div class="output-label">CSS
+                    <button class="copy-btn" onclick="copyToClipboard('f-css', this)">Копировать</button>
+                </div>
+                <textarea id="f-css" readonly></textarea>
+            </div>
+            <div class="output-box">
+                <div class="output-label">HTML
+                    <button class="copy-btn" onclick="copyToClipboard('f-html', this)">Копировать</button>
+                </div>
+                <textarea id="f-html" readonly></textarea>
+            </div>
+        </div>
+    </div>
+
     <script src="js/common.js"></script>
     <script src="js/vertical.js"></script>
     <script src="js/horizontal.js"></script>
     <script src="js/overlay.js"></script>
+    <script src="js/faq.js"></script>
 </body>
 </html>

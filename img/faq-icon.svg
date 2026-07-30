@@ -1,0 +1,25 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="4" width="40" height="10" rx="2" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="0.7"/>
+    <rect x="7" y="7" width="24" height="2.5" fill="#999999"/>
+    <rect x="7" y="10.5" width="16" height="1.5" fill="#BBBBBB"/>
+    <g stroke="#87CEEB" stroke-width="1" stroke-linecap="round">
+        <line x1="37" y1="9" x2="41" y2="9"/>
+        <line x1="39" y1="7" x2="39" y2="11"/>
+    </g>
+
+    <rect x="4" y="18" width="40" height="10" rx="2" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="0.7"/>
+    <rect x="7" y="21" width="24" height="2.5" fill="#999999"/>
+    <rect x="7" y="24.5" width="16" height="1.5" fill="#BBBBBB"/>
+    <g stroke="#87CEEB" stroke-width="1" stroke-linecap="round">
+        <line x1="37" y1="23" x2="41" y2="23"/>
+        <line x1="39" y1="21" x2="39" y2="25"/>
+    </g>
+
+    <rect x="4" y="32" width="40" height="10" rx="2" fill="#FFFFFF" stroke="#CCCCCC" stroke-width="0.7"/>
+    <rect x="7" y="35" width="24" height="2.5" fill="#999999"/>
+    <rect x="7" y="38.5" width="16" height="1.5" fill="#BBBBBB"/>
+    <g stroke="#87CEEB" stroke-width="1" stroke-linecap="round">
+        <line x1="37" y1="37" x2="41" y2="37"/>
+        <line x1="39" y1="35" x2="39" y2="39"/>
+    </g>
+</svg>
