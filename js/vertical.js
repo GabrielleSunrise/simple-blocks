@@ -81,7 +81,9 @@ function generateVertical() {
         'has-border', 'border-color', 'border-width', 'border-style', 'btn-font-size', 'btn-color', 'btn-hover-color', 'btn-text-color', 'btn-hover-text-color', 'bold-btn', 'btn-radius', 'img-aspect-ratio', 'img-radius', 'img-margin', 'title-color', 'title-margin', 'bold-title', 'text-color', 'text-margin', 'enable-shadow',
         'has-shadow-always', 'shadow-always-value',
         'has-shadow-hover', 'shadow-hover-value',
-        'custom-wrapper-class', 'custom-item-class'
+        'custom-wrapper-class', 'custom-item-class',
+        'bg-color',
+        'mobile-padding', 'mobile-gap', 'mobile-title-font-size', 'mobile-text-font-size', 'mobile-btn-font-size'
     ];
 
     const settings = getSettings('v', verticalSettingNames);
@@ -118,7 +120,13 @@ function generateVertical() {
         'has-shadow-hover': hasShadowHover,
         'shadow-hover-value': shadowHoverValue,
         'custom-wrapper-class': customWrapperClass,
-        'custom-item-class': customItemClass
+        'custom-item-class': customItemClass,
+        'bg-color': bgColor,
+        'mobile-padding': mobilePadding,
+        'mobile-gap': mobileGap,
+        'mobile-title-font-size': mobileTitleFontSize,
+        'mobile-text-font-size': mobileTextFontSize,
+        'mobile-btn-font-size': mobileBtnFontSize
     } = settings;
 
     const generalBtnText = document.getElementById('v-btn-general-text').value;
@@ -234,7 +242,7 @@ function generateVertical() {
     border-radius: ${radius}px;
     display: flex;
     flex-direction: column;
-    background: #fff;
+    background: ${bgColor};
     transition: 0.2s;
     text-align: ${align};
     align-items: ${flexAlign};
@@ -289,6 +297,19 @@ ${shadowHoverCss}
 @media (max-width: 768px) {
     .custom-card-item { 
         flex: 1 1 100%; 
+        padding: ${mobilePadding}px;
+    }
+    .v-container {
+        gap: ${mobileGap}px;
+    }
+    .custom-card-title { 
+        font-size: ${mobileTitleFontSize}px; 
+    }
+    .custom-card-text { 
+        font-size: ${mobileTextFontSize}px; 
+    }
+    .custom-card-btn { 
+        font-size: ${mobileBtnFontSize}px; 
     }
 }`;
 

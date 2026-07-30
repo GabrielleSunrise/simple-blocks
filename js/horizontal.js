@@ -84,7 +84,9 @@ function generateHorizontal() {
         'title-color', 'text-color', 'img-radius', 'enable-shadow',
         'has-shadow-always', 'shadow-always-value',
         'has-shadow-hover', 'shadow-hover-value',
-        'custom-wrapper-class', 'custom-item-class'
+        'custom-wrapper-class', 'custom-item-class',
+        'bg-color',
+        'mobile-padding', 'mobile-gap', 'mobile-title-font-size', 'mobile-text-font-size', 'mobile-btn-font-size'
     ];
     const settings = getSettings('h', horizontalSettingNames);
 
@@ -102,7 +104,13 @@ function generateHorizontal() {
         'has-shadow-hover': hasShadowHover,
         'shadow-hover-value': shadowHoverValue,
         'custom-wrapper-class': customWrapperClass,
-        'custom-item-class': customItemClass
+        'custom-item-class': customItemClass,
+        'bg-color': bgColor,
+        'mobile-padding': mobilePadding,
+        'mobile-gap': mobileGap,
+        'mobile-title-font-size': mobileTitleFS,
+        'mobile-text-font-size': mobileTextFS,
+        'mobile-btn-font-size': mobileBtnFS
     } = settings;
 
     const generalBtnText = document.getElementById('h-btn-general-text').value;
@@ -168,7 +176,7 @@ function generateHorizontal() {
     align-items: center;
     gap: 30px;
     padding: ${padding}px;
-    background: #fff;
+    background: ${bgColor};
     border-radius: ${radius}px;
     box-sizing: border-box;
     width: 100%;
@@ -217,6 +225,10 @@ ${shadowHoverCss}.custom-card-row.reverse {
     .custom-card-row {
         flex-direction: column;
         align-items: flex-start;
+        padding: ${mobilePadding}px;
+    }
+    .h-container {
+        gap: ${mobileGap}px;
     }
     .custom-card-row.reverse {
         flex-direction: column-reverse;
@@ -224,6 +236,15 @@ ${shadowHoverCss}.custom-card-row.reverse {
     .custom-card-row .custom-card-row-img {
         flex: 0 0 100%;
         width: 100%;
+    }
+    .custom-card-row-title {
+        font-size: ${mobileTitleFS}px;
+    }
+    .custom-card-row-text {
+        font-size: ${mobileTextFS}px;
+    }
+    .custom-card-row-btn {
+        font-size: ${mobileBtnFS}px;
     }
 }`;
 

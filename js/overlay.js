@@ -78,7 +78,8 @@ function generateOverlayCards() {
         'btn-text-color', 'btn-hover-text-color', 'btn-color', 'btn-hover-color',
         'btn-font-size', 'btn-radius',
         'enable-custom-gradient', 'gradient-value',
-        'custom-wrapper-class', 'custom-item-class'
+        'custom-wrapper-class', 'custom-item-class',
+        'mobile-title-font-size', 'mobile-text-font-size', 'mobile-btn-font-size'
     ];
     const settings = getSettings('o', overlaySettingNames);
 
@@ -99,7 +100,10 @@ function generateOverlayCards() {
         'enable-custom-gradient': enableCustomGradient,
         'gradient-value': gradientValue,
         'custom-wrapper-class': customWrapperClass,
-        'custom-item-class': customItemClass
+        'custom-item-class': customItemClass,
+        'mobile-title-font-size': mobileTitleFS,
+        'mobile-text-font-size': mobileTextFS,
+        'mobile-btn-font-size': mobileBtnFS
     } = settings;
 
     const generalBtnText = document.getElementById('o-btn-general-text').value;
@@ -274,6 +278,18 @@ ${buttonSpecificCss}
 @media (max-width: 1024px) {
     .custom-o-cards-grid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .custom-o-card-title {
+        font-size: ${mobileTitleFS}px;
+    }
+    .custom-o-card-description {
+        font-size: ${mobileTextFS}px;
+    }
+    .custom-o-card-btn {
+        font-size: ${mobileBtnFS}px;
     }
 }`;
 

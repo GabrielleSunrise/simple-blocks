@@ -55,7 +55,6 @@
     </nav>
 
     <div class="section" id="vertical-section">
-        <div class="back-to-menu">Выбрать другой тип блоков</div>
         <h2>Вертикальные блоки вида "картинка + блок с контентом", в ряд</h2>
         <div class="controls">
             <div class="control-group">
@@ -129,6 +128,10 @@
                                 <div class="control-group">
                                     <label>Скругление углов карточки (px):</label>
                                     <input type="number" id="v-radius" min="0" max="50" value="8">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон блока:</label>
+                                    <input type="color" id="v-bg-color" value="#ffffff">
                                 </div>
                             </div>
                         </div>
@@ -282,6 +285,32 @@
                             </div>
                         </div>
 
+                        <div class="settings-group">
+                            <div class="settings-group-header">Мобильные настройки</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Отступ карточки на мобильных (px):</label>
+                                    <input type="number" id="v-mobile-padding" min="0" max="50" value="20">
+                                </div>
+                                <div class="control-group">
+                                    <label>Расстояние между карточками на мобильных (px):</label>
+                                    <input type="number" id="v-mobile-gap" min="0" max="50" value="20">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта заголовка на мобильных (px):</label>
+                                    <input type="number" id="v-mobile-title-font-size" min="9" max="36" value="24">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта текста на мобильных (px):</label>
+                                    <input type="number" id="v-mobile-text-font-size" min="7" max="24" value="16">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта кнопки на мобильных (px):</label>
+                                    <input type="number" id="v-mobile-btn-font-size" min="7" max="24" value="16">
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -306,7 +335,6 @@
     </div>
 
     <div class="section" id="horizontal-section">
-        <div class="back-to-menu">Выбрать другой тип блоков</div>
         <h2>Горизонтальные блоки вида "картинка + блок с контентом"</h2>
         <div class="controls">
             <div class="control-group">
@@ -374,6 +402,10 @@
                                 <div class="control-group">
                                     <label>Скругление картинки (px):</label>
                                     <input type="number" id="h-img-radius" min="0" max="50" value="4">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон блока:</label>
+                                    <input type="color" id="h-bg-color" value="#ffffff">
                                 </div>
                             </div>
                         </div>
@@ -474,6 +506,32 @@
                             </div>
                         </div>
 
+                        <div class="settings-group">
+                            <div class="settings-group-header">Мобильные настройки</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Отступ на мобильных (px):</label>
+                                    <input type="number" id="h-mobile-padding" min="0" max="50" value="20">
+                                </div>
+                                <div class="control-group">
+                                    <label>Расстояние между блоками на мобильных (px):</label>
+                                    <input type="number" id="h-mobile-gap" min="0" max="100" value="30">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта заголовка на мобильных (px):</label>
+                                    <input type="number" id="h-mobile-title-font-size" min="12" max="48" value="20">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта текста на мобильных (px):</label>
+                                    <input type="number" id="h-mobile-text-font-size" min="10" max="24" value="16">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта кнопки на мобильных (px):</label>
+                                    <input type="number" id="h-mobile-btn-font-size" min="10" max="24" value="16">
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -496,7 +554,6 @@
     </div>
 
     <div class="section" id="overlay-section">
-        <div class="back-to-menu">Выбрать другой тип блоков</div>
         <h2>Карточки с контентом поверх изображения, в ряд</h2>
         <div class="controls">
             <div class="control-group">
@@ -659,6 +716,24 @@
                             </div>
                         </div>
 
+                        <div class="settings-group">
+                            <div class="settings-group-header">Мобильные настройки</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Размер шрифта заголовка на мобильных (px):</label>
+                                    <input type="number" id="o-mobile-title-font-size" min="12" max="48" value="24">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта текста на мобильных (px):</label>
+                                    <input type="number" id="o-mobile-text-font-size" min="10" max="24" value="16">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта кнопки на мобильных (px):</label>
+                                    <input type="number" id="o-mobile-btn-font-size" min="10" max="24" value="16">
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -682,7 +757,6 @@
     </div>
 
         <div class="section" id="faq-section">
-        <div class="back-to-menu">Выбрать другой тип блоков</div>
         <h2>Аккордеон / FAQ (Часто задаваемые вопросы)</h2>
         <div class="controls">
             <div class="control-group">

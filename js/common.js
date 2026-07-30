@@ -100,6 +100,7 @@ function setupStickyNav() {
 
     const menu = document.getElementById('menu');
     const sections = document.querySelectorAll('.section');
+    const mainTextField = document.getElementById('main-text-field');
 
     function updateStickyNavVisibility() {
         const anySectionVisible = Array.from(sections).some(s => s.style.display === 'block');
@@ -116,7 +117,10 @@ function setupStickyNav() {
 
     document.getElementById('nav-back')?.addEventListener('click', (e) => {
         e.preventDefault();
-        document.querySelector('.back-to-menu')?.click();
+        sections.forEach(s => s.style.display = 'none');
+        menu.style.display = 'flex';
+        if (mainTextField) mainTextField.style.display = 'block';
+        history.replaceState(null, '', window.location.pathname);
     });
 
     document.getElementById('nav-settings')?.addEventListener('click', (e) => {
@@ -179,7 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainTextField = document.getElementById('main-text-field');
     const menuLinks = document.querySelectorAll('.menu-item > a'); 
     const sections = document.querySelectorAll('.section');
-    const backToMenuButtons = document.querySelectorAll('.back-to-menu');
 
     function hideAllSections() {
         sections.forEach(section => {
@@ -200,7 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function showMenuAndClearHash() {
         hideAllSections();
         showMenu();
-        //window.location.hash = '';
         history.replaceState(null, '', window.location.pathname); 
     }
 
@@ -231,12 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             const targetSectionId = link.getAttribute('href').substring(1);
             showSection(targetSectionId);
-        });
-    });
-
-    backToMenuButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            showMenuAndClearHash();
         });
     });
 
