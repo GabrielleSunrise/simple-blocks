@@ -278,7 +278,6 @@ validatedInputs.forEach(inputElement => {
     validateNumberInput(inputElement);
 });
 
-
 const DEFAULT_HOVER_SHADOW_VALUE = "0 5px 15px rgba(0,0,0,0.1)";
 
 function updateHoverShadowInputDefault(prefix) {
