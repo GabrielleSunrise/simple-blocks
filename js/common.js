@@ -156,9 +156,23 @@ function setupStickyNav() {
     });
 }
 
+function setupAccordion() {
+    const groups = document.querySelectorAll('.settings-group');
+    groups.forEach((group, index) => {
+        group.classList.add('collapsed');
+        const header = group.querySelector('.settings-group-header');
+        if (header) {
+            header.addEventListener('click', () => {
+                group.classList.toggle('collapsed');
+            });
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
     setupStickyNav();
+    setupAccordion();
 
     document.addEventListener('click', (e) => {
         if (!e.target.classList.contains('tab-btn')) return;
