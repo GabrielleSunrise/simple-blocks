@@ -309,7 +309,6 @@ function updateHoverShadowInputDefault(prefix) {
     }
 }
 
-
 function setupShadowToggles(prefix) {
     const enableShadowCheckbox = document.getElementById(`${prefix}-enable-shadow`);
     const shadowSettingsGroup = document.getElementById(`${prefix}-shadow-settings-group`);

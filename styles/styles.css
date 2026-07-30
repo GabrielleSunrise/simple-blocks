@@ -98,6 +98,7 @@ h2 {
     padding: 0 6px;
     margin-bottom: 24px;
 }
+
 .back-to-menu::before {
     content: '';
     transform: rotate(45deg);
@@ -108,12 +109,15 @@ h2 {
     flex-shrink: 0;
     margin-right: 6px;
 }
+
 .back-to-menu:hover { 
     color: #5b437e; 
 }
+
 .back-to-menu:hover::before {
     border-color: #5b437e;
 }
+
 .controls {
     display: flex;
     justify-content: space-between;
@@ -121,19 +125,23 @@ h2 {
     margin-bottom: 20px;
     flex-wrap: wrap;
 }
+
 .control-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
+
 label { 
     font-weight: bold; font-size: 0.9em; 
 }
+
 input[type="number"], input[type="text"], select {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
 input[type="color"] {
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -141,11 +149,13 @@ input[type="color"] {
     background: transparent;
     padding: 2px;
 }
+
 .checkbox-group {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
+
 .checkbox-group label {
     font-weight: normal;
     display: flex;
@@ -153,6 +163,7 @@ input[type="color"] {
     gap: 5px;
     cursor: pointer;
 }
+
 button {
     background-color: #7e5daf;
     color: white;
@@ -163,6 +174,7 @@ button {
     font-size: 16px;
     transition: background 0.3s;
 }
+
 button:hover { 
     background-color: #5b437e; 
 }
