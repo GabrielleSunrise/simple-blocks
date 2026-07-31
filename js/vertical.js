@@ -1,29 +1,31 @@
 function createContentFieldsForBlock(index) {
     const blockNum = index + 1;
     const blockDiv = document.createElement('div');
-    blockDiv.className = 'block-content-inputs';
+    blockDiv.className = 'settings-group collapsed';
 
     blockDiv.innerHTML = `
-        <h4>Контент для блока №${blockNum}</h4>
-        <div class="control-group">
-            <label for="v-block-${index}-link-url">Адрес ссылки (для всей карточки или кнопки):</label>
-            <input type="text" id="v-block-${index}-link-url" value="#" placeholder="Например, /page/ или https://example.com">
-        </div>
-        <div class="control-group">
-            <label for="v-block-${index}-img-src">Ссылка на изображение:</label>
-            <input type="text" id="v-block-${index}-img-src" value="https://gabriellesunrise.github.io/simple-blocks/img.jpg" placeholder="URL изображения">
-        </div>
-        <div class="control-group">
-            <label for="v-block-${index}-img-alt">Alt текст для изображения (по умолчанию заголовок):</label>
-            <input type="text" id="v-block-${index}-img-alt" value="" placeholder="Описание изображения для SEO">
-        </div>
-        <div class="control-group">
-            <label for="v-block-${index}-title-text">Заголовок:</label>
-            <input type="text" id="v-block-${index}-title-text" value="Заголовок блока ${blockNum}" placeholder="Заголовок блока">
-        </div>
-        <div class="control-group">
-            <label for="v-block-${index}-main-text">Текст:</label>
-            <textarea id="v-block-${index}-main-text" rows="3" placeholder="Пример текста для наполнения блока.">Пример текста для наполнения блока ${blockNum}. Пример текста для наполнения блока.</textarea>
+        <div class="settings-group-header">Контент для блока №${blockNum}</div>
+        <div class="settings-group-body">
+            <div class="control-group">
+                <label for="v-block-${index}-link-url">Адрес ссылки (для всей карточки или кнопки):</label>
+                <input type="text" id="v-block-${index}-link-url" value="#" placeholder="Например, /page/ или https://example.com">
+            </div>
+            <div class="control-group">
+                <label for="v-block-${index}-img-src">Ссылка на изображение:</label>
+                <input type="text" id="v-block-${index}-img-src" value="https://gabriellesunrise.github.io/simple-blocks/img.jpg" placeholder="URL изображения">
+            </div>
+            <div class="control-group">
+                <label for="v-block-${index}-img-alt">Alt текст для изображения (по умолчанию заголовок):</label>
+                <input type="text" id="v-block-${index}-img-alt" value="" placeholder="Описание изображения для SEO">
+            </div>
+            <div class="control-group">
+                <label for="v-block-${index}-title-text">Заголовок:</label>
+                <input type="text" id="v-block-${index}-title-text" value="Заголовок блока ${blockNum}" placeholder="Заголовок блока">
+            </div>
+            <div class="control-group">
+                <label for="v-block-${index}-main-text">Текст:</label>
+                <textarea id="v-block-${index}-main-text" rows="3" placeholder="Пример текста для наполнения блока.">Пример текста для наполнения блока ${blockNum}. Пример текста для наполнения блока.</textarea>
+            </div>
         </div>
     `;
     return blockDiv;

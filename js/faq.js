@@ -1,17 +1,19 @@
 function createContentFieldsForFaq(index) {
     const blockNum = index + 1;
     const blockDiv = document.createElement('div');
-    blockDiv.className = 'block-content-inputs';
+    blockDiv.className = 'settings-group collapsed';
 
     blockDiv.innerHTML = `
-        <h4>Вопрос №${blockNum}</h4>
-        <div class="control-group">
-            <label for="f-block-${index}-title">Вопрос:</label>
-            <input type="text" id="f-block-${index}-title" value="Частый вопрос номер ${blockNum}?" placeholder="Текст вопроса">
-        </div>
-        <div class="control-group">
-            <label for="f-block-${index}-text">Ответ:</label>
-            <textarea id="f-block-${index}-text" rows="3" placeholder="Текст ответа.">Подробный ответ на вопрос номер ${blockNum}. Здесь вы можете описать детали, условия работы, гарантии или любую другую важную информацию.</textarea>
+        <div class="settings-group-header">Контент для блока №${blockNum}</div>
+        <div class="settings-group-body">
+            <div class="control-group">
+                <label for="f-block-${index}-title">Вопрос:</label>
+                <input type="text" id="f-block-${index}-title" value="Частый вопрос номер ${blockNum}?" placeholder="Текст вопроса">
+            </div>
+            <div class="control-group">
+                <label for="f-block-${index}-text">Ответ:</label>
+                <textarea id="f-block-${index}-text" rows="3" placeholder="Текст ответа.">Подробный ответ на вопрос номер ${blockNum}. Здесь вы можете описать детали, условия работы, гарантии или любую другую важную информацию.</textarea>
+            </div>
         </div>
     `;
     return blockDiv;

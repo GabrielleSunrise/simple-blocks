@@ -1,25 +1,27 @@
 function createContentFieldsForOverlayBlock(index) {
     const blockNum = index + 1;
     const blockDiv = document.createElement('div');
-    blockDiv.className = 'block-content-inputs';
+    blockDiv.className = 'settings-group collapsed';
 
     blockDiv.innerHTML = `
-        <h4>Контент для карточки №${blockNum}</h4>
-        <div class="control-group">
-            <label for="o-block-${index}-link-url">Адрес ссылки (для всей карточки или кнопки):</label>
-            <input type="text" id="o-block-${index}-link-url" value="#" placeholder="Например, /page/ или https://example.com">
-        </div>
-        <div class="control-group">
-            <label for="o-block-${index}-img-src">Ссылка на фоновое изображение:</label>
-            <input type="text" id="o-block-${index}-img-src" value="https://gabriellesunrise.github.io/simple-blocks/bg-img.jpg" placeholder="URL изображения">
-        </div>
-        <div class="control-group">
-            <label for="o-block-${index}-title-text">Заголовок:</label>
-            <input type="text" id="o-block-${index}-title-text" value="Заголовок карточки ${blockNum}" placeholder="Заголовок блока">
-        </div>
-        <div class="control-group">
-            <label for="o-block-${index}-main-text">Текст:</label>
-            <textarea id="o-block-${index}-main-text" rows="3" placeholder="Пример описания, которое располагается поверх фонового изображения.">Пример описания, которое располагается поверх фонового изображения для карточки ${blockNum}.</textarea>
+        <div class="settings-group-header">Контент для карточки №${blockNum}</div>
+        <div class="settings-group-body">
+            <div class="control-group">
+                <label for="o-block-${index}-link-url">Адрес ссылки (для всей карточки или кнопки):</label>
+                <input type="text" id="o-block-${index}-link-url" value="#" placeholder="Например, /page/ или https://example.com">
+            </div>
+            <div class="control-group">
+                <label for="o-block-${index}-img-src">Ссылка на фоновое изображение:</label>
+                <input type="text" id="o-block-${index}-img-src" value="https://gabriellesunrise.github.io/simple-blocks/bg-img.jpg" placeholder="URL изображения">
+            </div>
+            <div class="control-group">
+                <label for="o-block-${index}-title-text">Заголовок:</label>
+                <input type="text" id="o-block-${index}-title-text" value="Заголовок карточки ${blockNum}" placeholder="Заголовок блока">
+            </div>
+            <div class="control-group">
+                <label for="o-block-${index}-main-text">Текст:</label>
+                <textarea id="o-block-${index}-main-text" rows="3" placeholder="Пример описания, которое располагается поверх фонового изображения.">Пример описания, которое располагается поверх фонового изображения для карточки ${blockNum}.</textarea>
+            </div>
         </div>
     `;
     return blockDiv;

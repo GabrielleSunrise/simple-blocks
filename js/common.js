@@ -158,13 +158,17 @@ function setupStickyNav() {
 
 function setupAccordion() {
     const groups = document.querySelectorAll('.settings-group');
-    groups.forEach((group, index) => {
+    groups.forEach((group) => {
         group.classList.add('collapsed');
-        const header = group.querySelector('.settings-group-header');
+    });
+
+    document.addEventListener('click', (e) => {
+        const header = e.target.closest('.settings-group-header');
         if (header) {
-            header.addEventListener('click', () => {
+            const group = header.closest('.settings-group');
+            if (group) {
                 group.classList.toggle('collapsed');
-            });
+            }
         }
     });
 }

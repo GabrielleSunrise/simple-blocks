@@ -384,65 +384,43 @@ textarea {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     width: 100%;
     gap: 20px;
+    align-items: start;
 }
 
-.block-content-inputs {
-    background: #fafafa;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: box-shadow 0.2s;
-}
-
-.block-content-inputs:hover {
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-}
-
-.block-content-inputs h4 {
-    margin: 0;
+.content-settings .settings-group-body {
+    display: block;
     padding: 8px 14px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #ffffff;
-    background: #7a7a7a;
-    border-bottom: none;
 }
 
-.block-content-inputs > .control-group {
-    padding: 8px 14px 4px;
+.content-settings .settings-group-body .control-group {
+    padding: 6px 0;
+    min-width: 100%;
 }
 
-.block-content-inputs > .control-group:last-child {
-    padding-bottom: 12px;
-}
-
-.block-content-inputs .control-group label {
+.content-settings .settings-group-body .control-group label {
     font-weight: 600;
     color: #444;
     font-size: 12.5px;
 }
 
-.block-content-inputs input[type="text"],
-.block-content-inputs textarea {
+.content-settings .settings-group-body input[type="text"],
+.content-settings .settings-group-body textarea {
     background: #ffffff;
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 13px;
+    color: #333;
+    max-width: none;
 }
 
-.block-content-inputs input[type="text"]:focus,
-.block-content-inputs textarea:focus {
+.content-settings .settings-group-body input[type="text"]:focus,
+.content-settings .settings-group-body textarea:focus {
     border-color: #7e5daf;
     outline: none;
     box-shadow: 0 0 0 3px rgba(126, 93, 175, 0.15);
 }
 
-.block-content-inputs input[type="text"],
-.block-content-inputs textarea {
-    color: #333;
-}
-
-.block-content-inputs textarea {
+.content-settings .settings-group-body textarea {
     height: 70px;
     resize: vertical;
     font-family: inherit;
