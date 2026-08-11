@@ -26,7 +26,7 @@
             <p>Я генератор стандартных HTML/CSS блоков, которые можно быстро добавить на сайт.<br>
             Контент и внешний вид блоков настраиваются.<br> 
             Результат сразу обновляется в блоке «Предварительный просмотр».<br> 
-            Когда всё готово, просто скопируй на сайт HTML и CSS из соответствующих полей внизу страницы.</p>
+            Когда всё готово, просто скопируй на сайт HTML, CSS и JS (если есть) из соответствующих полей внизу страницы.</p>
         </div>
     </div>
 
@@ -53,6 +53,12 @@
             <div class="menu-item-icon faq"></div>
             <div class="menu-item-title">
                 Аккордеон / FAQ<br>(Часто задаваемые вопросы)
+            </div>
+        </a>
+        <a class="menu-item" href="#scroll-section">
+            <div class="menu-item-icon scroll"></div>
+            <div class="menu-item-title">
+                Карточки-слайдер,<br>скролл по горизонтали
             </div>
         </a>
     </nav>
@@ -900,10 +906,333 @@
         </div>
     </div>
 
+    <div class="section" id="scroll-section">
+        <h2>Карточки-слайдер, скролл по горизонтали</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>Количество карточек (2-24):</label>
+                <input type="number" id="s-count" min="2" max="24" value="5" class="js-number-validate">
+            </div>
+            <div class="control-group">
+                <label>Содержимое:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="s-img" checked> Картинка</label>
+                    <label><input type="checkbox" id="s-title" checked> Заголовок</label>
+                    <label><input type="checkbox" id="s-text" checked> Текст</label>
+                    <label><input type="checkbox" id="s-btn" checked> Кнопка</label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label>Тип ссылки:</label>
+                <select id="s-link">
+                    <option value="none">Без ссылки</option>
+                    <option value="block">Весь блок — ссылка</option>
+                    <option value="button">Только кнопка — ссылка</option>
+                </select>
+            </div>
+
+            <div class="settings-tabs-container">
+                <div class="tabs-header">
+                    <div class="tab-btn active" data-tab="content">Настройки контента</div>
+                    <div class="tab-btn" data-tab="advanced">Настройки дизайна</div>
+                </div>
+                <div class="tab-content content-settings">
+                    <div class="settings-groups-wrapper">
+                        <div class="control-group">
+                            <label for="s-btn-general-text">Текст кнопки (общий для всех карточек):</label>
+                            <input type="text" id="s-btn-general-text" value="Подробнее">
+                        </div>
+                    </div>
+                    <div id="s-content-fields-container" class="content-fields-wrapper">
+
+                    </div>
+                </div>
+                <div class="tab-content advanced-settings hidden">
+                    <div class="settings-groups-wrapper">
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Слайдер</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Ширина карточки (px):</label>
+                                    <input type="number" id="s-card-width" min="220" max="500" value="300">
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="s-show-arrows" checked> Показывать стрелки</label>
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="s-overlay-arrows" checked> Стрелки поверх блока (не сдвигают карточки)</label>
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="s-snap" checked> Прилипание карточек (scroll-snap)</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Расположение и отступы</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Расстояние между карточками (px):</label>
+                                    <input type="number" id="s-gap" min="0" max="50" value="20">
+                                </div>
+                                <div class="control-group">
+                                    <label>Внутренний отступ карточки (px):</label>
+                                    <input type="number" id="s-padding" min="0" max="50" value="20">
+                                </div>
+                                <div class="control-group">
+                                    <label>Скругление углов карточки (px):</label>
+                                    <input type="number" id="s-radius" min="0" max="50" value="8">
+                                </div>
+                                <div class="control-group">
+                                    <label>Выравнивание текста:</label>
+                                    <select id="s-align">
+                                        <option value="left">Влево</option>
+                                        <option value="center">По центру</option>
+                                        <option value="right">Вправо</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Выравнивание объектов:</label>
+                                    <select id="s-flex-align">
+                                        <option value="flex-start">Влево</option>
+                                        <option value="center">По центру</option>
+                                        <option value="flex-end">Вправо</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Расположение контента карточки:</label>
+                                    <select id="s-card-layout">
+                                        <option value="vertical">Вертикально</option>
+                                        <option value="horizontal">Горизонтально (изображение слева)</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон карточки:</label>
+                                    <input type="color" id="s-bg-color" value="#ffffff">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Граница</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="s-has-border"> Включить границу</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Толщина границы (px):</label>
+                                    <input type="number" id="s-border-width" min="0" max="10" value="1">
+                                </div>
+                                <div class="control-group">
+                                    <label>Стиль границы:</label>
+                                    <select id="s-border-style">
+                                        <option value="solid" selected>Сплошная</option>
+                                        <option value="dashed">Пунктирная</option>
+                                        <option value="dotted">Точечная</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет границы:</label>
+                                    <input type="color" id="s-border-color" value="#eeeeee">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Изображение</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Соотношение сторон изображения (x/y):</label>
+                                    <input type="text" id="s-img-aspect-ratio" value="3/2">
+                                </div>
+                                <div class="control-group">
+                                    <label>Скругление углов изображения (px):</label>
+                                    <input type="number" id="s-img-radius" min="0" max="50" value="4">
+                                </div>
+                                <div class="control-group">
+                                    <label>Отступ изображения снизу/справа (px):</label>
+                                    <input type="number" id="s-img-margin" min="0" max="50" value="15">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Заголовок</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="s-bold-title" checked> Жирный шрифт заголовка</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта заголовка (px):</label>
+                                    <input type="number" id="s-title-font-size" min="9" max="36" value="20">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет заголовка:</label>
+                                    <input type="color" id="s-title-color" value="#333333">
+                                </div>
+                                <div class="control-group">
+                                    <label>Отступ заголовка снизу (px):</label>
+                                    <input type="number" id="s-title-margin" min="0" max="50" value="10">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Текст</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Размер шрифта текста (px):</label>
+                                    <input type="number" id="s-text-font-size" min="7" max="24" value="15">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет текста:</label>
+                                    <input type="color" id="s-text-color" value="#666666">
+                                </div>
+                                <div class="control-group">
+                                    <label>Отступ текста снизу (px):</label>
+                                    <input type="number" id="s-text-margin" min="0" max="50" value="15">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Кнопка</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="s-wide-btn" checked> Кнопка на всю ширину</label>
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="s-bold-btn"> Жирный шрифт кнопки</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет текста кнопки:</label>
+                                    <input type="color" id="s-btn-text-color" value="#ffffff">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет текста кнопки при наведении:</label>
+                                    <input type="color" id="s-btn-hover-text-color" value="#ffffff">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон кнопки:</label>
+                                    <input type="color" id="s-btn-color" value="#3498db">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон кнопки при наведении:</label>
+                                    <input type="color" id="s-btn-hover-color" value="#2980b9">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта кнопки (px):</label>
+                                    <input type="number" id="s-btn-font-size" min="7" max="24" value="15">
+                                </div>
+                                <div class="control-group">
+                                    <label>Скругление углов кнопки (px):</label>
+                                    <input type="number" id="s-btn-radius" min="0" max="50" value="4">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Тени</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="s-enable-shadow" checked> Включить тени</label>
+                                </div>
+                                <div class="control-group shadow-input-group">
+                                    <label><input type="checkbox" id="s-has-shadow-always"> Постоянная тень (CSS-строка):</label>
+                                    <input type="text" id="s-shadow-always-value" value="0 2px 10px rgba(0,0,0,0.1)" class="full-width-input">
+                                </div>
+                                <div class="control-group shadow-input-group">
+                                    <label><input type="checkbox" id="s-has-shadow-hover"> Тень при наведении (CSS-строка):</label>
+                                    <input type="text" id="s-shadow-hover-value" class="full-width-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Кастомные CSS-классы</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label for="s-custom-wrapper-class">Кастомный класс обёртки:</label>
+                                    <input type="text" id="s-custom-wrapper-class" value="" placeholder="my-section my-section--slider" class="full-width-input">
+                                </div>
+                                <div class="control-group">
+                                    <label for="s-custom-item-class">Кастомный класс карточки:</label>
+                                    <input type="text" id="s-custom-item-class" value="" placeholder="my-slide" class="full-width-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Мобильные настройки</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Ширина карточки на мобильных (px):</label>
+                                    <input type="number" id="s-mobile-card-width" min="160" max="500" value="220">
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="s-mobile-percent-width"> Использовать ширину карточки в % на мобильных</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Ширина карточки на мобильных (%):</label>
+                                    <input type="number" id="s-mobile-card-width-percent" min="40" max="100" value="70">
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="s-hide-arrows-mobile" checked> Скрывать стрелки на мобильных</label>
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="s-mobile-vertical-layout"> Вертикальное расположение контента на мобильных</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта заголовка на мобильных (px):</label>
+                                    <input type="number" id="s-mobile-title-font-size" min="9" max="36" value="20">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта текста на мобильных (px):</label>
+                                    <input type="number" id="s-mobile-text-font-size" min="7" max="24" value="15">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта кнопки на мобильных (px):</label>
+                                    <input type="number" id="s-mobile-btn-font-size" min="7" max="24" value="15">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="outputs">
+            <div class="output-box">
+                <div class="output-label">CSS
+                    <button class="copy-btn" onclick="copyToClipboard('s-css', this)">Копировать</button>
+                </div>
+                <textarea id="s-css" readonly></textarea>
+            </div>
+            <div class="output-box">
+                <div class="output-label">HTML
+                    <button class="copy-btn" onclick="copyToClipboard('s-html', this)">Копировать</button>
+                </div>
+                <textarea id="s-html" readonly></textarea>
+            </div>
+        </div>
+        <div class="outputs">
+            <div class="output-box" style="width:100%;">
+                <div class="output-label">JS
+                    <button class="copy-btn" onclick="copyToClipboard('s-js', this)">Копировать</button>
+                </div>
+                <textarea id="s-js" readonly></textarea>
+            </div>
+        </div>
+    </div>
+
     <script src="js/common.js"></script>
     <script src="js/vertical.js"></script>
     <script src="js/horizontal.js"></script>
     <script src="js/overlay.js"></script>
     <script src="js/faq.js"></script>
+    <script src="js/scroll.js"></script>
 </body>
 </html>

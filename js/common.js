@@ -1,4 +1,4 @@
-function updateLiveDemoPreview(currentSection, css, html) {
+function updateLiveDemoPreview(currentSection, css, html, js) {
     const outputsDiv = currentSection.querySelector('.outputs');
     if (!outputsDiv) {
         console.error('Элемент .outputs не найден в секции.', currentSection);
@@ -28,6 +28,12 @@ function updateLiveDemoPreview(currentSection, css, html) {
     const demoContainer = document.createElement('div');
     demoContainer.innerHTML = html;
     liveDemoSection.appendChild(demoContainer);
+
+    if (js && js.trim()) {
+        const scriptElement = document.createElement('script');
+        scriptElement.textContent = js;
+        liveDemoSection.appendChild(scriptElement);
+    }
 
     currentSection.insertBefore(liveDemoSection, outputsDiv);
 }     
@@ -230,6 +236,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetSection = document.getElementById(sectionId);
         if (targetSection) {
             targetSection.style.display = 'block';
+            if (window.dispatchEvent) {
+                window.dispatchEvent(new Event('resize'));
+            }
             window.location.hash = sectionId;
         } else {
             console.error(`Секция с ID "${sectionId}" не найдена.`);
