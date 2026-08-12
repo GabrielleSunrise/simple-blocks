@@ -362,9 +362,9 @@ ${shadowHoverCss}
     display: block;
 }
 .custom-slider-cards-arrow:hover {
-    background: #ececec;
-    border-color: #bdbdbd;
-    color: #222222;
+    background: ${btnColor};
+    border-color: ${btnColor};
+    color: #ffffff;
 }
 ${overlayArrowsCss}
 .custom-slider-cards-img {
