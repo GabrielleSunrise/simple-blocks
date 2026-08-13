@@ -26,7 +26,7 @@
             <p>Я генератор стандартных HTML/CSS блоков, которые можно быстро добавить на сайт.<br>
             Контент и внешний вид блоков настраиваются.<br> 
             Результат сразу обновляется в блоке «Предварительный просмотр».<br> 
-            Когда всё готово, просто скопируй на сайт HTML, CSS и JS (если есть) из соответствующих полей внизу страницы.</p>
+            Когда всё готово, просто скопируй на сайт HTML, CSS и JS (если есть) из соответствующих полей.</p>
         </div>
     </div>
 
@@ -59,6 +59,18 @@
             <div class="menu-item-icon scroll"></div>
             <div class="menu-item-title">
                 Карточки-слайдер,<br>скролл по горизонтали
+            </div>
+        </a>
+        <a class="menu-item" href="#table-section">
+            <div class="menu-item-icon table"></div>
+            <div class="menu-item-title">
+                Таблица
+            </div>
+        </a>
+        <a class="menu-item" href="#gallery-section">
+            <div class="menu-item-icon gallery"></div>
+            <div class="menu-item-title">
+                Галерея изображений
             </div>
         </a>
     </nav>
@@ -1228,11 +1240,333 @@
         </div>
     </div>
 
+    <div class="section" id="table-section">
+        <h2>Таблица данных / сравнения</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>Количество столбцов (1-6):</label>
+                <input type="number" id="t-cols" min="1" max="6" value="3" class="js-number-validate">
+            </div>
+            <div class="control-group">
+                <label>Количество строк (1-12):</label>
+                <input type="number" id="t-rows" min="1" max="12" value="4" class="js-number-validate">
+            </div>
+
+            <div class="settings-tabs-container">
+                <div class="tabs-header">
+                    <div class="tab-btn active" data-tab="content">Настройки контента</div>
+                    <div class="tab-btn" data-tab="advanced">Настройки дизайна</div>
+                </div>
+                <div class="tab-content content-settings">
+                    <div id="t-content-fields-container" class="content-fields-wrapper">
+
+                    </div>
+                </div>
+                <div class="tab-content advanced-settings hidden">
+                    <div class="settings-groups-wrapper">
+                        <div class="settings-group">
+                            <div class="settings-group-header">Таблица</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="t-first-header" checked> Первая строка — шапка</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Выделить столбец (0 — нет):</label>
+                                    <input type="number" id="t-featured-column" min="0" max="6" value="0">
+                                </div>
+                                <div class="control-group">
+                                    <label>Отступ внутри ячейки (px):</label>
+                                    <input type="number" id="t-cell-padding" min="0" max="50" value="12">
+                                </div>
+                                <div class="control-group">
+                                    <label>Расстояние между ячейками (px):</label>
+                                    <input type="number" id="t-cell-gap" min="0" max="20" value="0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Оформление</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Скругление углов таблицы (px):</label>
+                                    <input type="number" id="t-radius" min="0" max="50" value="8">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон таблицы:</label>
+                                    <input type="color" id="t-bg-color" value="#ffffff">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон шапки:</label>
+                                    <input type="color" id="t-header-bg-color" value="#f4f0fa">
+                                </div>
+                                <div class="control-group">
+                                    <label>Фон выделенного столбца:</label>
+                                    <input type="color" id="t-featured-color" value="#fdf3e7">
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="t-table-border"> Граница таблицы (внешняя)</label>
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="t-row-borders"> Границы между строками</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Толщина границ (px):</label>
+                                    <input type="number" id="t-border-width" min="1" max="4" value="1">
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="t-column-borders"> Границы между столбцами</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет границ:</label>
+                                    <input type="color" id="t-border-color" value="#e6e6e6">
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="t-zebra" checked> Чередование строк (зебра)</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет зебры:</label>
+                                    <input type="color" id="t-zebra-color" value="#fafafa">
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="t-header-line" checked> Линия под шапкой</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-group-header">Типографика</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Размер шрифта шапки (px):</label>
+                                    <input type="number" id="t-header-font-size" min="10" max="30" value="16">
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="t-bold-header" checked> Жирный шрифт шапки</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет шрифта шапки:</label>
+                                    <input type="color" id="t-header-color" value="#333333">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта ячеек (px):</label>
+                                    <input type="number" id="t-cell-font-size" min="9" max="24" value="15">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет шрифта ячеек:</label>
+                                    <input type="color" id="t-cell-color" value="#555555">
+                                </div>
+                                <div class="control-group">
+                                    <label>Выравнивание содержимого:</label>
+                                    <select id="t-align">
+                                        <option value="left">Влево</option>
+                                        <option value="center">По центру</option>
+                                        <option value="right">Вправо</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="t-bold-first-col"> Жирная первая колонка</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-group-header">Кастомные CSS-классы</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label for="t-custom-wrapper-class">Кастомный класс обёртки:</label>
+                                    <input type="text" id="t-custom-wrapper-class" value="" placeholder="my-table" class="full-width-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Мобильные настройки</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="t-mobile-scroll" checked> Горизонтальная прокрутка на мобильных</label>
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="t-mobile-cards"> В карточки на мобильных</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта шапки на мобильных (px):</label>
+                                    <input type="number" id="t-mobile-header-font-size" min="9" max="30" value="13">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта ячеек на мобильных (px):</label>
+                                    <input type="number" id="t-mobile-cell-font-size" min="8" max="24" value="13">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="outputs">
+            <div class="output-box">
+                <div class="output-label">CSS
+                    <button class="copy-btn" onclick="copyToClipboard('t-css', this)">Копировать</button>
+                </div>
+                <textarea id="t-css" readonly></textarea>
+            </div>
+            <div class="output-box">
+                <div class="output-label">HTML
+                    <button class="copy-btn" onclick="copyToClipboard('t-html', this)">Копировать</button>
+                </div>
+                <textarea id="t-html" readonly></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="gallery-section">
+        <h2>Галерея изображений</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>Количество изображений (1-24):</label>
+                <input type="number" id="g-count" min="1" max="24" value="4" class="js-number-validate">
+            </div>
+
+            <div class="settings-tabs-container">
+                <div class="tabs-header">
+                    <div class="tab-btn active" data-tab="content">Настройки контента</div>
+                    <div class="tab-btn" data-tab="advanced">Настройки дизайна</div>
+                </div>
+                <div class="tab-content content-settings">
+                    <div id="g-content-fields-container" class="content-fields-wrapper">
+
+                    </div>
+                </div>
+                <div class="tab-content advanced-settings hidden">
+                    <div class="settings-groups-wrapper">
+                        <div class="settings-group">
+                            <div class="settings-group-header">Сетка</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Количество столбцов:</label>
+                                    <input type="number" id="g-columns" min="2" max="5" value="3">
+                                </div>
+                                <div class="control-group">
+                                    <label>Расстояние между фото (px):</label>
+                                    <input type="number" id="g-gap" min="0" max="50" value="10">
+                                </div>
+                                <div class="control-group">
+                                    <label>Соотношение сторон фото (x/y):</label>
+                                    <input type="text" id="g-aspect-ratio" value="4/3">
+                                </div>
+                                <div class="control-group">
+                                    <label>Скругление углов фото (px):</label>
+                                    <input type="number" id="g-radius" min="0" max="50" value="4">
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="g-hover-zoom" checked> Увеличение фото при наведении</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Подписи</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="g-show-caption" checked> Показывать подписи</label>
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта подписи (px):</label>
+                                    <input type="number" id="g-caption-font-size" min="9" max="22" value="13">
+                                </div>
+                                <div class="control-group">
+                                    <label>Цвет подписи:</label>
+                                    <input type="color" id="g-caption-color" value="#ffffff">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-group-header">Просмотр во весь экран</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="g-lightbox" checked> Открытие фото во весь экран</label>
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="g-lb-arrows" checked> Кнопки переключения</label>
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="g-lb-arrows-mobile"> Скрывать кнопки переключения на мобильных</label>
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="g-lb-counter" checked> Счётчик «1 / 4»</label>
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="g-lb-thumbs" checked> Полоса миниатюр</label>
+                                </div>
+                                <div class="control-group">
+                                    <label><input type="checkbox" id="g-lb-swipe" checked> Переключение свайпом</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-group">
+                            <div class="settings-group-header">Кастомные CSS-классы</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label for="g-custom-wrapper-class">Кастомный класс обёртки:</label>
+                                    <input type="text" id="g-custom-wrapper-class" value="" placeholder="my-gallery" class="full-width-input">
+                                </div>
+                                <div class="control-group">
+                                    <label for="g-custom-item-class">Кастомный класс фото:</label>
+                                    <input type="text" id="g-custom-item-class" value="" placeholder="my-photo" class="full-width-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Мобильные настройки</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Количество столбцов на мобильных:</label>
+                                    <input type="number" id="g-mobile-columns" min="1" max="3" value="2">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта подписи на мобильных (px):</label>
+                                    <input type="number" id="g-mobile-caption-font-size" min="8" max="20" value="11">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="outputs">
+            <div class="output-box">
+                <div class="output-label">CSS
+                    <button class="copy-btn" onclick="copyToClipboard('g-css', this)">Копировать</button>
+                </div>
+                <textarea id="g-css" readonly></textarea>
+            </div>
+            <div class="output-box">
+                <div class="output-label">HTML
+                    <button class="copy-btn" onclick="copyToClipboard('g-html', this)">Копировать</button>
+                </div>
+                <textarea id="g-html" readonly></textarea>
+            </div>
+        </div>
+        <div class="outputs">
+            <div class="output-box" style="width:100%;">
+                <div class="output-label">JS
+                    <button class="copy-btn" onclick="copyToClipboard('g-js', this)">Копировать</button>
+                </div>
+                <textarea id="g-js" readonly></textarea>
+            </div>
+        </div>
+    </div>
+
     <script src="js/common.js"></script>
     <script src="js/vertical.js"></script>
     <script src="js/horizontal.js"></script>
     <script src="js/overlay.js"></script>
     <script src="js/faq.js"></script>
     <script src="js/scroll.js"></script>
+    <script src="js/table.js"></script>
+    <script src="js/gallery.js"></script>
 </body>
 </html>
