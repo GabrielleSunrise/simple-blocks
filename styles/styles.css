@@ -85,6 +85,12 @@ h2 {
 .menu-item-icon.scroll {
     background-image: url('../img/scroll-icon.svg');
 }
+.menu-item-icon.table {
+    background-image: url('../img/table-icon.svg');
+}
+.menu-item-icon.gallery {
+    background-image: url('../img/gallery-icon.svg');
+}
 .menu-item-title {
     font-weight: 600;
     font-size: 18px;
