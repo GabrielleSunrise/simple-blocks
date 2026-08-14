@@ -92,7 +92,8 @@ function generateScrollSlider() {
         'has-shadow-hover', 'shadow-hover-value',
         'custom-wrapper-class', 'custom-item-class',
         'mobile-card-width', 'mobile-percent-width', 'mobile-card-width-percent', 'mobile-vertical-layout',
-        'mobile-title-font-size', 'mobile-text-font-size', 'mobile-btn-font-size'
+        'mobile-title-font-size', 'mobile-text-font-size', 'mobile-btn-font-size',
+        'heading-show', 'heading-text', 'heading-level', 'heading-align', 'heading-align-mobile', 'heading-margin', 'heading-margin-mobile', 'heading-bold'
     ];
 
     const settings = getSettings('s', scrollSettingNames);
@@ -252,11 +253,13 @@ function generateScrollSlider() {
 
     const layoutRowClass = cardLayout === 'horizontal' ? ' custom-slider-cards-item--row' : '';
 
-    let html = `<div class="${wrapperClass}">\n`;
+    const heading = buildBlockHeading(settings, 's-section-heading');
+
+    let html = heading.html + `<div class="${wrapperClass}">\n`;
     if (showArrows) {
-        html += `  <button type="button" class="custom-slider-cards-arrow custom-slider-cards-arrow--prev" aria-label="Предыдущие карточки">\n      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M15 5 L8 12 L15 19" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>\n  </button>\n`;
+        html += `    <button type="button" class="custom-slider-cards-arrow custom-slider-cards-arrow--prev" aria-label="Предыдущие карточки">\n        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M15 5 L8 12 L15 19" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>\n    </button>\n`;
     }
-    html += `  <div class="custom-slider-cards-track">\n`;
+    html += `    <div class="custom-slider-cards-track">\n`;
     for (let i = 0; i < count; i++) {
         const blockData = blocksContent[i];
         const tag = link === 'block' ? 'a' : 'div';
@@ -269,26 +272,26 @@ function generateScrollSlider() {
             finalAlt = blockData.titleText;
         }
 
-        html += `    <${tag}${attr} class="${itemClass}${layoutRowClass}">\n`;
+        html += `        <${tag}${attr} class="${itemClass}${layoutRowClass}">\n`;
 
-        if (hasImg) html += `      <img src="${blockData.imgSrc}" alt="${finalAlt}" class="custom-slider-cards-img">\n`;
-        html += `      <div class="custom-slider-cards-content">\n`;
-        if (hasTitle) html += `        <div class="custom-slider-cards-title">${blockData.titleText}</div>\n`;
-        if (hasText) html += `        <div class="custom-slider-cards-text">${blockData.mainText}</div>\n`;
+        if (hasImg) html += `            <img src="${blockData.imgSrc}" alt="${finalAlt}" class="custom-slider-cards-img">\n`;
+        html += `            <div class="custom-slider-cards-content">\n`;
+        if (hasTitle) html += `                <div class="custom-slider-cards-title">${blockData.titleText}</div>\n`;
+        if (hasText) html += `                <div class="custom-slider-cards-text">${blockData.mainText}</div>\n`;
 
         if (hasBtn) {
             if (link === 'button') {
-                html += `        <a href="${blockData.linkUrl}" class="custom-slider-cards-btn-link"><span class="custom-slider-cards-btn">${generalBtnText}</span></a>\n`;
+                html += `                <a href="${blockData.linkUrl}" class="custom-slider-cards-btn-link"><span class="custom-slider-cards-btn">${generalBtnText}</span></a>\n`;
             } else {
-                html += `        <span class="custom-slider-cards-btn">${generalBtnText}</span>\n`;
+                html += `                <span class="custom-slider-cards-btn">${generalBtnText}</span>\n`;
             }
         }
-        html += `      </div>\n`;
-        html += `    </${tag}>\n`;
+        html += `            </div>\n`;
+        html += `        </${tag}>\n`;
     }
-    html += `  </div>\n`;
+    html += `    </div>\n`;
     if (showArrows) {
-        html += `  <button type="button" class="custom-slider-cards-arrow custom-slider-cards-arrow--next" aria-label="Следующие карточки">\n      <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M9 5 L16 12 L9 19" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>\n  </button>\n`;
+        html += `    <button type="button" class="custom-slider-cards-arrow custom-slider-cards-arrow--next" aria-label="Следующие карточки">\n        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M9 5 L16 12 L9 19" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>\n    </button>\n`;
     }
     html += `</div>`;
 
@@ -468,6 +471,7 @@ setTimeout(initSliderArrows, 300);`;
     const jsEl = document.getElementById('s-js');
     if (!cssEl || !htmlEl || !jsEl) return;
 
+    css = heading.css + css;
     cssEl.value = css;
     htmlEl.value = html;
     jsEl.value = js;

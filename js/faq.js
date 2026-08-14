@@ -58,7 +58,8 @@ function generateFaq() {
         'title-font-size', 'title-color', 'bold-title',
         'text-font-size', 'text-color',
         'icon-type', 'icon-color', 'custom-wrapper-class', 'custom-item-class',
-        'title-bg-color', 'title-hover-bg-color', 'content-bg-color'
+        'title-bg-color', 'title-hover-bg-color', 'content-bg-color',
+        'heading-show', 'heading-text', 'heading-level', 'heading-align', 'heading-align-mobile', 'heading-margin', 'heading-margin-mobile', 'heading-bold'
     ];
 
     const settings = getSettings('f', settingsNames);
@@ -74,30 +75,32 @@ function generateFaq() {
         });
     }
 
-    const borderCss = settings['has-border'] ? `\n    border: ${settings['border-width']}px solid ${settings['border-color']};` : '';
+    const borderCss = settings['has-border'] ? `    border: ${settings['border-width']}px solid ${settings['border-color']};\n` : '';
     const titleWeight = settings['bold-title'] ? 'bold' : 'normal';
     
     const wrapperClass = appendCustomClass('custom-faq-container', settings['custom-wrapper-class']);
     const itemClass = appendCustomClass('custom-faq-item', settings['custom-item-class']);
 
-    let html = `<div class="${wrapperClass}">\n`;
+    const heading = buildBlockHeading(settings, 'f-section-heading');
+
+    let html = heading.html + `<div class="${wrapperClass}">\n`;
     for (let i = 0; i < count; i++) {
-        html += `  <div class="${itemClass}">\n`;
-        html += `    <input type="checkbox" id="faq-${i}" class="custom-faq-input">\n`;
-        html += `    <label for="faq-${i}" class="custom-faq-title">\n`;
-        html += `      <span class="custom-faq-title-text">${blocksContent[i].title}</span>\n`;
+        html += `    <div class="${itemClass}">\n`;
+        html += `        <input type="checkbox" id="faq-${i}" class="custom-faq-input">\n`;
+        html += `        <label for="faq-${i}" class="custom-faq-title">\n`;
+        html += `            <span class="custom-faq-title-text">${blocksContent[i].title}</span>\n`;
         if (settings['icon-type'] === 'plus') {
-            html += `      <span class="custom-faq-icon-plus"></span>\n`;
+            html += `            <span class="custom-faq-icon-plus"></span>\n`;
         } else {
-            html += `      <span class="custom-faq-icon-chevron"></span>\n`;
+            html += `            <span class="custom-faq-icon-chevron"></span>\n`;
         }
-        html += `    </label>\n`;
-        html += `    <div class="custom-faq-content">\n`;
-        html += `      <div class="custom-faq-content-inner">\n`;
-        html += `        ${blocksContent[i].text.replace(/\n/g, '<br>')}\n`; 
-        html += `      </div>\n`;
+        html += `        </label>\n`;
+        html += `        <div class="custom-faq-content">\n`;
+        html += `            <div class="custom-faq-content-inner">\n`;
+        html += `                ${blocksContent[i].text.replace(/\n/g, '<br>')}\n`; 
+        html += `            </div>\n`;
+        html += `        </div>\n`;
         html += `    </div>\n`;
-        html += `  </div>\n`;
     }
     html += `</div>`;
 
@@ -109,8 +112,7 @@ function generateFaq() {
     padding: 20px 0;
 }
 .${itemClass.split(' ')[0]} {
-    ${borderCss}
-    border-radius: ${settings.radius}px;
+${borderCss}    border-radius: ${settings.radius}px;
     overflow: hidden;
 }
 .custom-faq-input {
@@ -211,6 +213,8 @@ function generateFaq() {
     opacity: 1;
 }
 `;
+
+    css = heading.css + css;
 
     document.getElementById('f-css').value = css;
     document.getElementById('f-html').value = html;

@@ -7,19 +7,26 @@ function updateLiveDemoPreview(currentSection, css, html, js) {
 
     const sectionId = currentSection.id;
     const demoSectionId = `live-demo-section-${sectionId}`;
+    const demoHeaderId = `live-demo-header-${sectionId}`;
+
+    let existingHeader = document.getElementById(demoHeaderId);
+    if (existingHeader) {
+        existingHeader.remove();
+    }
 
     let existingDemoSection = document.getElementById(demoSectionId);
     if (existingDemoSection) {
         existingDemoSection.remove();
     }
 
+    const demoHeader = document.createElement('h3');
+    demoHeader.id = demoHeaderId;
+    demoHeader.className = 'live-demo-header';
+    demoHeader.textContent = 'Предварительный просмотр:';
+
     const liveDemoSection = document.createElement('div');
     liveDemoSection.id = demoSectionId;
     liveDemoSection.className = 'live-demo-wrapper';
-
-    const demoHeader = document.createElement('h3');
-    demoHeader.textContent = 'Предварительный просмотр:';
-    liveDemoSection.appendChild(demoHeader);
 
     const styleElement = document.createElement('style');
     styleElement.textContent = css;
@@ -35,6 +42,7 @@ function updateLiveDemoPreview(currentSection, css, html, js) {
         liveDemoSection.appendChild(scriptElement);
     }
 
+    currentSection.insertBefore(demoHeader, outputsDiv);
     currentSection.insertBefore(liveDemoSection, outputsDiv);
 }     
 
@@ -63,6 +71,38 @@ function appendCustomClass(baseClasses, customClass) {
     const sanitized = sanitizeCustomClasses(customClass);
     if (!sanitized) return baseClasses;
     return `${baseClasses} ${sanitized}`;
+}
+
+function buildBlockHeading(settings, headingClass) {
+    const show = !!settings['heading-show'];
+    const text = (settings['heading-text'] || '').trim();
+    if (!show || !text) return { html: '', css: '' };
+
+    const levels = ['h2', 'h3', 'h4', 'h5', 'h6'];
+    const level = levels.indexOf(settings['heading-level']) !== -1 ? settings['heading-level'] : 'h2';
+    const aligns = ['left', 'center', 'right'];
+    const align = aligns.indexOf(settings['heading-align']) !== -1 ? settings['heading-align'] : 'left';
+    const alignMobile = aligns.indexOf(settings['heading-align-mobile']) !== -1 ? settings['heading-align-mobile'] : 'left';
+    const margin = parseInt(settings['heading-margin'], 10);
+    const marginMobile = parseInt(settings['heading-margin-mobile'], 10);
+    const weight = settings['heading-bold'] ? 'bold' : 'normal';
+
+    const html = `<${level} class="${headingClass}">${text}</${level}>\n`;
+
+    const css = `.${headingClass} {\n` +
+        `    text-align: ${align};\n` +
+        `    font-weight: ${weight};\n` +
+        `    margin: 0 0 ${isNaN(margin) ? 0 : margin}px 0;\n` +
+        `    line-height: 1.2;\n` +
+        `}\n` +
+        `@media (max-width: 768px) {\n` +
+        `    .${headingClass} {\n` +
+        `        text-align: ${alignMobile};\n` +
+        `        margin: 0 0 ${isNaN(marginMobile) ? 0 : marginMobile}px 0;\n` +
+        `    }\n` +
+        `}\n`;
+
+    return { html, css };
 }
 
 function copyToClipboard(elementId, btn) {

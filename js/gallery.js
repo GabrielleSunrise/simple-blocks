@@ -52,7 +52,8 @@ function generateGallery() {
         'show-caption', 'caption-font-size', 'caption-color',
         'lightbox', 'lb-arrows', 'lb-arrows-mobile', 'lb-counter', 'lb-thumbs', 'lb-swipe',
         'custom-wrapper-class', 'custom-item-class',
-        'mobile-columns', 'mobile-caption-font-size'
+        'mobile-columns', 'mobile-caption-font-size',
+        'heading-show', 'heading-text', 'heading-level', 'heading-align', 'heading-align-mobile', 'heading-margin', 'heading-margin-mobile', 'heading-bold'
     ];
     const settings = getSettings('g', settingsNames);
 
@@ -83,36 +84,38 @@ function generateGallery() {
         });
     }
 
-    let html = `<div class="${wrapperClass}">\n`;
+    const heading = buildBlockHeading(settings, 'g-section-heading');
+
+    let html = heading.html + `<div class="${wrapperClass}">\n`;
     for (let i = 0; i < count; i++) {
         const item = itemsContent[i];
-        html += `  <figure class="${itemClass}" data-caption="${item.caption}">\n`;
-        html += `    <img src="${item.src}" alt="${item.caption || `Фото ${i + 1}`}">\n`;
-        if (showCaption) html += `    <figcaption class="custom-gallery-caption">${item.caption}</figcaption>\n`;
-        html += `  </figure>\n`;
+        html += `    <figure class="${itemClass}" data-caption="${item.caption}">\n`;
+        html += `        <img src="${item.src}" alt="${item.caption || `Фото ${i + 1}`}">\n`;
+        if (showCaption) html += `        <figcaption class="custom-gallery-caption">${item.caption}</figcaption>\n`;
+        html += `    </figure>\n`;
     }
     if (lightbox) {
-        html += `  <div class="custom-gallery-lightbox" hidden>\n`;
-        html += `    <div class="custom-gallery-lb-view">\n`;
-        html += `      <div class="custom-gallery-lb-stage">\n`;
-        html += `        <img class="custom-gallery-lb-img" src="" alt="">\n`;
+        html += `    <div class="custom-gallery-lightbox" hidden>\n`;
+        html += `        <div class="custom-gallery-lb-view">\n`;
+        html += `            <div class="custom-gallery-lb-stage">\n`;
+        html += `                <img class="custom-gallery-lb-img" src="" alt="">\n`;
         if (lbArrows) {
-            html += `        <button type="button" class="custom-gallery-lb-btn custom-gallery-lb-btn--prev" aria-label="Предыдущее фото"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5 L8 12 L15 19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>\n`;
-            html += `        <button type="button" class="custom-gallery-lb-btn custom-gallery-lb-btn--next" aria-label="Следующее фото"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5 L16 12 L9 19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>\n`;
+            html += `                <button type="button" class="custom-gallery-lb-btn custom-gallery-lb-btn--prev" aria-label="Предыдущее фото"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5 L8 12 L15 19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>\n`;
+            html += `                <button type="button" class="custom-gallery-lb-btn custom-gallery-lb-btn--next" aria-label="Следующее фото"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5 L16 12 L9 19" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>\n`;
         }
-        html += `      </div>\n`;
-        if (showCaption) html += `      <div class="custom-gallery-lb-caption"></div>\n`;
-        if (lbCounter) html += `      <div class="custom-gallery-lb-counter"></div>\n`;
-        html += `    </div>\n`;
-        html += `    <button type="button" class="custom-gallery-lb-close" aria-label="Закрыть"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 6 L18 18 M18 6 L6 18" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/></svg></button>\n`;
+        html += `            </div>\n`;
+        if (showCaption) html += `            <div class="custom-gallery-lb-caption"></div>\n`;
+        if (lbCounter) html += `            <div class="custom-gallery-lb-counter"></div>\n`;
+        html += `        </div>\n`;
+        html += `        <button type="button" class="custom-gallery-lb-close" aria-label="Закрыть"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 6 L18 18 M18 6 L6 18" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/></svg></button>\n`;
         if (lbThumbs) {
-            html += `    <div class="custom-gallery-lb-thumbs">\n`;
+            html += `        <div class="custom-gallery-lb-thumbs">\n`;
             for (let i = 0; i < count; i++) {
-                html += `      <button type="button" class="custom-gallery-lb-thumb" data-index="${i}"><img src="${itemsContent[i].src}" alt=""></button>\n`;
+                html += `            <button type="button" class="custom-gallery-lb-thumb" data-index="${i}"><img src="${itemsContent[i].src}" alt=""></button>\n`;
             }
-            html += `    </div>\n`;
+            html += `        </div>\n`;
         }
-        html += `  </div>\n`;
+        html += `    </div>\n`;
     }
     html += `</div>\n`;
 
@@ -469,6 +472,7 @@ if (!window.__customGallerySwipe) {
     const jsEl = document.getElementById('g-js');
     if (!cssEl || !htmlEl || !jsEl) return;
 
+    css = heading.css + css;
     cssEl.value = css;
     htmlEl.value = html;
     jsEl.value = js;

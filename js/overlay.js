@@ -81,7 +81,8 @@ function generateOverlayCards() {
         'btn-font-size', 'btn-radius',
         'enable-custom-gradient', 'gradient-value',
         'custom-wrapper-class', 'custom-item-class',
-        'mobile-title-font-size', 'mobile-text-font-size', 'mobile-btn-font-size'
+        'mobile-title-font-size', 'mobile-text-font-size', 'mobile-btn-font-size',
+        'heading-show', 'heading-text', 'heading-level', 'heading-align', 'heading-align-mobile', 'heading-margin', 'heading-margin-mobile', 'heading-bold'
     ];
     const settings = getSettings('o', overlaySettingNames);
 
@@ -176,7 +177,7 @@ function generateOverlayCards() {
 
     let overlayHtml = '';
     if (hasGradient) {
-        overlayHtml = `    <div class="custom-o-card-overlay"></div>\n`;
+        overlayHtml = `        <div class="custom-o-card-overlay"></div>\n`;
     }
 
     let overlayCss = '';
@@ -298,7 +299,9 @@ ${buttonSpecificCss}
 
     const wrapperClass = appendCustomClass('custom-o-cards-grid', customWrapperClass);
 
-    let html = `<div class="${wrapperClass}">\n`;
+    const heading = buildBlockHeading(settings, 'o-section-heading');
+
+    let html = heading.html + `<div class="${wrapperClass}">\n`;
     for (let i = 0; i < count; i++) {
         const blockData = blocksContent[i];
         const isBlockLink = linkType === 'block';
@@ -306,26 +309,28 @@ ${buttonSpecificCss}
         const href = isBlockLink ? ` href="${blockData.linkUrl}"` : '';
         const itemClass = appendCustomClass(`custom-o-card-item${itemClassForHTML}`, customItemClass);
 
-        html += `  <${tag}${href} class="${itemClass}">\n`;
-        html += `    <div class="custom-o-card-bg" style="background-image: url('${blockData.imgSrc}');" role="img"></div>\n`;
+        html += `    <${tag}${href} class="${itemClass}">\n`;
+        html += `        <div class="custom-o-card-bg" style="background-image: url('${blockData.imgSrc}');" role="img"></div>\n`;
         html += overlayHtml;
-        html += `    <div class="custom-o-card-content">\n`;
+        html += `        <div class="custom-o-card-content">\n`;
 
-        if (hasTitle) html += `      <div class="custom-o-card-title">${blockData.titleText}</div>\n`;
-        if (hasText)  html += `      <div class="custom-o-card-description">${blockData.mainText}</div>\n`;
+        if (hasTitle) html += `            <div class="custom-o-card-title">${blockData.titleText}</div>\n`;
+        if (hasText)  html += `            <div class="custom-o-card-description">${blockData.mainText}</div>\n`;
 
         if (hasBtn) {
             if (linkType === 'button') {
-                html += `      <a href="${blockData.linkUrl}" class="custom-o-card-btn">${generalBtnText}</a>\n`;
+                html += `            <a href="${blockData.linkUrl}" class="custom-o-card-btn">${generalBtnText}</a>\n`;
             } else {
-                html += `      <span class="custom-o-card-btn">${generalBtnText}</span>\n`;
+                html += `            <span class="custom-o-card-btn">${generalBtnText}</span>\n`;
             }
         }
 
-        html += `    </div>\n`;
-        html += `  </${tag}>\n`;
+        html += `        </div>\n`;
+        html += `    </${tag}>\n`;
     }
     html += `</div>`;
+
+    css = heading.css + css;
 
     document.getElementById('o-css').value = css;
     document.getElementById('o-html').value = html;

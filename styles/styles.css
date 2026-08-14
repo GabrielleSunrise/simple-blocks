@@ -230,9 +230,8 @@ textarea {
     border: 2px dashed #7e5daf;
     border-radius: 8px;
 }
-.live-demo-wrapper h3 {
-    margin-top: 0;
-    margin-bottom: 0;
+.live-demo-header {
+    margin: 20px 0 8px 0;
     color: #7e5daf;
 }
 

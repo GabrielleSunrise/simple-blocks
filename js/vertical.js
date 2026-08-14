@@ -85,7 +85,8 @@ function generateVertical() {
         'has-shadow-hover', 'shadow-hover-value',
         'custom-wrapper-class', 'custom-item-class',
         'bg-color',
-        'mobile-padding', 'mobile-gap', 'mobile-title-font-size', 'mobile-text-font-size', 'mobile-btn-font-size'
+        'mobile-padding', 'mobile-gap', 'mobile-title-font-size', 'mobile-text-font-size', 'mobile-btn-font-size',
+        'heading-show', 'heading-text', 'heading-level', 'heading-align', 'heading-align-mobile', 'heading-margin', 'heading-margin-mobile', 'heading-bold'
     ];
 
     const settings = getSettings('v', verticalSettingNames);
@@ -202,7 +203,9 @@ function generateVertical() {
     const wrapperClass = appendCustomClass('v-container', customWrapperClass);
     const itemClass = appendCustomClass('custom-card-item', customItemClass);
 
-    let html = `<div class="${wrapperClass}">\n`;
+    const heading = buildBlockHeading(settings, 'v-section-heading');
+
+    let html = heading.html + `<div class="${wrapperClass}">\n`;
     for (let i = 0; i < count; i++) {
         const blockData = blocksContent[i];
         const tag = link === 'block' ? 'a' : 'div';
@@ -215,20 +218,20 @@ function generateVertical() {
             finalAlt = blockData.titleText;
         }
 
-        html += `  <${tag}${attr} class="${itemClass}">\n`;
+        html += `    <${tag}${attr} class="${itemClass}">\n`;
 
-        if (hasImg) html += `    <img src="${blockData.imgSrc}" alt="${finalAlt}" class="custom-card-img">\n`;
-        if (hasTitle) html += `    <div class="custom-card-title">${blockData.titleText}</div>\n`;
-        if (hasText) html += `    <div class="custom-card-text">${blockData.mainText}</div>\n`;
+        if (hasImg) html += `        <img src="${blockData.imgSrc}" alt="${finalAlt}" class="custom-card-img">\n`;
+        if (hasTitle) html += `        <div class="custom-card-title">${blockData.titleText}</div>\n`;
+        if (hasText) html += `        <div class="custom-card-text">${blockData.mainText}</div>\n`;
 
         if (hasBtn) {
             if (link === 'button') {
-                html += `    <a href="${blockData.linkUrl}" class="custom-card-btn-link"><span class="custom-card-btn">${generalBtnText}</span></a>\n`;
+                html += `        <a href="${blockData.linkUrl}" class="custom-card-btn-link"><span class="custom-card-btn">${generalBtnText}</span></a>\n`;
             } else {
-                html += `    <div class="custom-card-btn">${generalBtnText}</div>\n`;
+                html += `        <div class="custom-card-btn">${generalBtnText}</div>\n`;
             }
         }
-        html += `  </${tag}>\n`;
+        html += `    </${tag}>\n`;
     }
     html += `</div>`;
 
@@ -314,6 +317,8 @@ ${shadowHoverCss}
         font-size: ${mobileBtnFontSize}px; 
     }
 }`;
+
+    css = heading.css + css;
 
     document.getElementById('v-css').value = css;
     document.getElementById('v-html').value = html;

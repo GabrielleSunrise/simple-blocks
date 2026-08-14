@@ -88,7 +88,8 @@ function generateHorizontal() {
         'has-shadow-hover', 'shadow-hover-value',
         'custom-wrapper-class', 'custom-item-class',
         'bg-color',
-        'mobile-padding', 'mobile-gap', 'mobile-title-font-size', 'mobile-text-font-size', 'mobile-btn-font-size'
+        'mobile-padding', 'mobile-gap', 'mobile-title-font-size', 'mobile-text-font-size', 'mobile-btn-font-size',
+        'heading-show', 'heading-text', 'heading-level', 'heading-align', 'heading-align-mobile', 'heading-margin', 'heading-margin-mobile', 'heading-bold'
     ];
     const settings = getSettings('h', horizontalSettingNames);
 
@@ -252,7 +253,9 @@ ${shadowHoverCss}.custom-card-row.reverse {
 
     const wrapperClass = appendCustomClass('h-container', customWrapperClass);
 
-    let html = `<div class="${wrapperClass}">\n`;
+    const heading = buildBlockHeading(settings, 'h-section-heading');
+
+    let html = heading.html + `<div class="${wrapperClass}">\n`;
     for (let i = 0; i < count; i++) {
         const blockData = blocksContent[i];
 
@@ -271,7 +274,7 @@ ${shadowHoverCss}.custom-card-row.reverse {
 
         const reverseClass = isReversedBlock ? ' reverse' : '';
         const itemClass = appendCustomClass(`custom-card-row${reverseClass}`, customItemClass);
-        html += `  <${tag}${attr} class="${itemClass}">\n`;
+        html += `    <${tag}${attr} class="${itemClass}">\n`;
 
         let finalAlt = '';
         if (blockData.altText !== '') {
@@ -280,24 +283,26 @@ ${shadowHoverCss}.custom-card-row.reverse {
             finalAlt = blockData.titleText;
         }
 
-        html += `    <img class="custom-card-row-img" src="${blockData.imgSrc}" alt="${finalAlt}">\n`;
-        html += `    <div class="custom-card-row-content">\n`;
+        html += `        <img class="custom-card-row-img" src="${blockData.imgSrc}" alt="${finalAlt}">\n`;
+        html += `        <div class="custom-card-row-content">\n`;
 
-        if (hasTitle) html += `      <div class="custom-card-row-title">${blockData.titleText}</div>\n`;
-        if (hasText) html += `      <div class="custom-card-row-text">${blockData.mainText}</div>\n`;
+        if (hasTitle) html += `            <div class="custom-card-row-title">${blockData.titleText}</div>\n`;
+        if (hasText) html += `            <div class="custom-card-row-text">${blockData.mainText}</div>\n`;
 
         if (hasBtn) {
             if (linkType === 'button') {
-                html += `      <a href="${blockData.linkUrl}" class="custom-card-row-btn-link"><span class="custom-card-row-btn">${generalBtnText}</span></a>\n`;
+                html += `            <a href="${blockData.linkUrl}" class="custom-card-row-btn-link"><span class="custom-card-row-btn">${generalBtnText}</span></a>\n`;
             } else {
-                html += `      <div class="custom-card-row-btn">${generalBtnText}</div>\n`;
+                html += `            <div class="custom-card-row-btn">${generalBtnText}</div>\n`;
             }
         }
 
-        html += `    </div>\n`;
-        html += `  </${tag}>\n`;
+        html += `        </div>\n`;
+        html += `    </${tag}>\n`;
     }
     html += `</div>`;
+
+    css = heading.css + css;
 
     document.getElementById('h-css').value = css;
     document.getElementById('h-html').value = html;

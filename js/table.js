@@ -64,7 +64,8 @@ function generateTable() {
         'header-font-size', 'bold-header', 'header-color',
         'cell-font-size', 'cell-color', 'align', 'bold-first-col',
         'custom-wrapper-class',
-        'mobile-scroll', 'mobile-cards', 'mobile-header-font-size', 'mobile-cell-font-size'
+        'mobile-scroll', 'mobile-cards', 'mobile-header-font-size', 'mobile-cell-font-size',
+        'heading-show', 'heading-text', 'heading-level', 'heading-align', 'heading-align-mobile', 'heading-margin', 'heading-margin-mobile', 'heading-bold'
     ];
     const settings = getSettings('t', settingsNames);
 
@@ -84,23 +85,25 @@ function generateTable() {
         headerValues[c] = (hEl?.value || '').trim() || `Колонка ${c + 1}`;
     }
 
-    let html = `<div class="${wrapperClass}">\n`;
-    html += `  <div class="custom-table-scroll">\n`;
+    const heading = buildBlockHeading(settings, 't-section-heading');
+
+    let html = heading.html + `<div class="${wrapperClass}">\n`;
+    html += `    <div class="custom-table-scroll">\n`;
     for (let r = 0; r < rows; r++) {
         const isHead = firstHeader && r === 0;
         const rowClass = isHead ? ' custom-table-row--head' : '';
-        html += `    <div class="custom-table-row${rowClass}">\n`;
+        html += `        <div class="custom-table-row${rowClass}">\n`;
         for (let c = 0; c < cols; c++) {
             const el = document.getElementById(`t-cell-${c}-${r}`);
             const value = (el?.value || '').trim();
             let cellClass = 'custom-table-cell';
             if (isHead) cellClass += ' custom-table-cell--head';
             if (featuredColumn === c + 1) cellClass += ' custom-table-cell--featured';
-            html += `      <div class="${cellClass}" data-label="${headerValues[c]}">${value || '&nbsp;'}</div>\n`;
+            html += `            <div class="${cellClass}" data-label="${headerValues[c]}">${value || '&nbsp;'}</div>\n`;
         }
-        html += `    </div>\n`;
+        html += `        </div>\n`;
     }
-    html += `  </div>\n`;
+    html += `    </div>\n`;
     html += `</div>`;
 
     const headerWeight = settings['bold-header'] ? '600' : '400';
@@ -222,6 +225,8 @@ function generateTable() {
     }
 }`;
     }
+
+    css = heading.css + css;
 
     document.getElementById('t-css').value = css;
     document.getElementById('t-html').value = html;
