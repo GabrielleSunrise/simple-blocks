@@ -75,6 +75,12 @@
                 Галерея изображений
             </div>
         </a>
+        <a class="menu-item" href="#banner-section">
+            <div class="menu-item-icon banner"></div>
+            <div class="menu-item-title">
+                Баннер /<br>Hero-изображение
+            </div>
+        </a>
     </nav>
 
     <div class="section" id="vertical-section">
@@ -1912,7 +1918,157 @@
         </div>
     </div>
 
-    <script src="js/common.js"></script>
+    <div class="section" id="banner-section">
+        <h2>Баннер / Hero-изображение</h2>
+        <div class="controls">
+            <div class="control-group">
+                <label>Количество баннеров (1-12):</label>
+                <input type="number" id="b-count" min="1" max="12" value="3" class="js-number-validate">
+            </div>
+            <div class="control-group">
+                <label>Тип баннера:</label>
+                <select id="b-mode">
+                    <option value="full">Весь баннер — ссылка</option>
+                    <option value="button" selected>Фон + текст + кнопка</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Слайдер:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="b-show-arrows" checked> Стрелки (десктоп)</label>
+                    <label><input type="checkbox" id="b-show-arrows-mobile"> Стрелки (мобильные)</label>
+                    <label><input type="checkbox" id="b-show-dots" checked> Точки (десктоп)</label>
+                    <label><input type="checkbox" id="b-show-dots-mobile" checked> Точки (мобильные)</label>
+                    <label><input type="checkbox" id="b-autoplay"> Автопрокрутка</label>
+                </div>
+            </div>
+
+            <div class="settings-tabs-container">
+                <div class="tabs-header">
+                    <div class="tab-btn active" data-tab="content">Настройки контента</div>
+                    <div class="tab-btn" data-tab="advanced">Настройки дизайна</div>
+                </div>
+                <div class="tab-content content-settings">
+                    <div id="b-content-fields-container" class="content-fields-wrapper">
+
+                    </div>
+                </div>
+                <div class="tab-content advanced-settings hidden">
+                    <div class="settings-groups-wrapper">
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Слайдер</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Интервал автопрокрутки (мс):</label>
+                                    <input type="number" id="b-autoplay-delay" min="1000" max="20000" step="500" value="5000">
+                                </div>
+                                <div class="control-group">
+                                    <label>Соотношение сторон на десктопах:</label>
+                                    <select id="b-aspect-ratio">
+                                        <option value="21/9">21:9 (широкий)</option>
+                                        <option value="16/9" selected>16:9</option>
+                                        <option value="16/10">16:10</option>
+                                        <option value="3/2">3:2</option>
+                                        <option value="4/3">4:3</option>
+                                        <option value="1/1">1:1 (квадрат)</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Соотношение сторон на мобильных:</label>
+                                    <select id="b-aspect-ratio-mobile">
+                                        <option value="21/9">21:9 (широкий)</option>
+                                        <option value="16/9" selected>16:9</option>
+                                        <option value="16/10">16:10</option>
+                                        <option value="3/2">3:2</option>
+                                        <option value="4/3">4:3</option>
+                                        <option value="1/1">1:1 (квадрат)</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <label>Мобильная версия включается от (px):</label>
+                                    <input type="number" id="b-breakpoint" min="320" max="1920" step="10" value="768">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Текст</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Размер шрифта заголовка (px):</label>
+                                    <input type="number" id="b-title-font-size" min="10" max="90" value="42">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта подзаголовка (px):</label>
+                                    <input type="number" id="b-subtitle-font-size" min="8" max="40" value="18">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта заголовка на мобильных (px):</label>
+                                    <input type="number" id="b-mobile-title-font-size" min="10" max="60" value="28">
+                                </div>
+                                <div class="control-group">
+                                    <label>Размер шрифта подзаголовка на мобильных (px):</label>
+                                    <input type="number" id="b-mobile-subtitle-font-size" min="8" max="30" value="16">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Кнопка</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label>Размер шрифта кнопки (px):</label>
+                                    <input type="number" id="b-btn-font-size" min="7" max="30" value="16">
+                                </div>
+                                <div class="control-group">
+                                    <label>Скругление углов кнопки (px):</label>
+                                    <input type="number" id="b-btn-radius" min="0" max="50" value="4">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <div class="settings-group-header">Кастомные CSS-классы</div>
+                            <div class="settings-group-body">
+                                <div class="control-group">
+                                    <label for="b-custom-wrapper-class">Кастомный класс обёртки:</label>
+                                    <input type="text" id="b-custom-wrapper-class" value="" placeholder="my-hero" class="full-width-input">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="outputs">
+            <div class="output-box">
+                <div class="output-label">CSS
+                    <button class="copy-btn" onclick="copyToClipboard('b-css', this)">Копировать</button>
+                </div>
+                <textarea id="b-css" readonly></textarea>
+            </div>
+            <div class="output-box">
+                <div class="output-label">HTML
+                    <button class="copy-btn" onclick="copyToClipboard('b-html', this)">Копировать</button>
+                </div>
+                <textarea id="b-html" readonly></textarea>
+            </div>
+        </div>
+        <div class="outputs">
+            <div class="output-box" style="width:100%;">
+                <div class="output-label">JS
+                    <button class="copy-btn" onclick="copyToClipboard('b-js', this)">Копировать</button>
+                </div>
+                <textarea id="b-js" readonly></textarea>
+            </div>
+        </div>
+    </div>
+
+<script src="js/common.js"></script>
     <script src="js/vertical.js"></script>
     <script src="js/horizontal.js"></script>
     <script src="js/overlay.js"></script>
@@ -1920,5 +2076,6 @@
     <script src="js/scroll.js"></script>
     <script src="js/table.js"></script>
     <script src="js/gallery.js"></script>
+    <script src="js/banner.js"></script>
 </body>
 </html>
